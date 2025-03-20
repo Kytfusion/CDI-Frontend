@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="" />
+    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Add Bootstrap 5.3.3 to project dependencies&#10;&#10;Bootstrap 5.3.3 has been added to both `package.json` and `package-lock.json`, along with its peer dependency `@popperjs/core`. This update allows integration of Bootstrap styling and components into the project.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,24 +36,27 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2uZGFusucOnVaazjgwjxAYA0uFT" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/brizy/Project/testreact",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "MTFeaturesSettingsConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/brizy/Project/testreact&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MTFeaturesSettingsConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -78,10 +84,59 @@
       <workItem from="1742448583890" duration="195000" />
       <workItem from="1742448791664" duration="72000" />
       <workItem from="1742448882844" duration="503000" />
+      <workItem from="1742449397444" duration="717000" />
     </task>
+    <task id="LOCAL-00001" summary="Initialize base React application with default setup&#10;&#10;Set up a React application using Create React App with default files, configurations, and dependencies. Added `.gitignore` for file exclusions, core source files (`App.js`, `App.css`, `index.js`, etc.), and testing setup. Included base project configurations like `package.json`, `package-lock.json`, and IntelliJ IDEA settings.">
+      <option name="closed" value="true" />
+      <created>1742449417966</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742449417966</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initialize base React application with default setup&#10;&#10;Set up a React application using Create React App with default files, configurations, and dependencies. Added `.gitignore` for file exclusions, core source files (`App.js`, `App.css`, `index.js`, etc.), and testing setup. Included base project configurations like `package.json`, `package-lock.json`, and IntelliJ IDEA settings.">
+      <option name="closed" value="true" />
+      <created>1742449518416</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1742449518416</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Initialize base React application with default setup&#10;&#10;Set up a React application using Create React App with default files, configurations, and dependencies. Added `.gitignore` for file exclusions, core source files (`App.js`, `App.css`, `index.js`, etc.), and testing setup. Included base project configurations like `package.json`, `package-lock.json`, and IntelliJ IDEA settings.">
+      <option name="closed" value="true" />
+      <created>1742449541789</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742449541789</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add MIT license file to repository&#10;&#10;Included a new LICENSE file under the MIT License to clearly define usage, distribution, and warranty terms. This ensures transparency and compliance for software contributors and users. The license specifically covers the &quot;CDI-Frontend Centralized Dashboard Interface.&quot;">
+      <option name="closed" value="true" />
+      <created>1742449565093</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742449565093</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add Bootstrap 5.3.3 to project dependencies&#10;&#10;Bootstrap 5.3.3 has been added to both `package.json` and `package-lock.json`, along with its peer dependency `@popperjs/core`. This update allows integration of Bootstrap styling and components into the project.">
+      <option name="closed" value="true" />
+      <created>1742449981976</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742449981976</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add MIT License to the project&#10;&#10;This commit introduces the MIT License to the project, granting users broad rights to use, modify, and distribute the software. It ensures compliance with proper copyright attribution and disclaims liability for any issues arising from its use." />
+    <MESSAGE value="Initialize base React application with default setup&#10;&#10;Set up a React application using Create React App with default files, configurations, and dependencies. Added `.gitignore` for file exclusions, core source files (`App.js`, `App.css`, `index.js`, etc.), and testing setup. Included base project configurations like `package.json`, `package-lock.json`, and IntelliJ IDEA settings." />
+    <MESSAGE value="Add MIT license file to repository&#10;&#10;Included a new LICENSE file under the MIT License to clearly define usage, distribution, and warranty terms. This ensures transparency and compliance for software contributors and users. The license specifically covers the &quot;CDI-Frontend Centralized Dashboard Interface.&quot;" />
+    <MESSAGE value="Add Bootstrap 5.3.3 to project dependencies&#10;&#10;Bootstrap 5.3.3 has been added to both `package.json` and `package-lock.json`, along with its peer dependency `@popperjs/core`. This update allows integration of Bootstrap styling and components into the project." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Bootstrap 5.3.3 to project dependencies&#10;&#10;Bootstrap 5.3.3 has been added to both `package.json` and `package-lock.json`, along with its peer dependency `@popperjs/core`. This update allows integration of Bootstrap styling and components into the project." />
   </component>
 </project>
