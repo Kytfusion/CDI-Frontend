@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Add Bootstrap styles and scripts to the project&#10;&#10;Replaced the unused `reportWebVitals` import with Bootstrap CSS, JS, and icon files. This enhances the application's styling and layout capabilities using Bootstrap's framework. Adjusted code formatting for consistency.">
+    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Add React Router and update App with navigation&#10;&#10;Integrated `react-router-dom` for routing and navigation management within the app. Updated `App.js` to include desktop and mobile navigation layouts using Bootstrap styling. Adjusted dependencies in `package.json` and `package-lock.json` for compatibility.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +84,7 @@
       <workItem from="1742448583890" duration="195000" />
       <workItem from="1742448791664" duration="72000" />
       <workItem from="1742448882844" duration="503000" />
-      <workItem from="1742449397444" duration="1567000" />
+      <workItem from="1742449397444" duration="3022000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize base React application with default setup&#10;&#10;Set up a React application using Create React App with default files, configurations, and dependencies. Added `.gitignore` for file exclusions, core source files (`App.js`, `App.css`, `index.js`, etc.), and testing setup. Included base project configurations like `package.json`, `package-lock.json`, and IntelliJ IDEA settings.">
       <option name="closed" value="true" />
@@ -144,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742450955796</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add React Router and update App with navigation&#10;&#10;Integrated `react-router-dom` for routing and navigation management within the app. Updated `App.js` to include desktop and mobile navigation layouts using Bootstrap styling. Adjusted dependencies in `package.json` and `package-lock.json` for compatibility.">
+      <option name="closed" value="true" />
+      <created>1742451117141</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1742451117141</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,6 +163,7 @@
     <MESSAGE value="Add Bootstrap 5.3.3 to project dependencies&#10;&#10;Bootstrap 5.3.3 has been added to both `package.json` and `package-lock.json`, along with its peer dependency `@popperjs/core`. This update allows integration of Bootstrap styling and components into the project." />
     <MESSAGE value="Add Bootstrap and React-Bootstrap dependencies&#10;&#10;Updated `package.json` and `package-lock.json` to include `bootstrap` and `react-bootstrap` dependencies, along with related peer and sub-dependencies (`@popperjs/core`, etc.). This enables enhanced styling and UI component capabilities. Updated project configuration files, ensuring compatibility with the updated dependencies." />
     <MESSAGE value="Add Bootstrap styles and scripts to the project&#10;&#10;Replaced the unused `reportWebVitals` import with Bootstrap CSS, JS, and icon files. This enhances the application's styling and layout capabilities using Bootstrap's framework. Adjusted code formatting for consistency." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Bootstrap styles and scripts to the project&#10;&#10;Replaced the unused `reportWebVitals` import with Bootstrap CSS, JS, and icon files. This enhances the application's styling and layout capabilities using Bootstrap's framework. Adjusted code formatting for consistency." />
+    <MESSAGE value="Add React Router and update App with navigation&#10;&#10;Integrated `react-router-dom` for routing and navigation management within the app. Updated `App.js` to include desktop and mobile navigation layouts using Bootstrap styling. Adjusted dependencies in `package.json` and `package-lock.json` for compatibility." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add React Router and update App with navigation&#10;&#10;Integrated `react-router-dom` for routing and navigation management within the app. Updated `App.js` to include desktop and mobile navigation layouts using Bootstrap styling. Adjusted dependencies in `package.json` and `package-lock.json` for compatibility." />
   </component>
 </project>
