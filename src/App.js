@@ -12,7 +12,7 @@ function App() {
                 <ul className="nav flex-column">
                     <li className="nav-item">
                         <Link to="/" className={`nav-link text-dark d-flex align-items-center ${location.pathname === '/' ? 'bg-primary text-white rounded' : ''}`}>
-                            <i className="bi bi-house-fill me-2 fs-5"></i> Home
+                            <i className="bi bi-grid-1x2-fill me-2 fs-5"></i> Home
                         </Link>
                     </li>
                     <li className="nav-item">
@@ -22,12 +22,12 @@ function App() {
                     </li>
                     <li className="nav-item">
                         <Link to="/analytics" className={`nav-link text-dark d-flex align-items-center ${location.pathname === '/analytics' ? 'bg-primary text-white rounded' : ''}`}>
-                            <i className="bi bi-pie-chart me-2 fs-5"></i> Analytics
+                            <i className="bi bi-bar-chart-line me-2 fs-5"></i> Analytics
                         </Link>
                     </li>
                     <li className="nav-item">
                         <Link to="/history" className={`nav-link text-dark d-flex align-items-center ${location.pathname === '/history' ? 'bg-primary text-white rounded' : ''}`}>
-                            <i className="bi bi-clock me-2 fs-5"></i> History
+                            <i className="bi bi-clock-history me-2 fs-5"></i> History
                         </Link>
                     </li>
                 </ul>
@@ -43,7 +43,7 @@ function App() {
                     <li className="nav-item text-center">
                         <Link to="/" className={`nav-link p-0 ${location.pathname === '/' ? 'text-primary' : 'text-secondary'}`}>
                             <div className="rounded-circle p-2" style={{ backgroundColor: location.pathname === '/' ? 'rgba(0, 123, 255, 0.1)' : 'transparent', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <i className="bi bi-house-fill fs-5"></i>
+                                <i className="bi bi-grid-1x2-fill fs-5"></i>
                             </div>
                         </Link>
                     </li>
@@ -57,14 +57,14 @@ function App() {
                     <li className="nav-item text-center">
                         <Link to="/analytics" className={`nav-link p-0 ${location.pathname === '/analytics' ? 'text-primary' : 'text-secondary'}`}>
                             <div className="rounded-circle p-2" style={{ backgroundColor: location.pathname === '/analytics' ? 'rgba(0, 123, 255, 0.1)' : 'transparent', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <i className="bi bi-pie-chart fs-5"></i>
+                                <i className="bi bi-bar-chart-line fs-5"></i>
                             </div>
                         </Link>
                     </li>
                     <li className="nav-item text-center">
                         <Link to="/history" className={`nav-link p-0 ${location.pathname === '/history' ? 'text-primary' : 'text-secondary'}`}>
                             <div className="rounded-circle p-2" style={{ backgroundColor: location.pathname === '/history' ? 'rgba(0, 123, 255, 0.1)' : 'transparent', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <i className="bi bi-clock fs-5"></i>
+                                <i className="bi bi-clock-history fs-5"></i>
                             </div>
                         </Link>
                     </li>
