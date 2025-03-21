@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Add MobileTopBar and adjust layout for responsiveness&#10;&#10;Introduced a MobileTopBar component to enhance navigation on mobile devices, including dynamic page titles and back navigation support. Updated UI spacing, element heights, and shadow styles across components for better alignment and visual consistency. These improvements ensure a more responsive and user-friendly interface.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted dimensions and layout styles of BottomBar components to ensure consistent alignment and spacing. These changes improve the visual appearance and responsiveness of the navbar across devices.">
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -216,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742538324240</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted dimensions and layout styles of BottomBar components to ensure consistent alignment and spacing. These changes improve the visual appearance and responsiveness of the navbar across devices.">
+      <option name="closed" value="true" />
+      <created>1742540139891</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1742540139891</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +247,9 @@
     <MESSAGE value="Adjust UI spacing and shadows for improved layout consistency.&#10;&#10;Updated heights and top margins of elements to ensure better alignment across components. Enhanced shadow styles for a softer and more modern appearance. These changes improve overall visual consistency and user experience." />
     <MESSAGE value="Add responsive MobileTopBar and refine layout design&#10;&#10;Introduced a MobileTopBar component to enhance mobile navigation and display dynamic page titles. Adjusted UI spacing, element heights, and shadow styles for improved consistency and clarity. These updates enhance responsiveness, usability, and visual appeal across devices." />
     <MESSAGE value="Add MobileTopBar and adjust layout for responsiveness&#10;&#10;Introduced a MobileTopBar component to enhance navigation on mobile devices, including dynamic page titles and back navigation support. Updated UI spacing, element heights, and shadow styles across components for better alignment and visual consistency. These improvements ensure a more responsive and user-friendly interface." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add MobileTopBar and adjust layout for responsiveness&#10;&#10;Introduced a MobileTopBar component to enhance navigation on mobile devices, including dynamic page titles and back navigation support. Updated UI spacing, element heights, and shadow styles across components for better alignment and visual consistency. These improvements ensure a more responsive and user-friendly interface." />
+    <MESSAGE value="Refactor layout and styling for consistency and clarity&#10;&#10;Adjusted component styles, spacing, and structure for improved visual consistency across breakpoints. Simplified container classes and optimized layout padding and margins to enhance maintainability and responsiveness." />
+    <MESSAGE value="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted dimensions and layout styles of BottomBar components to ensure consistent alignment and spacing. These changes improve the visual appearance and responsiveness of the navbar across devices." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted dimensions and layout styles of BottomBar components to ensure consistent alignment and spacing. These changes improve the visual appearance and responsiveness of the navbar across devices." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
