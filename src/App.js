@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -21,7 +21,7 @@ function App() {
         };
 
         return (
-            <div className="d-none d-md-flex fixed-top bg-white border-bottom" style={{ height: '60px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+            <div className="d-none d-md-flex fixed-top bg-white border-bottom" style={{ height: '50px', boxShadow: '0 2px 4px rgba(0,0,0,0.08)' }}>
                 <div className="d-flex align-items-center px-4" style={{ width: '250px', borderRight: '1px solid rgba(0,0,0,0.08)' }}>
                     <h5 className="mb-0 fw-semibold text-primary">
                         <i className="bi bi-boxes me-2"></i>
@@ -63,11 +63,75 @@ function App() {
         );
     };
 
+    const MobileTopBar = () => {
+        const location = useLocation();
+        const navigate = useNavigate();
+        const getPageTitle = () => {
+            switch(location.pathname) {
+                case '/': return 'Dashboard';
+                case '/search': return 'Search';
+                case '/analytics': return 'Analytics';
+                case '/history': return 'History';
+                case '/notifications': return 'Notifications';
+                case '/settings': return 'Settings';
+                case '/profile': return 'Profile';
+                default: return 'Dashboard';
+            }
+        };
+
+        const handleBack = () => {
+            navigate(-1);
+        };
+
+        return (
+            <div className="d-md-none fixed-top bg-white border-bottom" style={{ height: '56px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+                <div className="d-flex align-items-center justify-content-between h-100 px-3">
+                    <button onClick={handleBack} 
+                            className="btn d-flex align-items-center gap-2 p-0 border-0">
+                        <div className="d-flex align-items-center justify-content-center rounded-2 text-dark opacity-75"
+                             style={{ width: '32px', height: '32px' }}>
+                            <i className="bi bi-chevron-left fs-5"></i>
+                        </div>
+                        <span className="text-dark opacity-75 small">Back</span>
+                    </button>
+                    
+                    <h6 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h6>
+                    
+                    <div className="d-flex align-items-center gap-1">
+                        <Link to="/notifications" className="text-decoration-none">
+                            <div className={`d-flex align-items-center justify-content-center rounded-2 p-2 ${location.pathname === '/notifications' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
+                                 style={{ width: '32px', height: '32px' }}>
+                                <div className="position-relative">
+                                    <i className="bi bi-bell small"></i>
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '8px' }}>
+                                        2
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
+                        <Link to="/settings" className="text-decoration-none">
+                            <div className={`d-flex align-items-center justify-content-center rounded-2 p-2 ${location.pathname === '/settings' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
+                                 style={{ width: '32px', height: '32px' }}>
+                                <i className="bi bi-gear small"></i>
+                            </div>
+                        </Link>
+                        <Link to="/profile" className="text-decoration-none">
+                            <div className={`rounded-circle d-flex align-items-center justify-content-center ${location.pathname === '/profile' ? 'bg-primary text-white' : 'bg-primary text-white'}`}
+                                 style={{ width: '32px', height: '32px' }}>
+                                <i className="bi bi-person-fill small"></i>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     const Sidebar = () => {
         const location = useLocation();
         return (
             <div className="d-none d-md-block bg-white vh-100" 
-                 style={{ width: '250px', position: 'fixed', top: '60px', borderRight: '1px solid rgba(0,0,0,0.08)', boxShadow: '4px 0 12px rgba(0,0,0,0.03)' }}>
+                 style={{ width: '250px', position: 'fixed', top: '50px', borderRight: '1px solid rgba(0,0,0,0.08)' }}>
                 <ul className="nav flex-column p-2">
                     <li className="nav-item mb-1">
                         <Link to="/" className={`nav-link d-flex align-items-center px-3 py-2 ${location.pathname === '/' ? 'bg-primary text-white rounded-2' : 'text-dark opacity-75 rounded-2'}`}>
@@ -101,7 +165,7 @@ function App() {
     const BottomBar = () => {
         const location = useLocation();
         return (
-            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ boxShadow: '0 -4px 12px rgba(0,0,0,0.05)' }}>
+            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ boxShadow: '0 -2px 4px rgba(0,0,0,0.08)' }}>
                 <ul className="nav w-100 d-flex justify-content-around align-items-center p-2">
                     <li className="nav-item text-center">
                         <Link to="/" className={`nav-link p-0 ${location.pathname === '/' ? 'text-primary' : 'text-dark opacity-75'}`}>
@@ -148,6 +212,7 @@ function App() {
         <Router>
             <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
                 <TopBar />
+                <MobileTopBar />
                 <Sidebar />
                 <BottomBar />
                 <div style={{ marginLeft: '250px', marginTop: '60px', padding: '20px' }} className="d-none d-md-block">
@@ -161,7 +226,7 @@ function App() {
                         <Route path="/profile" element={<ProfilePage />} />
                     </Routes>
                 </div>
-                <div style={{ paddingBottom: '60px' }} className="d-md-none">
+                <div style={{ paddingBottom: '60px', paddingTop: '76px' }} className="d-md-none">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/search" element={<SearchPage />} />
