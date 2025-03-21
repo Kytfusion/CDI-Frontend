@@ -21,7 +21,7 @@ function App() {
         };
 
         return (
-            <div className="d-none d-md-flex fixed-top bg-white border-bottom" style={{ height: '50px', boxShadow: '0 2px 4px rgba(0,0,0,0.08)' }}>
+            <div className="d-none d-md-flex fixed-top bg-white border-bottom" style={{ height: '60px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
                 <div className="d-flex align-items-center px-4" style={{ width: '250px', borderRight: '1px solid rgba(0,0,0,0.08)' }}>
                     <h5 className="mb-0 fw-semibold text-primary">
                         <i className="bi bi-boxes me-2"></i>
@@ -67,7 +67,7 @@ function App() {
         const location = useLocation();
         return (
             <div className="d-none d-md-block bg-white vh-100" 
-                 style={{ width: '250px', position: 'fixed', top: '50px', borderRight: '1px solid rgba(0,0,0,0.08)' }}>
+                 style={{ width: '250px', position: 'fixed', top: '60px', borderRight: '1px solid rgba(0,0,0,0.08)', boxShadow: '4px 0 12px rgba(0,0,0,0.03)' }}>
                 <ul className="nav flex-column p-2">
                     <li className="nav-item mb-1">
                         <Link to="/" className={`nav-link d-flex align-items-center px-3 py-2 ${location.pathname === '/' ? 'bg-primary text-white rounded-2' : 'text-dark opacity-75 rounded-2'}`}>
@@ -101,7 +101,7 @@ function App() {
     const BottomBar = () => {
         const location = useLocation();
         return (
-            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ boxShadow: '0 -2px 4px rgba(0,0,0,0.08)' }}>
+            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ boxShadow: '0 -4px 12px rgba(0,0,0,0.05)' }}>
                 <ul className="nav w-100 d-flex justify-content-around align-items-center p-2">
                     <li className="nav-item text-center">
                         <Link to="/" className={`nav-link p-0 ${location.pathname === '/' ? 'text-primary' : 'text-dark opacity-75'}`}>
@@ -150,7 +150,7 @@ function App() {
                 <TopBar />
                 <Sidebar />
                 <BottomBar />
-                <div style={{ marginLeft: '250px', marginTop: '50px', padding: '20px' }} className="d-none d-md-block">
+                <div style={{ marginLeft: '250px', marginTop: '60px', padding: '20px' }} className="d-none d-md-block">
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/search" element={<SearchPage />} />
