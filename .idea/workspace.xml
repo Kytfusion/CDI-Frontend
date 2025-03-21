@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Update nav icons to use consistent Bootstrap icons&#10;&#10;Replaced existing icons in the navigation with more suitable or visually consistent Bootstrap icons. This improves the clarity of the UI and aligns the design across the app. No functionality was affected." />
+    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Add TopBar and enhance navigation layout&#10;&#10;Introduced a TopBar for improved desktop navigation and updated UI elements for consistency. Adjusted Sidebar and BottomBar designs to align with the new layout, ensuring responsiveness across devices. Improved overall visual clarity and maintainability without affecting core functionality.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,7 +86,7 @@
       <workItem from="1742448791664" duration="72000" />
       <workItem from="1742448882844" duration="503000" />
       <workItem from="1742449397444" duration="3022000" />
-      <workItem from="1742536558135" duration="490000" />
+      <workItem from="1742536558135" duration="855000" />
     </task>
     <task id="LOCAL-00001" summary="Initialize base React application with default setup&#10;&#10;Set up a React application using Create React App with default files, configurations, and dependencies. Added `.gitignore` for file exclusions, core source files (`App.js`, `App.css`, `index.js`, etc.), and testing setup. Included base project configurations like `package.json`, `package-lock.json`, and IntelliJ IDEA settings.">
       <option name="closed" value="true" />
@@ -181,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742536735265</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Add TopBar and enhance navigation layout&#10;&#10;Introduced a TopBar for improved desktop navigation and updated UI elements for consistency. Adjusted Sidebar and BottomBar designs to align with the new layout, ensuring responsiveness across devices. Improved overall visual clarity and maintainability without affecting core functionality.">
+      <option name="closed" value="true" />
+      <created>1742537412953</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1742537412953</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,7 +211,8 @@
     <MESSAGE value="Add responsive Sidebar and refactor layout structure&#10;&#10;Introduced a Sidebar component for improved desktop navigation, alongside a BottomBar for mobile views. Adjusted the layout to ensure proper responsiveness using Bootstrap. Enhanced route handling and page alignment for a streamlined user experience." />
     <MESSAGE value="Add responsive Sidebar and refactor layout structure&#10;&#10;Introduced a Sidebar for desktop and BottomBar for mobile to improve navigation and responsiveness. Leveraged Bootstrap for consistent styling and adjusted route handling for better user experience. These changes enhance maintainability and usability across devices." />
     <MESSAGE value="Update nav icons to use consistent Bootstrap icons&#10;&#10;Replaced existing icons in the navigation with more suitable or visually consistent Bootstrap icons. This improves the clarity of the UI and aligns the design across the app. No functionality was affected." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update nav icons to use consistent Bootstrap icons&#10;&#10;Replaced existing icons in the navigation with more suitable or visually consistent Bootstrap icons. This improves the clarity of the UI and aligns the design across the app. No functionality was affected." />
+    <MESSAGE value="Add TopBar and enhance navigation layout&#10;&#10;Introduced a TopBar for improved desktop navigation and updated UI elements for consistency. Adjusted Sidebar and BottomBar designs to align with the new layout, ensuring responsiveness across devices. Improved overall visual clarity and maintainability without affecting core functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add TopBar and enhance navigation layout&#10;&#10;Introduced a TopBar for improved desktop navigation and updated UI elements for consistency. Adjusted Sidebar and BottomBar designs to align with the new layout, ensuring responsiveness across devices. Improved overall visual clarity and maintainability without affecting core functionality." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

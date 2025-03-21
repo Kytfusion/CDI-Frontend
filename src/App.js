@@ -13,6 +13,9 @@ function App() {
                 case '/search': return 'Search';
                 case '/analytics': return 'Analytics';
                 case '/history': return 'History';
+                case '/notifications': return 'Notifications';
+                case '/settings': return 'Settings';
+                case '/profile': return 'Profile';
                 default: return 'Dashboard';
             }
         };
@@ -27,21 +30,33 @@ function App() {
                 </div>
                 <div className="d-flex flex-grow-1 align-items-center px-4 py-2">
                     <h6 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h6>
-                    <div className="ms-auto d-flex align-items-center gap-4">
-                        <div className="position-relative">
-                            <i className="bi bi-bell text-dark opacity-75"></i>
-                            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '10px' }}>
-                                2
-                            </span>
-                        </div>
-                        <i className="bi bi-gear text-dark opacity-75"></i>
-                        <div className="d-flex align-items-center gap-2">
-                            <div className="rounded-circle bg-primary d-flex align-items-center justify-content-center" 
-                                 style={{ width: '32px', height: '32px' }}>
-                                <i className="bi bi-person-fill text-white small"></i>
+                    <div className="ms-auto d-flex align-items-center gap-3">
+                        <Link to="/notifications" className="text-decoration-none">
+                            <div className={`d-flex align-items-center justify-content-center rounded-2 p-2 ${location.pathname === '/notifications' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
+                                 style={{ width: '36px', height: '36px' }}>
+                                <div className="position-relative">
+                                    <i className="bi bi-bell"></i>
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '10px' }}>
+                                        2
+                                    </span>
+                                </div>
                             </div>
-                            <span className="text-dark opacity-75 fw-medium">John Doe</span>
-                        </div>
+                        </Link>
+                        <Link to="/settings" className="text-decoration-none">
+                            <div className={`d-flex align-items-center justify-content-center rounded-2 p-2 ${location.pathname === '/settings' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
+                                 style={{ width: '36px', height: '36px' }}>
+                                <i className="bi bi-gear"></i>
+                            </div>
+                        </Link>
+                        <Link to="/profile" className="text-decoration-none">
+                            <div className={`d-flex align-items-center gap-2 rounded-2 px-2 py-1 ${location.pathname === '/profile' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
+                                <div className={`rounded-circle d-flex align-items-center justify-content-center ${location.pathname === '/profile' ? 'bg-white text-primary' : 'bg-primary text-white'}`}
+                                     style={{ width: '32px', height: '32px' }}>
+                                    <i className="bi bi-person-fill small"></i>
+                                </div>
+                                <span className="fw-medium">John Doe</span>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -125,6 +140,9 @@ function App() {
     const SearchPage = () => <div className="container p-4">Search Page</div>;
     const AnalyticsPage = () => <div className="container p-4">Analytics Page</div>;
     const HistoryPage = () => <div className="container p-4">History Page</div>;
+    const NotificationsPage = () => <div className="container p-4">Notifications Page</div>;
+    const SettingsPage = () => <div className="container p-4">Settings Page</div>;
+    const ProfilePage = () => <div className="container p-4">Profile Page</div>;
 
     return (
         <Router>
@@ -138,6 +156,9 @@ function App() {
                         <Route path="/search" element={<SearchPage />} />
                         <Route path="/analytics" element={<AnalyticsPage />} />
                         <Route path="/history" element={<HistoryPage />} />
+                        <Route path="/notifications" element={<NotificationsPage />} />
+                        <Route path="/settings" element={<SettingsPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
                     </Routes>
                 </div>
                 <div style={{ paddingBottom: '60px' }} className="d-md-none">
@@ -146,6 +167,9 @@ function App() {
                         <Route path="/search" element={<SearchPage />} />
                         <Route path="/analytics" element={<AnalyticsPage />} />
                         <Route path="/history" element={<HistoryPage />} />
+                        <Route path="/notifications" element={<NotificationsPage />} />
+                        <Route path="/settings" element={<SettingsPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
                     </Routes>
                 </div>
             </div>
