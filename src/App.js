@@ -165,32 +165,32 @@ function App() {
     const BottomBar = () => {
         const location = useLocation();
         return (
-            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
-                <ul className="nav w-100 d-flex justify-content-around align-items-center p-2">
+            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ height: '56px', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+                <ul className="nav w-100 h-100 d-flex justify-content-around align-items-center">
                     <li className="nav-item text-center">
                         <Link to="/" className={`nav-link p-0 ${location.pathname === '/' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 p-2" style={{ backgroundColor: location.pathname === '/' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div className="rounded-2 d-flex align-items-center justify-content-center" style={{ backgroundColor: location.pathname === '/' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
                                 <i className="bi bi-grid-1x2-fill"></i>
                             </div>
                         </Link>
                     </li>
                     <li className="nav-item text-center">
                         <Link to="/search" className={`nav-link p-0 ${location.pathname === '/search' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 p-2" style={{ backgroundColor: location.pathname === '/search' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div className="rounded-2 d-flex align-items-center justify-content-center" style={{ backgroundColor: location.pathname === '/search' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
                                 <i className="bi bi-search"></i>
                             </div>
                         </Link>
                     </li>
                     <li className="nav-item text-center">
                         <Link to="/analytics" className={`nav-link p-0 ${location.pathname === '/analytics' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 p-2" style={{ backgroundColor: location.pathname === '/analytics' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div className="rounded-2 d-flex align-items-center justify-content-center" style={{ backgroundColor: location.pathname === '/analytics' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
                                 <i className="bi bi-bar-chart-line"></i>
                             </div>
                         </Link>
                     </li>
                     <li className="nav-item text-center">
                         <Link to="/history" className={`nav-link p-0 ${location.pathname === '/history' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 p-2" style={{ backgroundColor: location.pathname === '/history' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '40px', height: '40px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div className="rounded-2 d-flex align-items-center justify-content-center" style={{ backgroundColor: location.pathname === '/history' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
                                 <i className="bi bi-clock-history"></i>
                             </div>
                         </Link>
