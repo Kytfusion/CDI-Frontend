@@ -95,8 +95,9 @@ function App() {
         return (
             <div className="d-none d-md-block position-fixed start-50 translate-middle-x" 
                  style={{ 
-                     top: '40px',
-                     zIndex: 1000
+                     top: '15px',
+                     zIndex: 1000,
+                     marginBottom: '15px'
                  }}>
                 <div className="bg-white px-4 py-2 rounded-pill" 
                      style={{ 
@@ -105,7 +106,11 @@ function App() {
                          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                          whiteSpace: 'nowrap',
                          overflow: 'hidden',
-                         textOverflow: 'ellipsis'
+                         textOverflow: 'ellipsis',
+                         height: '40px',
+                         display: 'flex',
+                         alignItems: 'center',
+                         justifyContent: 'center'
                      }}>
                     <h6 className="mb-0 fw-semibold text-center">{getDisplayText()}</h6>
                 </div>
@@ -123,7 +128,7 @@ function App() {
         };
 
         return (
-            <div className="d-none d-md-block" style={{ position: 'fixed', bottom: '20px', width: '100%', zIndex: 1000 }}>
+            <div className="d-none d-md-block" style={{ position: 'fixed', bottom: '25px', width: '100%', zIndex: 1000 }}>
                 <div className="d-flex justify-content-center gap-3">
                     {/* Logo Container */}
                     <div className="bg-white rounded-3 d-flex align-items-center justify-content-center" style={{ 
@@ -213,7 +218,7 @@ function App() {
         };
 
         return (
-            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ height: '65px', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ height: '85px', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)', paddingBottom: '10px' }}>
                 <ul className="nav w-100 h-100 d-flex justify-content-between align-items-center px-2">
                     <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
                         <button onClick={() => handleClick('/')} 
@@ -568,7 +573,7 @@ function App() {
                 <div className="d-none d-md-block" style={{ 
                     position: 'fixed',
                     top: '70px',
-                    bottom: '86px',
+                    bottom: '95px',
                     left: 0,
                     right: 0,
                     overflow: 'auto'
@@ -622,8 +627,8 @@ function App() {
                 {/* Mobile Content */}
                 <div className="d-md-none" style={{ 
                     position: 'fixed',
-                    top: '56px',
-                    bottom: '56px',
+                    top: '70px',
+                    bottom: '95px',
                     left: 0,
                     right: 0,
                     overflow: 'auto'
