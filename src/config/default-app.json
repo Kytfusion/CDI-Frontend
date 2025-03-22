@@ -1,5 +1,8 @@
 {
   "appName": "CDI",
+  "styles": {
+    "primaryColor": "#4070ff"
+  },
   "pages": [
     {
       "name": "Page One",
@@ -12,6 +15,12 @@
       "path": "/page-two",
       "icon": "bi-bar-chart-line",
       "content": "This is the content of Page Two"
+    },
+    {
+      "name": "Page Three",
+      "path": "/page-three",
+      "icon": "bi-card-list",
+      "content": "This is the content of Page Three"
     }
   ]
 } 

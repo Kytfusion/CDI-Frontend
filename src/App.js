@@ -7,6 +7,7 @@ import { getConfig } from './config';
 
 function App() {
     const config = getConfig(process.env.REACT_APP_CONFIG_TYPE);
+    const { primaryColor } = config.styles;
 
     const MobileTopBar = () => {
         const location = useLocation();
@@ -37,13 +38,13 @@ function App() {
                     <div className="d-flex align-items-center gap-1">
                         <Link to="/settings" className="text-decoration-none">
                             <div className={`d-flex align-items-center justify-content-center rounded-2 ${location.pathname === '/settings' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
-                                 style={{ width: '32px', height: '32px' }}>
+                                 style={{ width: '32px', height: '32px', backgroundColor: location.pathname === '/settings' ? primaryColor : 'transparent' }}>
                                 <i className="bi bi-gear fs-5"></i>
                             </div>
                         </Link>
                         <Link to="/profile" className="text-decoration-none">
-                            <div className={`rounded-circle d-flex align-items-center justify-content-center text-white`}
-                                 style={{ width: '32px', height: '32px', backgroundColor: location.pathname === '/profile' ? '#0d6efd' : '#ff6b4a' }}>
+                            <div className={`d-flex align-items-center justify-content-center rounded-circle text-white`}
+                                 style={{ width: '32px', height: '32px', backgroundColor: location.pathname === '/profile' ? config.styles.primaryColor : '#ff6b4a' }}>
                                 <i className="bi bi-person-fill fs-5"></i>
                             </div>
                         </Link>
@@ -65,8 +66,7 @@ function App() {
                         padding: '0 24px',
                         width: '120px'
                     }}>
-                        <h5 className="mb-0 fw-semibold text-primary">
-                            <i className="bi bi-boxes me-2 fs-5"></i>
+                        <h5 className="mb-0 fw-semibold" style={{ color: config.styles.primaryColor }}>
                             {config.appName}
                         </h5>
                     </div>
@@ -80,7 +80,11 @@ function App() {
                         <ul className="nav d-flex align-items-center gap-2 m-0">
                             {config.pages.map((page, index) => (
                                 <li key={index} className="nav-item">
-                                    <Link to={page.path} className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === page.path ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
+                                    <Link to={page.path} className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === page.path ? '' : 'text-dark opacity-75'}`}
+                                         style={{ 
+                                             backgroundColor: location.pathname === page.path ? `${config.styles.primaryColor}14` : 'transparent',
+                                             color: location.pathname === page.path ? config.styles.primaryColor : undefined
+                                         }}>
                                         <i className={`bi ${page.icon} fs-5`}></i>
                                         <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>{page.name}</span>
                                     </Link>
@@ -98,14 +102,14 @@ function App() {
                     }}>
                         <div className="d-flex align-items-center gap-2">
                             <Link to="/settings" className="text-decoration-none">
-                                <div className={`d-flex align-items-center justify-content-center rounded-2 ${location.pathname === '/settings' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
-                                     style={{ width: '32px', height: '32px' }}>
+                                <div className={`d-flex align-items-center justify-content-center rounded-2 ${location.pathname === '/settings' ? 'text-white' : 'text-dark opacity-75'}`}
+                                     style={{ width: '32px', height: '32px', backgroundColor: location.pathname === '/settings' ? config.styles.primaryColor : 'transparent' }}>
                                     <i className="bi bi-gear fs-5"></i>
                                 </div>
                             </Link>
                             <Link to="/profile" className="text-decoration-none">
                                 <div className={`d-flex align-items-center justify-content-center rounded-circle text-white`}
-                                     style={{ width: '32px', height: '32px', backgroundColor: location.pathname === '/profile' ? '#0d6efd' : '#ff6b4a' }}>
+                                     style={{ width: '32px', height: '32px', backgroundColor: location.pathname === '/profile' ? config.styles.primaryColor : '#ff6b4a' }}>
                                     <i className="bi bi-person-fill fs-5"></i>
                                 </div>
                             </Link>
@@ -123,9 +127,10 @@ function App() {
                 <ul className="nav w-100 h-100 d-flex justify-content-around align-items-center">
                     {config.pages.map((page, index) => (
                         <li key={index} className="nav-item text-center">
-                            <Link to={page.path} className={`nav-link p-0 ${location.pathname === page.path ? 'text-primary' : 'text-dark opacity-75'}`}>
+                            <Link to={page.path} className={`nav-link p-0 ${location.pathname === page.path ? '' : 'text-dark opacity-75'}`}
+                                 style={{ color: location.pathname === page.path ? config.styles.primaryColor : undefined }}>
                                 <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                     style={{ backgroundColor: location.pathname === page.path ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
+                                     style={{ backgroundColor: location.pathname === page.path ? `${config.styles.primaryColor}14` : 'transparent', width: '32px', height: '32px' }}>
                                     <i className={`bi ${page.icon} fs-5`}></i>
                                 </div>
                             </Link>

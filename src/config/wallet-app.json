@@ -1,5 +1,8 @@
 {
   "appName": "Tenger",
+  "styles": {
+    "primaryColor": "#ff6b4a"
+  },
   "pages": [
     {
       "name": "Dashboard",
