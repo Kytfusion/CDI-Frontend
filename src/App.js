@@ -907,15 +907,17 @@ function App() {
                     left: 0,
                     right: 0,
                     overflow: 'auto',
-                    padding: '8px 0'
+                    backgroundColor: 'rgba(13, 145, 253, 0.03)',
+                    display: 'flex',
+                    flexDirection: 'column'
                 }}>
-                    <div className="container-fluid px-0">
+                    <div className="container-fluid px-0 flex-grow-1 d-flex flex-column">
                         {!Object.values(activeWidgets).some(value => value) ? (
                             <DefaultWidget />
                         ) : (
                             <Masonry
                                 breakpointCols={1}
-                                className="my-masonry-grid"
+                                className="my-masonry-grid flex-grow-1"
                                 columnClassName="my-masonry-grid_column"
                             >
                                 {activeWidgets.bankCard && (
