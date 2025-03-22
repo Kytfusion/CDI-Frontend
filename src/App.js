@@ -472,6 +472,47 @@ function App() {
         </div>
     );
 
+    const DefaultWidget = () => (
+        <div className="bg-white rounded-3 p-4 h-100" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <div className="d-flex flex-column justify-content-center h-100">
+                <div className="text-center">
+                    <div className="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-4"
+                         style={{ width: '80px', height: '80px' }}>
+                        <i className="bi bi-bank2 text-white fs-1"></i>
+                    </div>
+                    <h4 className="mb-3 fw-semibold">Bine ați venit la CDI Bank</h4>
+                    <p className="text-muted mb-4">Selectați o opțiune din meniu pentru a începe</p>
+                    <div className="row g-3 justify-content-center" style={{ maxWidth: '600px', margin: '0 auto' }}>
+                        <div className="col-6">
+                            <div className="p-3 rounded-3 bg-light text-center">
+                                <i className="bi bi-credit-card fs-4 text-primary mb-2"></i>
+                                <p className="mb-0 small">Gestionați cardul bancar</p>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div className="p-3 rounded-3 bg-light text-center">
+                                <i className="bi bi-graph-up fs-4 text-primary mb-2"></i>
+                                <p className="mb-0 small">Vizualizați statistici</p>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div className="p-3 rounded-3 bg-light text-center">
+                                <i className="bi bi-search fs-4 text-primary mb-2"></i>
+                                <p className="mb-0 small">Căutați tranzacții</p>
+                            </div>
+                        </div>
+                        <div className="col-6">
+                            <div className="p-3 rounded-3 bg-light text-center">
+                                <i className="bi bi-clock-history fs-4 text-primary mb-2"></i>
+                                <p className="mb-0 small">Accesați istoricul</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
     const handleNavigation = (path) => {
         switch(path) {
             case '/':
@@ -534,36 +575,44 @@ function App() {
                 }}>
                     <div className="container-fluid h-100 py-2">
                         <div className="px-4 h-100">
-                            <div className="d-flex flex-wrap" style={{ gap: '8px' }}>
-                                {activeWidgets.bankCard && (
-                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                        <BankCardWidget />
+                            <div className="d-flex flex-wrap h-100" style={{ gap: '8px' }}>
+                                {!Object.values(activeWidgets).some(value => value) ? (
+                                    <div className="h-100" style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(100% - 6px)' }}>
+                                        <DefaultWidget />
                                     </div>
-                                )}
-                                {activeWidgets.analytics && (
-                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                        <AnalyticsWidget />
-                                    </div>
-                                )}
-                                {activeWidgets.search && (
-                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                        <SearchWidget />
-                                    </div>
-                                )}
-                                {activeWidgets.history && (
-                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                        <HistoryWidget />
-                                    </div>
-                                )}
-                                {activeWidgets.settings && (
-                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                        <SettingsWidget />
-                                    </div>
-                                )}
-                                {activeWidgets.profile && (
-                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                        <ProfileWidget />
-                                    </div>
+                                ) : (
+                                    <>
+                                        {activeWidgets.bankCard && (
+                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                                <BankCardWidget />
+                                            </div>
+                                        )}
+                                        {activeWidgets.analytics && (
+                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                                <AnalyticsWidget />
+                                            </div>
+                                        )}
+                                        {activeWidgets.search && (
+                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                                <SearchWidget />
+                                            </div>
+                                        )}
+                                        {activeWidgets.history && (
+                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                                <HistoryWidget />
+                                            </div>
+                                        )}
+                                        {activeWidgets.settings && (
+                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                                <SettingsWidget />
+                                            </div>
+                                        )}
+                                        {activeWidgets.profile && (
+                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                                <ProfileWidget />
+                                            </div>
+                                        )}
+                                    </>
                                 )}
                             </div>
                         </div>
@@ -580,13 +629,21 @@ function App() {
                     overflow: 'auto'
                 }}>
                     <div className="container-fluid h-100 py-2 px-2">
-                        <div className="d-flex flex-column" style={{ gap: '8px' }}>
-                            {activeWidgets.bankCard && <BankCardWidget />}
-                            {activeWidgets.analytics && <AnalyticsWidget />}
-                            {activeWidgets.search && <SearchWidget />}
-                            {activeWidgets.history && <HistoryWidget />}
-                            {activeWidgets.settings && <SettingsWidget />}
-                            {activeWidgets.profile && <ProfileWidget />}
+                        <div className="d-flex flex-column h-100" style={{ gap: '8px' }}>
+                            {!Object.values(activeWidgets).some(value => value) ? (
+                                <div className="h-100">
+                                    <DefaultWidget />
+                                </div>
+                            ) : (
+                                <>
+                                    {activeWidgets.bankCard && <BankCardWidget />}
+                                    {activeWidgets.analytics && <AnalyticsWidget />}
+                                    {activeWidgets.search && <SearchWidget />}
+                                    {activeWidgets.history && <HistoryWidget />}
+                                    {activeWidgets.settings && <SettingsWidget />}
+                                    {activeWidgets.profile && <ProfileWidget />}
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
