@@ -4,12 +4,14 @@
     {
       "name": "Dashboard",
       "path": "/dashboard",
-      "icon": "bi-grid-1x2-fill"
+      "icon": "bi-grid-1x2-fill",
+      "content": "Welcome to your financial dashboard"
     },
     {
       "name": "Transactions",
       "path": "/transactions",
-      "icon": "bi-bar-chart-line"
+      "icon": "bi-bar-chart-line",
+      "content": "View and manage your transactions here"
     }
   ]
 } 

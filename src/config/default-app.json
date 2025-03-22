@@ -4,12 +4,14 @@
     {
       "name": "Page One",
       "path": "/page-one",
-      "icon": "bi-grid-1x2-fill"
+      "icon": "bi-grid-1x2-fill",
+      "content": "This is the content of Page One"
     },
     {
       "name": "Page Two",
       "path": "/page-two",
-      "icon": "bi-bar-chart-line"
+      "icon": "bi-bar-chart-line",
+      "content": "This is the content of Page Two"
     }
   ]
 } 

@@ -3,11 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate,
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import defaultAppConfig from './default-app.json';
-import walletAppConfig from './wallet-app.json';
+import { getConfig } from './config';
 
 function App() {
-    const config = require(`./${process.env.REACT_APP_CONFIG_TYPE || 'default'}-app.json`);
+    const config = getConfig(process.env.REACT_APP_CONFIG_TYPE);
 
     const MobileTopBar = () => {
         const location = useLocation();
@@ -147,26 +146,10 @@ function App() {
         );
     };
 
-    const HomePage = () => (
+    const DynamicPage = ({ content }) => (
         <PageTemplate>
             <div className="p-3">
-                {/* Conținutul paginii Dashboard */}
-            </div>
-        </PageTemplate>
-    );
-
-    const AnalyticsPage = () => (
-        <PageTemplate>
-            <div className="p-3">
-                {/* Conținutul paginii Analytics */}
-            </div>
-        </PageTemplate>
-    );
-
-    const NotificationsPage = () => (
-        <PageTemplate>
-            <div className="p-3">
-                {/* Conținutul paginii Notifications */}
+                {content}
             </div>
         </PageTemplate>
     );
@@ -174,7 +157,7 @@ function App() {
     const SettingsPage = () => (
         <PageTemplate>
             <div className="p-3">
-                {/* Conținutul paginii Settings */}
+                Settings Content
             </div>
         </PageTemplate>
     );
@@ -182,9 +165,62 @@ function App() {
     const ProfilePage = () => (
         <PageTemplate>
             <div className="p-3">
-                {/* Conținutul paginii Profile */}
+                Profile Content
             </div>
         </PageTemplate>
+    );
+
+    const MainContent = () => (
+        <>
+            <div className="d-none d-md-block" style={{ 
+                position: 'fixed',
+                top: '20px',
+                bottom: '86px',
+                left: 0,
+                right: 0,
+                overflow: 'auto'
+            }}>
+                <div className="container-fluid h-100 py-3">
+                    <div className="px-4 h-100">
+                        <Routes>
+                            <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
+                            {config.pages.map((page, index) => (
+                                <Route 
+                                    key={index} 
+                                    path={page.path} 
+                                    element={<DynamicPage content={page.content} />} 
+                                />
+                            ))}
+                            <Route path="/settings" element={<SettingsPage />} />
+                            <Route path="/profile" element={<ProfilePage />} />
+                        </Routes>
+                    </div>
+                </div>
+            </div>
+            <div className="d-md-none" style={{ 
+                position: 'fixed',
+                top: '56px',
+                bottom: '56px',
+                left: 0,
+                right: 0,
+                overflow: 'auto'
+            }}>
+                <div className="container-fluid h-100 py-3 px-3">
+                    <Routes>
+                        <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
+                        {config.pages.map((page, index) => (
+                            <Route 
+                                key={index} 
+                                path={page.path} 
+                                element={<DynamicPage content={page.content} />} 
+                            />
+                        ))}
+                        <Route path="/settings" element={<SettingsPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
+                    </Routes>
+                </div>
+            </div>
+        </>
     );
 
     return (
@@ -193,48 +229,7 @@ function App() {
                 <MobileTopBar />
                 <DesktopBottomBar />
                 <BottomBar />
-                <div className="d-none d-md-block" style={{ 
-                    position: 'fixed',
-                    top: '20px',
-                    bottom: '86px',
-                    left: 0,
-                    right: 0,
-                    overflow: 'auto'
-                }}>
-                    <div className="container-fluid h-100 py-3">
-                        <div className="px-4 h-100">
-                            <Routes>
-                                <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
-                                {config.pages.map((page, index) => (
-                                    <Route key={index} path={page.path} element={<PageTemplate><div className="p-3">{page.name} Content</div></PageTemplate>} />
-                                ))}
-                                <Route path="/notifications" element={<NotificationsPage />} />
-                                <Route path="/settings" element={<SettingsPage />} />
-                                <Route path="/profile" element={<ProfilePage />} />
-                            </Routes>
-                        </div>
-                    </div>
-                </div>
-                <div className="d-md-none" style={{ 
-                    position: 'fixed',
-                    top: '56px',
-                    bottom: '56px',
-                    left: 0,
-                    right: 0,
-                    overflow: 'auto'
-                }}>
-                    <div className="container-fluid h-100 py-3 px-3">
-                        <Routes>
-                            <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
-                            {config.pages.map((page, index) => (
-                                <Route key={index} path={page.path} element={<PageTemplate><div className="p-3">{page.name} Content</div></PageTemplate>} />
-                            ))}
-                            <Route path="/notifications" element={<NotificationsPage />} />
-                            <Route path="/settings" element={<SettingsPage />} />
-                            <Route path="/profile" element={<ProfilePage />} />
-                        </Routes>
-                    </div>
-                </div>
+                <MainContent />
             </div>
         </Router>
     );
