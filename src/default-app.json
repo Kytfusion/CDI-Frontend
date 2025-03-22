@@ -1,0 +1,15 @@
+{
+  "appName": "CDI",
+  "pages": [
+    {
+      "name": "Page One",
+      "path": "/page-one",
+      "icon": "bi-grid-1x2-fill"
+    },
+    {
+      "name": "Page Two",
+      "path": "/page-two",
+      "icon": "bi-bar-chart-line"
+    }
+  ]
+} 

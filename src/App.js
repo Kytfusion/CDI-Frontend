@@ -3,20 +3,18 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate,
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import defaultAppConfig from './default-app.json';
+import walletAppConfig from './wallet-app.json';
 
 function App() {
+    const config = require(`./${process.env.REACT_APP_CONFIG_TYPE || 'default'}-app.json`);
+
     const MobileTopBar = () => {
         const location = useLocation();
         const navigate = useNavigate();
         const getPageTitle = () => {
-            switch(location.pathname) {
-                case '/home': return 'Dashboard';
-                case '/analytics': return 'Analytics';
-                case '/notifications': return 'Notifications';
-                case '/settings': return 'Settings';
-                case '/profile': return 'Profile';
-                default: return 'Dashboard';
-            }
+            const currentPage = config.pages.find(page => page.path === location.pathname);
+            return currentPage ? currentPage.name : config.pages[0].name;
         };
 
         const handleBack = () => {
@@ -70,7 +68,7 @@ function App() {
                     }}>
                         <h5 className="mb-0 fw-semibold text-primary">
                             <i className="bi bi-boxes me-2 fs-5"></i>
-                            CDI
+                            {config.appName}
                         </h5>
                     </div>
 
@@ -81,18 +79,14 @@ function App() {
                         padding: '0 10px'
                     }}>
                         <ul className="nav d-flex align-items-center gap-2 m-0">
-                            <li className="nav-item">
-                                <Link to="/home" className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === '/home' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
-                                    <i className="bi bi-grid-1x2-fill fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Home</span>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/analytics" className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === '/analytics' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
-                                    <i className="bi bi-bar-chart-line fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Analytics</span>
-                                </Link>
-                            </li>
+                            {config.pages.map((page, index) => (
+                                <li key={index} className="nav-item">
+                                    <Link to={page.path} className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === page.path ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
+                                        <i className={`bi ${page.icon} fs-5`}></i>
+                                        <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>{page.name}</span>
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
@@ -128,22 +122,16 @@ function App() {
         return (
             <nav className="navbar fixed-bottom d-md-none bg-white" style={{ height: '56px', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
                 <ul className="nav w-100 h-100 d-flex justify-content-around align-items-center">
-                    <li className="nav-item text-center">
-                        <Link to="/home" className={`nav-link p-0 ${location.pathname === '/home' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                 style={{ backgroundColor: location.pathname === '/home' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
-                                <i className="bi bi-grid-1x2-fill fs-5"></i>
-                            </div>
-                        </Link>
-                    </li>
-                    <li className="nav-item text-center">
-                        <Link to="/analytics" className={`nav-link p-0 ${location.pathname === '/analytics' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                 style={{ backgroundColor: location.pathname === '/analytics' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
-                                <i className="bi bi-bar-chart-line fs-5"></i>
-                            </div>
-                        </Link>
-                    </li>
+                    {config.pages.map((page, index) => (
+                        <li key={index} className="nav-item text-center">
+                            <Link to={page.path} className={`nav-link p-0 ${location.pathname === page.path ? 'text-primary' : 'text-dark opacity-75'}`}>
+                                <div className="rounded-2 d-flex align-items-center justify-content-center" 
+                                     style={{ backgroundColor: location.pathname === page.path ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
+                                    <i className={`bi ${page.icon} fs-5`}></i>
+                                </div>
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         );
@@ -216,9 +204,10 @@ function App() {
                     <div className="container-fluid h-100 py-3">
                         <div className="px-4 h-100">
                             <Routes>
-                                <Route path="/" element={<Navigate to="/home" replace />} />
-                                <Route path="/home" element={<HomePage />} />
-                                <Route path="/analytics" element={<AnalyticsPage />} />
+                                <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
+                                {config.pages.map((page, index) => (
+                                    <Route key={index} path={page.path} element={<PageTemplate><div className="p-3">{page.name} Content</div></PageTemplate>} />
+                                ))}
                                 <Route path="/notifications" element={<NotificationsPage />} />
                                 <Route path="/settings" element={<SettingsPage />} />
                                 <Route path="/profile" element={<ProfilePage />} />
@@ -236,9 +225,10 @@ function App() {
                 }}>
                     <div className="container-fluid h-100 py-3 px-3">
                         <Routes>
-                            <Route path="/" element={<Navigate to="/home" replace />} />
-                            <Route path="/home" element={<HomePage />} />
-                            <Route path="/analytics" element={<AnalyticsPage />} />
+                            <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
+                            {config.pages.map((page, index) => (
+                                <Route key={index} path={page.path} element={<PageTemplate><div className="p-3">{page.name} Content</div></PageTemplate>} />
+                            ))}
                             <Route path="/notifications" element={<NotificationsPage />} />
                             <Route path="/settings" element={<SettingsPage />} />
                             <Route path="/profile" element={<ProfilePage />} />

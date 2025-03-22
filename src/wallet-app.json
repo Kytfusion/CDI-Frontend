@@ -1,0 +1,15 @@
+{
+  "appName": "Tenger",
+  "pages": [
+    {
+      "name": "Dashboard",
+      "path": "/dashboard",
+      "icon": "bi-grid-1x2-fill"
+    },
+    {
+      "name": "Transactions",
+      "path": "/transactions",
+      "icon": "bi-bar-chart-line"
+    }
+  ]
+} 
