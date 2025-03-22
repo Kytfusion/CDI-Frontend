@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Refactor layout components for modularity and clarity&#10;&#10;Extracted TopBar, BottomBar, and MainContent into modular components for improved structure and readability. Added responsive designs for mobile and desktop layouts, enhancing maintainability and user experience. These changes ensure consistency and simplify future updates.">
+    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Add Settings page with navigation updates&#10;&#10;Introduced a new Settings page component and integrated it into the app's navigation. Updated TopBar and BottomBar to include a link to the Settings page with visual enhancements for active states. Modified routing in MainContent to handle the new &quot;/settings&quot; path.">
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/BottomBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BottomBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MainContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TopBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TopBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Settings.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742666023135</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Add Settings page with navigation updates&#10;&#10;Introduced a new Settings page component and integrated it into the app's navigation. Updated TopBar and BottomBar to include a link to the Settings page with visual enhancements for active states. Modified routing in MainContent to handle the new &quot;/settings&quot; path.">
+      <option name="closed" value="true" />
+      <created>1742666802675</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1742666802675</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +279,8 @@
     <MESSAGE value="Refactor background color to use dynamic RGBA conversion&#10;&#10;Introduce a helper function `hexToRgba` to convert hex colors to RGBA with customizable opacity. Update the app's background to use this function for a dynamic and consistent styling approach. This improves maintainability and flexibility for future styling changes." />
     <MESSAGE value="Refactor layout components for modularity and clarity.&#10;&#10;Extracted TopBar, BottomBar, and MainContent into separate components to simplify and modularize the App structure. These changes improve code maintainability and readability while preserving existing functionality." />
     <MESSAGE value="Refactor layout components for modularity and clarity&#10;&#10;Extracted TopBar, BottomBar, and MainContent into modular components for improved structure and readability. Added responsive designs for mobile and desktop layouts, enhancing maintainability and user experience. These changes ensure consistency and simplify future updates." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor layout components for modularity and clarity&#10;&#10;Extracted TopBar, BottomBar, and MainContent into modular components for improved structure and readability. Added responsive designs for mobile and desktop layouts, enhancing maintainability and user experience. These changes ensure consistency and simplify future updates." />
+    <MESSAGE value="Add Settings page with navigation updates&#10;&#10;Introduced a new Settings page component and integrated it into the app's navigation. Updated TopBar and BottomBar to include a link to the Settings page with visual enhancements for active states. Modified routing in MainContent to handle the new &quot;/settings&quot; path." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Settings page with navigation updates&#10;&#10;Introduced a new Settings page component and integrated it into the app's navigation. Updated TopBar and BottomBar to include a link to the Settings page with visual enhancements for active states. Modified routing in MainContent to handle the new &quot;/settings&quot; path." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

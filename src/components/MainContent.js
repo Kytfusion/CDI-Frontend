@@ -12,7 +12,8 @@ const MainContent = ({ config }) => (
         left: 0,
         right: 0,
         overflow: 'auto',
-        padding: '20px'
+        padding: '20px',
+        transition: 'left 0.3s ease'
     }} className="d-flex flex-column main-content">
         <div className="flex-grow-1">
             <Routes>
@@ -30,7 +31,10 @@ const MainContent = ({ config }) => (
         <style>{`
             @media (min-width: 768px) {
                 .main-content {
-                    left: 220px !important;
+                    left: var(--sidebar-width, 220px) !important;
+                }
+                .sidebar-collapsed .main-content {
+                    left: 80px !important;
                 }
             }
         `}</style>
