@@ -1,13 +1,15 @@
 import defaultAppConfig from './default-app.json';
 import walletAppConfig from './wallet-app.json';
 
-export const getConfig = (type = 'default') => {
-    switch (type) {
-        case 'default':
-            return defaultAppConfig;
+export const getConfig = (type) => {
+    const configType = type || 'default';
+    
+    switch (configType) {
         case 'wallet':
-        default:
             return walletAppConfig;
+        case 'default':
+        default:
+            return defaultAppConfig;
     }
 };
 
