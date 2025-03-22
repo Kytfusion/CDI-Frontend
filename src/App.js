@@ -9,6 +9,14 @@ function App() {
     const config = getConfig(process.env.REACT_APP_CONFIG_TYPE);
     const { primaryColor } = config.styles;
 
+    const hexToRgba = (hex, opacity) => {
+        const bigint = parseInt(hex.slice(1), 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    };
+
     const MobileTopBar = () => {
         const location = useLocation();
         const navigate = useNavigate();
@@ -230,7 +238,7 @@ function App() {
 
     return (
         <Router>
-            <div className="min-vh-100" style={{ backgroundColor: '#f5f9ff' }}>
+            <div className="min-vh-100" style={{ backgroundColor: hexToRgba(primaryColor, 0.05) }}>
                 <MobileTopBar />
                 <DesktopBottomBar />
                 <BottomBar />
