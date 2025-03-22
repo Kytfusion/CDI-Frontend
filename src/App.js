@@ -1,8 +1,62 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import Masonry from 'react-masonry-css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// Adăugăm stilurile pentru Masonry
+const masonryStyles = {
+    '.my-masonry-grid': {
+        display: 'flex',
+        marginLeft: '-40px',
+        width: 'auto'
+    },
+    '.my-masonry-grid_column': {
+        paddingLeft: '40px',
+        backgroundClip: 'padding-box'
+    },
+    '.my-masonry-grid_column > div': {
+        marginBottom: '40px',
+        background: 'white',
+        borderRadius: '16px',
+        padding: '24px',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+        transition: 'all 0.3s ease'
+    },
+    '@media (max-width: 768px)': {
+        '.my-masonry-grid': {
+            marginLeft: '-16px'
+        },
+        '.my-masonry-grid_column': {
+            paddingLeft: '16px'
+        },
+        '.my-masonry-grid_column > div': {
+            marginBottom: '16px',
+            padding: '16px',
+            borderRadius: '12px'
+        }
+    }
+};
+
+// Adăugăm stilurile în document
+const styleSheet = document.createElement('style');
+styleSheet.textContent = Object.entries(masonryStyles).map(([selector, rules]) => 
+    `${selector} {${Object.entries(rules).map(([prop, value]) => `${prop}: ${value};`).join('')}}`
+).join('') + `
+    .widget-container {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .widget-container:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    }
+`;
+document.head.appendChild(styleSheet);
 
 function App() {
     const [activeWidgets, setActiveWidgets] = useState({
@@ -280,7 +334,7 @@ function App() {
     const ProfilePage = () => null;
 
     const BankCardWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+        <div className="widget-container">
             <h5 className="mb-4 fw-semibold">Card Bancar</h5>
             <div className="card bg-primary text-white rounded-4" style={{ maxWidth: '360px' }}>
                 <div className="card-body p-4">
@@ -307,7 +361,7 @@ function App() {
     );
 
     const AnalyticsWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+        <div className="widget-container">
             <h5 className="mb-4 fw-semibold">Statistica Cheltuielilor</h5>
             <div className="row g-3">
                 <div className="col-12 col-md-6">
@@ -339,7 +393,7 @@ function App() {
     );
 
     const SearchWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+        <div className="widget-container">
             <h5 className="mb-4 fw-semibold">Căutare Rapidă</h5>
             <div className="input-group mb-3">
                 <input type="text" className="form-control" placeholder="Caută tranzacții..." />
@@ -357,7 +411,7 @@ function App() {
     );
 
     const HistoryWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+        <div className="widget-container">
             <h5 className="mb-4 fw-semibold">Istoric Tranzacții</h5>
             <div className="list-group">
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
@@ -518,6 +572,215 @@ function App() {
         </div>
     );
 
+    const BankCardTransactionsWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Tranzacții Recente Card</h5>
+            <div className="list-group">
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center gap-3">
+                            <div className="rounded-circle bg-primary bg-opacity-10 p-2">
+                                <i className="bi bi-cart text-primary"></i>
+                            </div>
+                            <div>
+                                <h6 className="mb-1">Cumpărături Online</h6>
+                                <small className="text-muted">Astăzi, 14:30</small>
+                            </div>
+                        </div>
+                        <span className="text-danger fw-semibold">-350.00 MDL</span>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex align-items-center gap-3">
+                            <div className="rounded-circle bg-success bg-opacity-10 p-2">
+                                <i className="bi bi-arrow-down text-success"></i>
+                            </div>
+                            <div>
+                                <h6 className="mb-1">Transfer Primit</h6>
+                                <small className="text-muted">Ieri, 18:45</small>
+                            </div>
+                        </div>
+                        <span className="text-success fw-semibold">+2,500.00 MDL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const AnalyticsChartWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Grafic Cheltuieli</h5>
+            <div className="p-3 rounded-3 bg-light">
+                <div className="mb-4">
+                    <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Top Categorii</p>
+                    <div className="mb-3">
+                        <div className="d-flex justify-content-between mb-1">
+                            <span style={{ fontSize: '14px' }}>Cumpărături</span>
+                            <span style={{ fontSize: '14px' }}>4,250 MDL</span>
+                        </div>
+                        <div className="progress" style={{ height: '8px' }}>
+                            <div className="progress-bar bg-primary" style={{ width: '70%' }}></div>
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <div className="d-flex justify-content-between mb-1">
+                            <span style={{ fontSize: '14px' }}>Transport</span>
+                            <span style={{ fontSize: '14px' }}>2,100 MDL</span>
+                        </div>
+                        <div className="progress" style={{ height: '8px' }}>
+                            <div className="progress-bar bg-success" style={{ width: '45%' }}></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="d-flex justify-content-between mb-1">
+                            <span style={{ fontSize: '14px' }}>Utilități</span>
+                            <span style={{ fontSize: '14px' }}>1,895 MDL</span>
+                        </div>
+                        <div className="progress" style={{ height: '8px' }}>
+                            <div className="progress-bar bg-warning" style={{ width: '35%' }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const SearchFiltersWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Filtre Avansate</h5>
+            <div className="mb-3">
+                <label className="form-label">Interval de Timp</label>
+                <select className="form-select mb-3">
+                    <option>Ultima săptămână</option>
+                    <option>Ultima lună</option>
+                    <option>Ultimele 3 luni</option>
+                    <option>Interval personalizat</option>
+                </select>
+                <label className="form-label">Categorie</label>
+                <select className="form-select mb-3">
+                    <option>Toate categoriile</option>
+                    <option>Cumpărături</option>
+                    <option>Transport</option>
+                    <option>Utilități</option>
+                    <option>Divertisment</option>
+                </select>
+                <label className="form-label">Sumă</label>
+                <div className="input-group">
+                    <input type="number" className="form-control" placeholder="De la" />
+                    <input type="number" className="form-control" placeholder="Până la" />
+                </div>
+            </div>
+        </div>
+    );
+
+    const HistoryDetailsWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Detalii Tranzacții</h5>
+            <div className="list-group">
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex flex-column">
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                            <h6 className="mb-0">Kaufland</h6>
+                            <span className="badge bg-danger">-245.50 MDL</span>
+                        </div>
+                        <small className="text-muted mb-2">20 martie 2024, 15:30</small>
+                        <div className="d-flex gap-2">
+                            <span className="badge bg-light text-dark">Cumpărături</span>
+                            <span className="badge bg-light text-dark">Card de debit</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3">
+                    <div className="d-flex flex-column">
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                            <h6 className="mb-0">Transfer Primit</h6>
+                            <span className="badge bg-success">+1,500.00 MDL</span>
+                        </div>
+                        <small className="text-muted mb-2">19 martie 2024, 10:15</small>
+                        <div className="d-flex gap-2">
+                            <span className="badge bg-light text-dark">Transfer</span>
+                            <span className="badge bg-light text-dark">Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const SecurityWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Securitate</h5>
+            <div className="list-group">
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Autentificare în 2 Pași</h6>
+                            <small className="text-muted">Activați pentru securitate sporită</small>
+                        </div>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" role="switch" />
+                        </div>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Notificări de Securitate</h6>
+                            <small className="text-muted">Primiți alerte de securitate</small>
+                        </div>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" role="switch" defaultChecked />
+                        </div>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Dispozitive Conectate</h6>
+                            <small className="text-muted">Gestionați dispozitivele active</small>
+                        </div>
+                        <button className="btn btn-sm btn-outline-primary">Vezi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const AccountDetailsWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Detalii Cont</h5>
+            <div className="list-group">
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Tip Cont</h6>
+                            <small className="text-muted">Premium</small>
+                        </div>
+                        <span className="badge bg-primary">Activ</span>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Data Deschiderii</h6>
+                            <small className="text-muted">15 ianuarie 2024</small>
+                        </div>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Documente</h6>
+                            <small className="text-muted">Contract, extras de cont</small>
+                        </div>
+                        <button className="btn btn-sm btn-outline-primary">Descarcă</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
     const handleNavigation = (path) => {
         switch(path) {
             case '/':
@@ -561,6 +824,13 @@ function App() {
         }
     };
 
+    const breakpointColumns = {
+        default: 4,
+        1400: 3,
+        992: 2,
+        768: 1
+    };
+
     return (
         <Router>
             <div className="min-vh-100" style={{ backgroundColor: 'rgba(13, 145, 253, 0.03)' }}>
@@ -576,80 +846,116 @@ function App() {
                     bottom: '95px',
                     left: 0,
                     right: 0,
-                    overflow: 'auto'
+                    overflow: 'auto',
+                    padding: '24px'
                 }}>
-                    <div className="container-fluid h-100 py-2">
-                        <div className="px-4 h-100">
-                            <div className="d-flex flex-wrap h-100" style={{ gap: '8px' }}>
-                                {!Object.values(activeWidgets).some(value => value) ? (
-                                    <div className="h-100" style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(100% - 6px)' }}>
-                                        <DefaultWidget />
-                                    </div>
-                                ) : (
+                    <div className="container-fluid h-100">
+                        {!Object.values(activeWidgets).some(value => value) ? (
+                            <DefaultWidget />
+                        ) : (
+                            <Masonry
+                                breakpointCols={breakpointColumns}
+                                className="my-masonry-grid"
+                                columnClassName="my-masonry-grid_column"
+                            >
+                                {activeWidgets.bankCard && (
                                     <>
-                                        {activeWidgets.bankCard && (
-                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                                <BankCardWidget />
-                                            </div>
-                                        )}
-                                        {activeWidgets.analytics && (
-                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                                <AnalyticsWidget />
-                                            </div>
-                                        )}
-                                        {activeWidgets.search && (
-                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                                <SearchWidget />
-                                            </div>
-                                        )}
-                                        {activeWidgets.history && (
-                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                                <HistoryWidget />
-                                            </div>
-                                        )}
-                                        {activeWidgets.settings && (
-                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                                <SettingsWidget />
-                                            </div>
-                                        )}
-                                        {activeWidgets.profile && (
-                                            <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
-                                                <ProfileWidget />
-                                            </div>
-                                        )}
+                                        <div><BankCardWidget /></div>
+                                        <div><BankCardTransactionsWidget /></div>
                                     </>
                                 )}
-                            </div>
-                        </div>
+                                {activeWidgets.analytics && (
+                                    <>
+                                        <div><AnalyticsWidget /></div>
+                                        <div><AnalyticsChartWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.search && (
+                                    <>
+                                        <div><SearchWidget /></div>
+                                        <div><SearchFiltersWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.history && (
+                                    <>
+                                        <div><HistoryWidget /></div>
+                                        <div><HistoryDetailsWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.settings && (
+                                    <>
+                                        <div><SettingsWidget /></div>
+                                        <div><SecurityWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.profile && (
+                                    <>
+                                        <div><ProfileWidget /></div>
+                                        <div><AccountDetailsWidget /></div>
+                                    </>
+                                )}
+                            </Masonry>
+                        )}
                     </div>
                 </div>
 
                 {/* Mobile Content */}
                 <div className="d-md-none" style={{ 
                     position: 'fixed',
-                    top: '70px',
-                    bottom: '95px',
+                    top: '56px',
+                    bottom: '85px',
                     left: 0,
                     right: 0,
-                    overflow: 'auto'
+                    overflow: 'auto',
+                    padding: '8px 0'
                 }}>
-                    <div className="container-fluid h-100 py-2 px-2">
-                        <div className="d-flex flex-column h-100" style={{ gap: '8px' }}>
-                            {!Object.values(activeWidgets).some(value => value) ? (
-                                <div className="h-100">
-                                    <DefaultWidget />
-                                </div>
-                            ) : (
-                                <>
-                                    {activeWidgets.bankCard && <BankCardWidget />}
-                                    {activeWidgets.analytics && <AnalyticsWidget />}
-                                    {activeWidgets.search && <SearchWidget />}
-                                    {activeWidgets.history && <HistoryWidget />}
-                                    {activeWidgets.settings && <SettingsWidget />}
-                                    {activeWidgets.profile && <ProfileWidget />}
-                                </>
-                            )}
-                        </div>
+                    <div className="container-fluid px-0">
+                        {!Object.values(activeWidgets).some(value => value) ? (
+                            <DefaultWidget />
+                        ) : (
+                            <Masonry
+                                breakpointCols={1}
+                                className="my-masonry-grid"
+                                columnClassName="my-masonry-grid_column"
+                            >
+                                {activeWidgets.bankCard && (
+                                    <>
+                                        <div><BankCardWidget /></div>
+                                        <div><BankCardTransactionsWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.analytics && (
+                                    <>
+                                        <div><AnalyticsWidget /></div>
+                                        <div><AnalyticsChartWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.search && (
+                                    <>
+                                        <div><SearchWidget /></div>
+                                        <div><SearchFiltersWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.history && (
+                                    <>
+                                        <div><HistoryWidget /></div>
+                                        <div><HistoryDetailsWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.settings && (
+                                    <>
+                                        <div><SettingsWidget /></div>
+                                        <div><SecurityWidget /></div>
+                                    </>
+                                )}
+                                {activeWidgets.profile && (
+                                    <>
+                                        <div><ProfileWidget /></div>
+                                        <div><AccountDetailsWidget /></div>
+                                    </>
+                                )}
+                            </Masonry>
+                        )}
                     </div>
                 </div>
 
@@ -668,3 +974,4 @@ function App() {
 }
 
 export default App;
+
