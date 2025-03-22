@@ -1,57 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
+    const [activeWidgets, setActiveWidgets] = useState({
+        bankCard: false,
+        analytics: false,
+        search: false,
+        history: false,
+        settings: false,
+        profile: false
+    });
+
     const MobileTopBar = () => {
         const location = useLocation();
         const navigate = useNavigate();
-        const getPageTitle = () => {
-            switch(location.pathname) {
-                case '/': return 'Dashboard';
-                case '/search': return 'Search';
-                case '/analytics': return 'Analytics';
-                case '/history': return 'History';
-                case '/notifications': return 'Notifications';
-                case '/settings': return 'Settings';
-                case '/profile': return 'Profile';
-                default: return 'Dashboard';
-            }
+
+        const handleClick = (path) => {
+            navigate(path);
+            handleNavigation(path);
         };
 
-        const handleBack = () => {
-            navigate(-1);
+        const getActiveWidgetNames = () => {
+            const activeItems = [];
+            if (activeWidgets.bankCard) activeItems.push('Card Bancar');
+            if (activeWidgets.search) activeItems.push('Căutare');
+            if (activeWidgets.analytics) activeItems.push('Statistici');
+            if (activeWidgets.history) activeItems.push('Istoric');
+            return activeItems;
+        };
+
+        const getDisplayText = () => {
+            const activeItems = getActiveWidgetNames();
+            if (activeItems.length === 0) {
+                return 'CDI';
+            }
+            return activeItems.join(' • ');
         };
 
         return (
             <div className="d-md-none fixed-top bg-white" style={{ height: '56px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
                 <div className="d-flex align-items-center justify-content-between h-100 px-3">
-                    <button onClick={handleBack} 
-                            className="btn d-flex align-items-center gap-2 p-0 border-0">
-                        <div className="d-flex align-items-center justify-content-center rounded-2 text-dark opacity-75"
-                             style={{ width: '32px', height: '32px' }}>
-                            <i className="bi bi-chevron-left fs-4"></i>
-                        </div>
-                        <span className="text-dark opacity-75 fw-medium" style={{ fontSize: '14px' }}>Back</span>
-                    </button>
-                    
-                    <h6 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h6>
-                    
-                    <div className="d-flex align-items-center gap-1">
-                        <Link to="/settings" className="text-decoration-none">
-                            <div className={`d-flex align-items-center justify-content-center rounded-2 ${location.pathname === '/settings' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
+                    <div className="text-start" style={{ 
+                        maxWidth: 'calc(100% - 96px)',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                    }}>
+                        <h6 className="mb-0 fw-semibold text-dark">{getDisplayText()}</h6>
+                    </div>
+                    <div className="d-flex align-items-center gap-1" style={{ width: '80px' }}>
+                        <button onClick={() => handleClick('/settings')} className="btn p-0 border-0">
+                            <div className={`d-flex align-items-center justify-content-center rounded-2 ${activeWidgets.settings ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
                                  style={{ width: '32px', height: '32px' }}>
                                 <i className="bi bi-gear fs-5"></i>
                             </div>
-                        </Link>
-                        <Link to="/profile" className="text-decoration-none">
-                            <div className={`rounded-circle d-flex align-items-center justify-content-center text-white`}
-                                 style={{ width: '32px', height: '32px', backgroundColor: location.pathname === '/profile' ? '#0d6efd' : '#ff6b4a' }}>
+                        </button>
+                        <button onClick={() => handleClick('/profile')} className="btn p-0 border-0">
+                            <div className={`d-flex align-items-center justify-content-center rounded-circle text-white`}
+                                 style={{ width: '32px', height: '32px', backgroundColor: activeWidgets.profile ? '#0d6efd' : '#ff6b4a' }}>
                                 <i className="bi bi-person-fill fs-5"></i>
                             </div>
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -60,31 +72,42 @@ function App() {
 
     const DesktopPageTitle = () => {
         const location = useLocation();
-        const getPageTitle = () => {
-            switch(location.pathname) {
-                case '/': return 'Dashboard';
-                case '/search': return 'Search';
-                case '/analytics': return 'Analytics';
-                case '/history': return 'History';
-                case '/notifications': return 'Notifications';
-                case '/settings': return 'Settings';
-                case '/profile': return 'Profile';
-                default: return 'Dashboard';
+        
+        const getActiveWidgetNames = () => {
+            const activeItems = [];
+            if (activeWidgets.bankCard) activeItems.push('Card Bancar');
+            if (activeWidgets.search) activeItems.push('Căutare');
+            if (activeWidgets.analytics) activeItems.push('Statistici');
+            if (activeWidgets.history) activeItems.push('Istoric');
+            if (activeWidgets.settings) activeItems.push('Setări');
+            if (activeWidgets.profile) activeItems.push('Profil');
+            return activeItems;
+        };
+
+        const getDisplayText = () => {
+            const activeItems = getActiveWidgetNames();
+            if (activeItems.length === 0) {
+                return 'CDI';
             }
+            return activeItems.join(' • ');
         };
 
         return (
             <div className="d-none d-md-block position-fixed start-50 translate-middle-x" 
                  style={{ 
-                     top: '20px',
+                     top: '40px',
                      zIndex: 1000
                  }}>
                 <div className="bg-white px-4 py-2 rounded-pill" 
                      style={{ 
                          minWidth: '160px',
-                         boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                         maxWidth: '600px',
+                         boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                         whiteSpace: 'nowrap',
+                         overflow: 'hidden',
+                         textOverflow: 'ellipsis'
                      }}>
-                    <h6 className="mb-0 fw-semibold text-center">{getPageTitle()}</h6>
+                    <h6 className="mb-0 fw-semibold text-center">{getDisplayText()}</h6>
                 </div>
             </div>
         );
@@ -92,6 +115,13 @@ function App() {
 
     const DesktopBottomBar = () => {
         const location = useLocation();
+        const navigate = useNavigate();
+
+        const handleClick = (path) => {
+            navigate(path);
+            handleNavigation(path);
+        };
+
         return (
             <div className="d-none d-md-block" style={{ position: 'fixed', bottom: '20px', width: '100%', zIndex: 1000 }}>
                 <div className="d-flex justify-content-center gap-3">
@@ -116,28 +146,32 @@ function App() {
                     }}>
                         <ul className="nav d-flex align-items-center gap-2 m-0">
                             <li className="nav-item">
-                                <Link to="/" className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === '/' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
+                                <button onClick={() => handleClick('/')} 
+                                        className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.bankCard ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
                                     <i className="bi bi-grid-1x2-fill fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Home</span>
-                                </Link>
+                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Card Bancar</span>
+                                </button>
                             </li>
                             <li className="nav-item">
-                                <Link to="/search" className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === '/search' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
+                                <button onClick={() => handleClick('/search')}
+                                        className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.search ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
                                     <i className="bi bi-search fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Search</span>
-                                </Link>
+                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Căutare</span>
+                                </button>
                             </li>
                             <li className="nav-item">
-                                <Link to="/analytics" className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === '/analytics' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
+                                <button onClick={() => handleClick('/analytics')}
+                                        className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.analytics ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
                                     <i className="bi bi-bar-chart-line fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Analytics</span>
-                                </Link>
+                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Statistici</span>
+                                </button>
                             </li>
                             <li className="nav-item">
-                                <Link to="/history" className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 ${location.pathname === '/history' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
+                                <button onClick={() => handleClick('/history')}
+                                        className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.history ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
                                     <i className="bi bi-clock-history fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>History</span>
-                                </Link>
+                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Istoric</span>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -150,18 +184,18 @@ function App() {
                         width: '120px'
                     }}>
                         <div className="d-flex align-items-center gap-2">
-                            <Link to="/settings" className="text-decoration-none">
-                                <div className={`d-flex align-items-center justify-content-center rounded-2 ${location.pathname === '/settings' ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
+                            <button onClick={() => handleClick('/settings')} className="btn p-0 border-0">
+                                <div className={`d-flex align-items-center justify-content-center rounded-2 ${activeWidgets.settings ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
                                      style={{ width: '32px', height: '32px' }}>
                                     <i className="bi bi-gear fs-5"></i>
                                 </div>
-                            </Link>
-                            <Link to="/profile" className="text-decoration-none">
+                            </button>
+                            <button onClick={() => handleClick('/profile')} className="btn p-0 border-0">
                                 <div className={`d-flex align-items-center justify-content-center rounded-circle text-white`}
-                                     style={{ width: '32px', height: '32px', backgroundColor: location.pathname === '/profile' ? '#0d6efd' : '#ff6b4a' }}>
+                                     style={{ width: '32px', height: '32px', backgroundColor: activeWidgets.profile ? '#0d6efd' : '#ff6b4a' }}>
                                     <i className="bi bi-person-fill fs-5"></i>
                                 </div>
-                            </Link>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -171,181 +205,325 @@ function App() {
 
     const BottomBar = () => {
         const location = useLocation();
+        const navigate = useNavigate();
+
+        const handleClick = (path) => {
+            navigate(path);
+            handleNavigation(path);
+        };
+
         return (
-            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ height: '56px', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
-                <ul className="nav w-100 h-100 d-flex justify-content-around align-items-center">
-                    <li className="nav-item text-center">
-                        <Link to="/" className={`nav-link p-0 ${location.pathname === '/' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                 style={{ backgroundColor: location.pathname === '/' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
+            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ height: '65px', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+                <ul className="nav w-100 h-100 d-flex justify-content-between align-items-center px-2">
+                    <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
+                        <button onClick={() => handleClick('/')} 
+                                className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.bankCard ? 'text-primary' : 'text-dark opacity-75'}`}>
+                            <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
+                                 style={{ backgroundColor: activeWidgets.bankCard ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
                                 <i className="bi bi-grid-1x2-fill fs-5"></i>
                             </div>
-                        </Link>
+                            <small className="d-block mt-0" style={{ fontSize: '11px' }}>Card Bancar</small>
+                        </button>
                     </li>
-                    <li className="nav-item text-center">
-                        <Link to="/search" className={`nav-link p-0 ${location.pathname === '/search' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                 style={{ backgroundColor: location.pathname === '/search' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
+                    <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
+                        <button onClick={() => handleClick('/search')}
+                                className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.search ? 'text-primary' : 'text-dark opacity-75'}`}>
+                            <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
+                                 style={{ backgroundColor: activeWidgets.search ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
                                 <i className="bi bi-search fs-5"></i>
                             </div>
-                        </Link>
+                            <small className="d-block mt-0" style={{ fontSize: '11px' }}>Căutare</small>
+                        </button>
                     </li>
-                    <li className="nav-item text-center">
-                        <Link to="/analytics" className={`nav-link p-0 ${location.pathname === '/analytics' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                 style={{ backgroundColor: location.pathname === '/analytics' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
+                    <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
+                        <button onClick={() => handleClick('/analytics')}
+                                className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.analytics ? 'text-primary' : 'text-dark opacity-75'}`}>
+                            <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
+                                 style={{ backgroundColor: activeWidgets.analytics ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
                                 <i className="bi bi-bar-chart-line fs-5"></i>
                             </div>
-                        </Link>
+                            <small className="d-block mt-0" style={{ fontSize: '11px' }}>Statistici</small>
+                        </button>
                     </li>
-                    <li className="nav-item text-center">
-                        <Link to="/history" className={`nav-link p-0 ${location.pathname === '/history' ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                 style={{ backgroundColor: location.pathname === '/history' ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
+                    <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
+                        <button onClick={() => handleClick('/history')}
+                                className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.history ? 'text-primary' : 'text-dark opacity-75'}`}>
+                            <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
+                                 style={{ backgroundColor: activeWidgets.history ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
                                 <i className="bi bi-clock-history fs-5"></i>
                             </div>
-                        </Link>
+                            <small className="d-block mt-0" style={{ fontSize: '11px' }}>Istoric</small>
+                        </button>
                     </li>
                 </ul>
             </nav>
         );
     };
 
-    const PageTemplate = ({ children, title }) => {
-        return (
-            <div className="h-100">
-                <div className="bg-white rounded-3 h-100 d-flex flex-column" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                    <div className="px-3 py-3 border-bottom">
-                        <h5 className="fw-semibold mb-0">{title}</h5>
-                    </div>
-                    <div className="p-3 flex-grow-1 overflow-auto">
-                        {children}
-                    </div>
-                </div>
-            </div>
-        );
-    };
+    const HomePage = () => null;
 
-    const HomePage = () => (
-        <PageTemplate title="Dashboard Overview">
-            <div className="row g-3 mx-0">
-                <div className="col-12 col-lg-6 px-2">
-                    <div className="bg-light rounded-3 p-3">
-                        <h6 className="fw-medium mb-3">Statistici Recente</h6>
-                        <p className="text-muted mb-0">Conținutul paginii va fi aici</p>
-                    </div>
-                </div>
-                <div className="col-12 col-lg-6 px-2">
-                    <div className="bg-light rounded-3 p-3">
-                        <h6 className="fw-medium mb-3">Activitate</h6>
-                        <p className="text-muted mb-0">Conținutul paginii va fi aici</p>
-                    </div>
-                </div>
-            </div>
-        </PageTemplate>
-    );
+    const SearchPage = () => null;
 
-    const SearchPage = () => (
-        <PageTemplate title="Căutare">
-            <div className="row g-3 mx-0">
-                <div className="col-12 col-md-8 col-lg-6 px-2">
-                    <div className="input-group">
-                        <span className="input-group-text bg-light border-end-0">
-                            <i className="bi bi-search"></i>
-                        </span>
-                        <input type="text" className="form-control bg-light border-start-0" placeholder="Caută..." />
-                    </div>
-                </div>
-                <div className="col-12 px-2">
-                    <div className="bg-light rounded-3 p-3">
-                        <p className="text-muted mb-0">Rezultatele căutării vor apărea aici</p>
-                    </div>
-                </div>
-            </div>
-        </PageTemplate>
-    );
+    const AnalyticsPage = () => null;
 
-    const AnalyticsPage = () => (
-        <PageTemplate title="Analiză">
-            <div className="row g-3 mx-0">
-                <div className="col-12 col-lg-8 px-2">
-                    <div className="bg-light rounded-3 p-3">
-                        <h6 className="fw-medium mb-3">Rapoarte</h6>
-                        <p className="text-muted mb-0">Graficele și statisticile vor fi aici</p>
-                    </div>
-                </div>
-            </div>
-        </PageTemplate>
-    );
+    const HistoryPage = () => null;
 
-    const HistoryPage = () => (
-        <PageTemplate title="Istoric">
-            <div className="row g-3 mx-0">
-                <div className="col-12 px-2">
-                    <div className="bg-light rounded-3 p-3">
-                        <h6 className="fw-medium mb-3">Activitate Recentă</h6>
-                        <p className="text-muted mb-0">Istoricul activităților va fi aici</p>
-                    </div>
-                </div>
-            </div>
-        </PageTemplate>
-    );
+    const NotificationsPage = () => null;
 
-    const NotificationsPage = () => (
-        <PageTemplate title="Notificări">
-            <div className="row g-3 mx-0">
-                <div className="col-12 col-lg-8 px-2">
-                    <div className="bg-light rounded-3 p-3">
-                        <h6 className="fw-medium mb-3">Notificări Recente</h6>
-                        <p className="text-muted mb-0">Lista de notificări va apărea aici</p>
-                    </div>
-                </div>
-            </div>
-        </PageTemplate>
-    );
+    const SettingsPage = () => null;
 
-    const SettingsPage = () => (
-        <PageTemplate title="Setări">
-            <div className="row g-3 mx-0">
-                <div className="col-12 col-md-8 col-lg-6 px-2">
-                    <div className="bg-light rounded-3 p-3">
-                        <h6 className="fw-medium mb-3">Preferințe</h6>
-                        <p className="text-muted mb-0">Opțiunile de configurare vor fi aici</p>
-                    </div>
-                </div>
-            </div>
-        </PageTemplate>
-    );
+    const ProfilePage = () => null;
 
-    const ProfilePage = () => (
-        <PageTemplate title="Profil">
-            <div className="row g-3 mx-0">
-                <div className="col-12 col-md-8 col-lg-6 px-2">
-                    <div className="bg-light rounded-3 p-3">
-                        <div className="d-flex align-items-center gap-3 mb-3">
-                            <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" 
-                                 style={{ width: '64px', height: '64px' }}>
-                                <i className="bi bi-person-fill fs-3"></i>
-                            </div>
-                            <div>
-                                <h6 className="fw-semibold mb-1">Nume Utilizator</h6>
-                                <p className="text-muted mb-0">email@example.com</p>
-                            </div>
+    const BankCardWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Card Bancar</h5>
+            <div className="card bg-primary text-white rounded-4" style={{ maxWidth: '360px' }}>
+                <div className="card-body p-4">
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <p className="mb-0 opacity-75" style={{ fontSize: '14px' }}>Sold Curent</p>
+                            <h3 className="mb-0 fw-semibold">12,350.75 MDL</h3>
                         </div>
-                        <p className="text-muted mb-0">Detaliile profilului vor fi aici</p>
+                        <i className="bi bi-credit-card fs-1"></i>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-end">
+                        <div>
+                            <p className="mb-1 opacity-75" style={{ fontSize: '14px' }}>Număr Card</p>
+                            <h6 className="mb-0 fw-semibold">**** **** **** 4589</h6>
+                        </div>
+                        <div className="text-end">
+                            <p className="mb-1 opacity-75" style={{ fontSize: '14px' }}>Expiră</p>
+                            <h6 className="mb-0 fw-semibold">12/25</h6>
+                        </div>
                     </div>
                 </div>
             </div>
-        </PageTemplate>
+        </div>
     );
+
+    const AnalyticsWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Statistica Cheltuielilor</h5>
+            <div className="row g-3">
+                <div className="col-12 col-md-6">
+                    <div className="p-3 rounded-3 bg-light">
+                        <p className="mb-1 text-muted" style={{ fontSize: '14px' }}>Cheltuieli Lunare</p>
+                        <h4 className="mb-0 fw-semibold">8,245.50 MDL</h4>
+                    </div>
+                </div>
+                <div className="col-12 col-md-6">
+                    <div className="p-3 rounded-3 bg-light">
+                        <p className="mb-1 text-muted" style={{ fontSize: '14px' }}>Economii</p>
+                        <h4 className="mb-0 fw-semibold">4,105.25 MDL</h4>
+                    </div>
+                </div>
+                <div className="col-12">
+                    <div className="p-3 rounded-3 bg-light">
+                        <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Categorii Principale</p>
+                        <div className="progress mb-2" style={{ height: '8px' }}>
+                            <div className="progress-bar bg-primary" style={{ width: '40%' }}></div>
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <span style={{ fontSize: '14px' }}>Cumpărături</span>
+                            <span style={{ fontSize: '14px' }}>40%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const SearchWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Căutare Rapidă</h5>
+            <div className="input-group mb-3">
+                <input type="text" className="form-control" placeholder="Caută tranzacții..." />
+                <button className="btn btn-primary">
+                    <i className="bi bi-search"></i>
+                </button>
+            </div>
+            <div className="d-flex gap-2 flex-wrap">
+                <button className="btn btn-light btn-sm">Ultima săptămână</button>
+                <button className="btn btn-light btn-sm">Ultima lună</button>
+                <button className="btn btn-light btn-sm">Suma {'>'}1000 MDL</button>
+                <button className="btn btn-light btn-sm">Cumpărături</button>
+            </div>
+        </div>
+    );
+
+    const HistoryWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Istoric Tranzacții</h5>
+            <div className="list-group">
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Kaufland</h6>
+                            <small className="text-muted">20 martie 2024</small>
+                        </div>
+                        <span className="text-danger fw-semibold">-245.50 MDL</span>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Transfer primit</h6>
+                            <small className="text-muted">19 martie 2024</small>
+                        </div>
+                        <span className="text-success fw-semibold">+1,500.00 MDL</span>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Farmacia Familiei</h6>
+                            <small className="text-muted">18 martie 2024</small>
+                        </div>
+                        <span className="text-danger fw-semibold">-156.75 MDL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const SettingsWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Setări</h5>
+            <div className="list-group">
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Notificări</h6>
+                            <small className="text-muted">Gestionează notificările aplicației</small>
+                        </div>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" role="switch" id="notificationsSwitch" />
+                        </div>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Mod Întunecat</h6>
+                            <small className="text-muted">Schimbă tema aplicației</small>
+                        </div>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" role="switch" id="darkModeSwitch" />
+                        </div>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Limbă</h6>
+                            <small className="text-muted">Alege limba aplicației</small>
+                        </div>
+                        <select className="form-select" style={{ width: 'auto' }}>
+                            <option>Română</option>
+                            <option>English</option>
+                            <option>Русский</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const ProfileWidget = () => (
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <h5 className="mb-4 fw-semibold">Profil</h5>
+            <div className="text-center mb-4">
+                <div className="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3"
+                     style={{ width: '80px', height: '80px' }}>
+                    <i className="bi bi-person-fill text-white fs-1"></i>
+                </div>
+                <h5 className="mb-1">Ion Popescu</h5>
+                <p className="text-muted mb-0">ion.popescu@example.com</p>
+            </div>
+            <div className="list-group">
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Număr Telefon</h6>
+                            <small className="text-muted">+373 69 123 456</small>
+                        </div>
+                        <button className="btn btn-sm btn-outline-primary">Editează</button>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Adresă</h6>
+                            <small className="text-muted">Str. Ștefan cel Mare 123, Chișinău</small>
+                        </div>
+                        <button className="btn btn-sm btn-outline-primary">Editează</button>
+                    </div>
+                </div>
+                <div className="list-group-item border-0 bg-light rounded-3">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 className="mb-1">Securitate</h6>
+                            <small className="text-muted">Schimbă parola</small>
+                        </div>
+                        <button className="btn btn-sm btn-outline-primary">Modifică</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+
+    const handleNavigation = (path) => {
+        switch(path) {
+            case '/':
+                setActiveWidgets(prev => ({
+                    ...prev,
+                    bankCard: !prev.bankCard
+                }));
+                break;
+            case '/analytics':
+                setActiveWidgets(prev => ({
+                    ...prev,
+                    analytics: !prev.analytics
+                }));
+                break;
+            case '/search':
+                setActiveWidgets(prev => ({
+                    ...prev,
+                    search: !prev.search
+                }));
+                break;
+            case '/history':
+                setActiveWidgets(prev => ({
+                    ...prev,
+                    history: !prev.history
+                }));
+                break;
+            case '/settings':
+                setActiveWidgets(prev => ({
+                    ...prev,
+                    settings: !prev.settings
+                }));
+                break;
+            case '/profile':
+                setActiveWidgets(prev => ({
+                    ...prev,
+                    profile: !prev.profile
+                }));
+                break;
+            default:
+                break;
+        }
+    };
 
     return (
         <Router>
-            <div className="min-vh-100" style={{ backgroundColor: '#f5f9ff' }}>
+            <div className="min-vh-100" style={{ backgroundColor: 'rgba(13, 145, 253, 0.03)' }}>
                 <MobileTopBar />
                 <DesktopPageTitle />
                 <DesktopBottomBar />
                 <BottomBar />
+                
+                {/* Desktop Content */}
                 <div className="d-none d-md-block" style={{ 
                     position: 'fixed',
                     top: '70px',
@@ -354,20 +532,45 @@ function App() {
                     right: 0,
                     overflow: 'auto'
                 }}>
-                    <div className="container-fluid h-100 py-3">
+                    <div className="container-fluid h-100 py-2">
                         <div className="px-4 h-100">
-                            <Routes>
-                                <Route path="/" element={<HomePage />} />
-                                <Route path="/search" element={<SearchPage />} />
-                                <Route path="/analytics" element={<AnalyticsPage />} />
-                                <Route path="/history" element={<HistoryPage />} />
-                                <Route path="/notifications" element={<NotificationsPage />} />
-                                <Route path="/settings" element={<SettingsPage />} />
-                                <Route path="/profile" element={<ProfilePage />} />
-                            </Routes>
+                            <div className="d-flex flex-wrap" style={{ gap: '8px' }}>
+                                {activeWidgets.bankCard && (
+                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                        <BankCardWidget />
+                                    </div>
+                                )}
+                                {activeWidgets.analytics && (
+                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                        <AnalyticsWidget />
+                                    </div>
+                                )}
+                                {activeWidgets.search && (
+                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                        <SearchWidget />
+                                    </div>
+                                )}
+                                {activeWidgets.history && (
+                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                        <HistoryWidget />
+                                    </div>
+                                )}
+                                {activeWidgets.settings && (
+                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                        <SettingsWidget />
+                                    </div>
+                                )}
+                                {activeWidgets.profile && (
+                                    <div style={{ flex: '1 1 360px', minWidth: '360px', maxWidth: 'calc(33.333% - 6px)' }}>
+                                        <ProfileWidget />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Mobile Content */}
                 <div className="d-md-none" style={{ 
                     position: 'fixed',
                     top: '56px',
@@ -376,18 +579,27 @@ function App() {
                     right: 0,
                     overflow: 'auto'
                 }}>
-                    <div className="container-fluid h-100 py-3 px-3">
-                        <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/search" element={<SearchPage />} />
-                            <Route path="/analytics" element={<AnalyticsPage />} />
-                            <Route path="/history" element={<HistoryPage />} />
-                            <Route path="/notifications" element={<NotificationsPage />} />
-                            <Route path="/settings" element={<SettingsPage />} />
-                            <Route path="/profile" element={<ProfilePage />} />
-                        </Routes>
+                    <div className="container-fluid h-100 py-2 px-2">
+                        <div className="d-flex flex-column" style={{ gap: '8px' }}>
+                            {activeWidgets.bankCard && <BankCardWidget />}
+                            {activeWidgets.analytics && <AnalyticsWidget />}
+                            {activeWidgets.search && <SearchWidget />}
+                            {activeWidgets.history && <HistoryWidget />}
+                            {activeWidgets.settings && <SettingsWidget />}
+                            {activeWidgets.profile && <ProfileWidget />}
+                        </div>
                     </div>
                 </div>
+
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/analytics" element={<AnalyticsPage />} />
+                    <Route path="/history" element={<HistoryPage />} />
+                    <Route path="/notifications" element={<NotificationsPage />} />
+                    <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                </Routes>
             </div>
         </Router>
     );
