@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -62,27 +61,15 @@ function App() {
     const [activeWidgets, setActiveWidgets] = useState({
         bankCard: false,
         analytics: false,
-        search: false,
-        history: false,
         settings: false,
         profile: false
     });
 
     const MobileTopBar = () => {
-        const location = useLocation();
-        const navigate = useNavigate();
-
-        const handleClick = (path) => {
-            navigate(path);
-            handleNavigation(path);
-        };
-
         const getActiveWidgetNames = () => {
             const activeItems = [];
             if (activeWidgets.bankCard) activeItems.push('Card Bancar');
-            if (activeWidgets.search) activeItems.push('Căutare');
             if (activeWidgets.analytics) activeItems.push('Statistici');
-            if (activeWidgets.history) activeItems.push('Istoric');
             return activeItems;
         };
 
@@ -92,6 +79,13 @@ function App() {
                 return 'CDI';
             }
             return activeItems.join(' • ');
+        };
+
+        const handleClick = (widget) => {
+            setActiveWidgets(prev => ({
+                ...prev,
+                [widget]: !prev[widget]
+            }));
         };
 
         return (
@@ -106,13 +100,13 @@ function App() {
                         <h6 className="mb-0 fw-semibold text-dark">{getDisplayText()}</h6>
                     </div>
                     <div className="d-flex align-items-center gap-1" style={{ width: '80px' }}>
-                        <button onClick={() => handleClick('/settings')} className="btn p-0 border-0">
+                        <button onClick={() => handleClick('settings')} className="btn p-0 border-0">
                             <div className={`d-flex align-items-center justify-content-center rounded-2 ${activeWidgets.settings ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
                                  style={{ width: '32px', height: '32px' }}>
                                 <i className="bi bi-gear fs-5"></i>
                             </div>
                         </button>
-                        <button onClick={() => handleClick('/profile')} className="btn p-0 border-0">
+                        <button onClick={() => handleClick('profile')} className="btn p-0 border-0">
                             <div className={`d-flex align-items-center justify-content-center rounded-circle text-white`}
                                  style={{ width: '32px', height: '32px', backgroundColor: activeWidgets.profile ? '#0d6efd' : '#ff6b4a' }}>
                                 <i className="bi bi-person-fill fs-5"></i>
@@ -125,16 +119,10 @@ function App() {
     };
 
     const DesktopPageTitle = () => {
-        const location = useLocation();
-        
         const getActiveWidgetNames = () => {
             const activeItems = [];
             if (activeWidgets.bankCard) activeItems.push('Card Bancar');
-            if (activeWidgets.search) activeItems.push('Căutare');
             if (activeWidgets.analytics) activeItems.push('Statistici');
-            if (activeWidgets.history) activeItems.push('Istoric');
-            if (activeWidgets.settings) activeItems.push('Setări');
-            if (activeWidgets.profile) activeItems.push('Profil');
             return activeItems;
         };
 
@@ -173,12 +161,11 @@ function App() {
     };
 
     const DesktopBottomBar = () => {
-        const location = useLocation();
-        const navigate = useNavigate();
-
-        const handleClick = (path) => {
-            navigate(path);
-            handleNavigation(path);
+        const handleClick = (widget) => {
+            setActiveWidgets(prev => ({
+                ...prev,
+                [widget]: !prev[widget]
+            }));
         };
 
         return (
@@ -205,31 +192,17 @@ function App() {
                     }}>
                         <ul className="nav d-flex align-items-center gap-2 m-0">
                             <li className="nav-item">
-                                <button onClick={() => handleClick('/')} 
+                                <button onClick={() => handleClick('bankCard')} 
                                         className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.bankCard ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
                                     <i className="bi bi-grid-1x2-fill fs-5"></i>
                                     <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Card Bancar</span>
                                 </button>
                             </li>
                             <li className="nav-item">
-                                <button onClick={() => handleClick('/search')}
-                                        className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.search ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
-                                    <i className="bi bi-search fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Căutare</span>
-                                </button>
-                            </li>
-                            <li className="nav-item">
-                                <button onClick={() => handleClick('/analytics')}
+                                <button onClick={() => handleClick('analytics')}
                                         className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.analytics ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
                                     <i className="bi bi-bar-chart-line fs-5"></i>
                                     <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Statistici</span>
-                                </button>
-                            </li>
-                            <li className="nav-item">
-                                <button onClick={() => handleClick('/history')}
-                                        className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.history ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
-                                    <i className="bi bi-clock-history fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Istoric</span>
                                 </button>
                             </li>
                         </ul>
@@ -243,13 +216,13 @@ function App() {
                         width: '120px'
                     }}>
                         <div className="d-flex align-items-center gap-2">
-                            <button onClick={() => handleClick('/settings')} className="btn p-0 border-0">
+                            <button onClick={() => handleClick('settings')} className="btn p-0 border-0">
                                 <div className={`d-flex align-items-center justify-content-center rounded-2 ${activeWidgets.settings ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
                                      style={{ width: '32px', height: '32px' }}>
                                     <i className="bi bi-gear fs-5"></i>
                                 </div>
                             </button>
-                            <button onClick={() => handleClick('/profile')} className="btn p-0 border-0">
+                            <button onClick={() => handleClick('profile')} className="btn p-0 border-0">
                                 <div className={`d-flex align-items-center justify-content-center rounded-circle text-white`}
                                      style={{ width: '32px', height: '32px', backgroundColor: activeWidgets.profile ? '#0d6efd' : '#ff6b4a' }}>
                                     <i className="bi bi-person-fill fs-5"></i>
@@ -263,19 +236,18 @@ function App() {
     };
 
     const BottomBar = () => {
-        const location = useLocation();
-        const navigate = useNavigate();
-
-        const handleClick = (path) => {
-            navigate(path);
-            handleNavigation(path);
+        const handleClick = (widget) => {
+            setActiveWidgets(prev => ({
+                ...prev,
+                [widget]: !prev[widget]
+            }));
         };
 
         return (
             <nav className="navbar fixed-bottom d-md-none bg-white" style={{ height: '85px', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)', paddingBottom: '10px' }}>
                 <ul className="nav w-100 h-100 d-flex justify-content-between align-items-center px-2">
                     <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
-                        <button onClick={() => handleClick('/')} 
+                        <button onClick={() => handleClick('bankCard')} 
                                 className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.bankCard ? 'text-primary' : 'text-dark opacity-75'}`}>
                             <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
                                  style={{ backgroundColor: activeWidgets.bankCard ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
@@ -285,17 +257,7 @@ function App() {
                         </button>
                     </li>
                     <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
-                        <button onClick={() => handleClick('/search')}
-                                className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.search ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
-                                 style={{ backgroundColor: activeWidgets.search ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
-                                <i className="bi bi-search fs-5"></i>
-                            </div>
-                            <small className="d-block mt-0" style={{ fontSize: '11px' }}>Căutare</small>
-                        </button>
-                    </li>
-                    <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
-                        <button onClick={() => handleClick('/analytics')}
+                        <button onClick={() => handleClick('analytics')}
                                 className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.analytics ? 'text-primary' : 'text-dark opacity-75'}`}>
                             <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
                                  style={{ backgroundColor: activeWidgets.analytics ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
@@ -304,33 +266,14 @@ function App() {
                             <small className="d-block mt-0" style={{ fontSize: '11px' }}>Statistici</small>
                         </button>
                     </li>
-                    <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
-                        <button onClick={() => handleClick('/history')}
-                                className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.history ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
-                                 style={{ backgroundColor: activeWidgets.history ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
-                                <i className="bi bi-clock-history fs-5"></i>
-                            </div>
-                            <small className="d-block mt-0" style={{ fontSize: '11px' }}>Istoric</small>
-                        </button>
-                    </li>
                 </ul>
             </nav>
         );
     };
 
     const HomePage = () => null;
-
-    const SearchPage = () => null;
-
     const AnalyticsPage = () => null;
-
-    const HistoryPage = () => null;
-
-    const NotificationsPage = () => null;
-
     const SettingsPage = () => null;
-
     const ProfilePage = () => null;
 
     const BankCardWidget = () => (
@@ -386,59 +329,6 @@ function App() {
                             <span style={{ fontSize: '14px' }}>Cumpărături</span>
                             <span style={{ fontSize: '14px' }}>40%</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    const SearchWidget = () => (
-        <div className="widget-container">
-            <h5 className="mb-4 fw-semibold">Căutare Rapidă</h5>
-            <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Caută tranzacții..." />
-                <button className="btn btn-primary">
-                    <i className="bi bi-search"></i>
-                </button>
-            </div>
-            <div className="d-flex gap-2 flex-wrap">
-                <button className="btn btn-light btn-sm">Ultima săptămână</button>
-                <button className="btn btn-light btn-sm">Ultima lună</button>
-                <button className="btn btn-light btn-sm">Suma {'>'}1000 MDL</button>
-                <button className="btn btn-light btn-sm">Cumpărături</button>
-            </div>
-        </div>
-    );
-
-    const HistoryWidget = () => (
-        <div className="widget-container">
-            <h5 className="mb-4 fw-semibold">Istoric Tranzacții</h5>
-            <div className="list-group">
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Kaufland</h6>
-                            <small className="text-muted">20 martie 2024</small>
-                        </div>
-                        <span className="text-danger fw-semibold">-245.50 MDL</span>
-                    </div>
-                </div>
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Transfer primit</h6>
-                            <small className="text-muted">19 martie 2024</small>
-                        </div>
-                        <span className="text-success fw-semibold">+1,500.00 MDL</span>
-                    </div>
-                </div>
-                <div className="list-group-item border-0 bg-light rounded-3">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Farmacia Familiei</h6>
-                            <small className="text-muted">18 martie 2024</small>
-                        </div>
-                        <span className="text-danger fw-semibold">-156.75 MDL</span>
                     </div>
                 </div>
             </div>
@@ -554,18 +444,6 @@ function App() {
                                 <p className="mb-0 small">Vizualizați statistici</p>
                             </div>
                         </div>
-                        <div className="col-6">
-                            <div className="p-3 rounded-3 bg-light text-center">
-                                <i className="bi bi-search fs-4 text-primary mb-2"></i>
-                                <p className="mb-0 small">Căutați tranzacții</p>
-                            </div>
-                        </div>
-                        <div className="col-6">
-                            <div className="p-3 rounded-3 bg-light text-center">
-                                <i className="bi bi-clock-history fs-4 text-primary mb-2"></i>
-                                <p className="mb-0 small">Accesați istoricul</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -646,68 +524,6 @@ function App() {
         </div>
     );
 
-    const SearchFiltersWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h5 className="mb-4 fw-semibold">Filtre Avansate</h5>
-            <div className="mb-3">
-                <label className="form-label">Interval de Timp</label>
-                <select className="form-select mb-3">
-                    <option>Ultima săptămână</option>
-                    <option>Ultima lună</option>
-                    <option>Ultimele 3 luni</option>
-                    <option>Interval personalizat</option>
-                </select>
-                <label className="form-label">Categorie</label>
-                <select className="form-select mb-3">
-                    <option>Toate categoriile</option>
-                    <option>Cumpărături</option>
-                    <option>Transport</option>
-                    <option>Utilități</option>
-                    <option>Divertisment</option>
-                </select>
-                <label className="form-label">Sumă</label>
-                <div className="input-group">
-                    <input type="number" className="form-control" placeholder="De la" />
-                    <input type="number" className="form-control" placeholder="Până la" />
-                </div>
-            </div>
-        </div>
-    );
-
-    const HistoryDetailsWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h5 className="mb-4 fw-semibold">Detalii Tranzacții</h5>
-            <div className="list-group">
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex flex-column">
-                        <div className="d-flex justify-content-between align-items-center mb-2">
-                            <h6 className="mb-0">Kaufland</h6>
-                            <span className="badge bg-danger">-245.50 MDL</span>
-                        </div>
-                        <small className="text-muted mb-2">20 martie 2024, 15:30</small>
-                        <div className="d-flex gap-2">
-                            <span className="badge bg-light text-dark">Cumpărături</span>
-                            <span className="badge bg-light text-dark">Card de debit</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="list-group-item border-0 bg-light rounded-3">
-                    <div className="d-flex flex-column">
-                        <div className="d-flex justify-content-between align-items-center mb-2">
-                            <h6 className="mb-0">Transfer Primit</h6>
-                            <span className="badge bg-success">+1,500.00 MDL</span>
-                        </div>
-                        <small className="text-muted mb-2">19 martie 2024, 10:15</small>
-                        <div className="d-flex gap-2">
-                            <span className="badge bg-light text-dark">Transfer</span>
-                            <span className="badge bg-light text-dark">Online</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
     const SecurityWidget = () => (
         <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
             <h5 className="mb-4 fw-semibold">Securitate</h5>
@@ -781,49 +597,6 @@ function App() {
         </div>
     );
 
-    const handleNavigation = (path) => {
-        switch(path) {
-            case '/':
-                setActiveWidgets(prev => ({
-                    ...prev,
-                    bankCard: !prev.bankCard
-                }));
-                break;
-            case '/analytics':
-                setActiveWidgets(prev => ({
-                    ...prev,
-                    analytics: !prev.analytics
-                }));
-                break;
-            case '/search':
-                setActiveWidgets(prev => ({
-                    ...prev,
-                    search: !prev.search
-                }));
-                break;
-            case '/history':
-                setActiveWidgets(prev => ({
-                    ...prev,
-                    history: !prev.history
-                }));
-                break;
-            case '/settings':
-                setActiveWidgets(prev => ({
-                    ...prev,
-                    settings: !prev.settings
-                }));
-                break;
-            case '/profile':
-                setActiveWidgets(prev => ({
-                    ...prev,
-                    profile: !prev.profile
-                }));
-                break;
-            default:
-                break;
-        }
-    };
-
     const breakpointColumns = {
         default: 4,
         1400: 3,
@@ -832,146 +605,86 @@ function App() {
     };
 
     return (
-        <Router>
-            <div className="min-vh-100" style={{ backgroundColor: 'rgba(13, 145, 253, 0.03)' }}>
-                <MobileTopBar />
-                <DesktopPageTitle />
-                <DesktopBottomBar />
-                <BottomBar />
-                
-                {/* Desktop Content */}
-                <div className="d-none d-md-block" style={{ 
-                    position: 'fixed',
-                    top: '70px',
-                    bottom: '95px',
-                    left: 0,
-                    right: 0,
-                    overflow: 'auto',
-                    padding: '24px'
-                }}>
-                    <div className="container-fluid h-100">
-                        {!Object.values(activeWidgets).some(value => value) ? (
-                            <DefaultWidget />
-                        ) : (
-                            <Masonry
-                                breakpointCols={breakpointColumns}
-                                className="my-masonry-grid"
-                                columnClassName="my-masonry-grid_column"
-                            >
-                                {activeWidgets.bankCard && (
-                                    <>
-                                        <div><BankCardWidget /></div>
-                                        <div><BankCardTransactionsWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.analytics && (
-                                    <>
-                                        <div><AnalyticsWidget /></div>
-                                        <div><AnalyticsChartWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.search && (
-                                    <>
-                                        <div><SearchWidget /></div>
-                                        <div><SearchFiltersWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.history && (
-                                    <>
-                                        <div><HistoryWidget /></div>
-                                        <div><HistoryDetailsWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.settings && (
-                                    <>
-                                        <div><SettingsWidget /></div>
-                                        <div><SecurityWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.profile && (
-                                    <>
-                                        <div><ProfileWidget /></div>
-                                        <div><AccountDetailsWidget /></div>
-                                    </>
-                                )}
-                            </Masonry>
-                        )}
-                    </div>
+        <div className="min-vh-100" style={{ backgroundColor: 'rgba(13, 145, 253, 0.03)' }}>
+            <MobileTopBar />
+            <DesktopPageTitle />
+            <DesktopBottomBar />
+            <BottomBar />
+            
+            {/* Desktop Content */}
+            <div className="d-none d-md-block" style={{ 
+                position: 'fixed',
+                top: '70px',
+                bottom: '95px',
+                left: 0,
+                right: 0,
+                overflow: 'auto',
+                padding: '24px'
+            }}>
+                <div className="container-fluid h-100">
+                    {!Object.values(activeWidgets).some(value => value) ? (
+                        <DefaultWidget />
+                    ) : (
+                        <Masonry
+                            breakpointCols={breakpointColumns}
+                            className="my-masonry-grid"
+                            columnClassName="my-masonry-grid_column"
+                        >
+                            {activeWidgets.bankCard && (
+                                <div><BankCardWidget /></div>
+                            )}
+                            {activeWidgets.analytics && (
+                                <div><AnalyticsWidget /></div>
+                            )}
+                            {activeWidgets.settings && (
+                                <div><SettingsWidget /></div>
+                            )}
+                            {activeWidgets.profile && (
+                                <div><ProfileWidget /></div>
+                            )}
+                        </Masonry>
+                    )}
                 </div>
-
-                {/* Mobile Content */}
-                <div className="d-md-none" style={{ 
-                    position: 'fixed',
-                    top: '56px',
-                    bottom: '85px',
-                    left: 0,
-                    right: 0,
-                    overflow: 'auto',
-                    backgroundColor: 'rgba(13, 145, 253, 0.03)',
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}>
-                    <div className="container-fluid px-0 flex-grow-1 d-flex flex-column">
-                        {!Object.values(activeWidgets).some(value => value) ? (
-                            <DefaultWidget />
-                        ) : (
-                            <Masonry
-                                breakpointCols={1}
-                                className="my-masonry-grid flex-grow-1"
-                                columnClassName="my-masonry-grid_column"
-                            >
-                                {activeWidgets.bankCard && (
-                                    <>
-                                        <div><BankCardWidget /></div>
-                                        <div><BankCardTransactionsWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.analytics && (
-                                    <>
-                                        <div><AnalyticsWidget /></div>
-                                        <div><AnalyticsChartWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.search && (
-                                    <>
-                                        <div><SearchWidget /></div>
-                                        <div><SearchFiltersWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.history && (
-                                    <>
-                                        <div><HistoryWidget /></div>
-                                        <div><HistoryDetailsWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.settings && (
-                                    <>
-                                        <div><SettingsWidget /></div>
-                                        <div><SecurityWidget /></div>
-                                    </>
-                                )}
-                                {activeWidgets.profile && (
-                                    <>
-                                        <div><ProfileWidget /></div>
-                                        <div><AccountDetailsWidget /></div>
-                                    </>
-                                )}
-                            </Masonry>
-                        )}
-                    </div>
-                </div>
-
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/search" element={<SearchPage />} />
-                    <Route path="/analytics" element={<AnalyticsPage />} />
-                    <Route path="/history" element={<HistoryPage />} />
-                    <Route path="/notifications" element={<NotificationsPage />} />
-                    <Route path="/settings" element={<SettingsPage />} />
-                    <Route path="/profile" element={<ProfilePage />} />
-                </Routes>
             </div>
-        </Router>
+
+            {/* Mobile Content */}
+            <div className="d-md-none" style={{ 
+                position: 'fixed',
+                top: '56px',
+                bottom: '85px',
+                left: 0,
+                right: 0,
+                overflow: 'auto',
+                backgroundColor: 'rgba(13, 145, 253, 0.03)',
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
+                <div className="container-fluid px-0 flex-grow-1 d-flex flex-column">
+                    {!Object.values(activeWidgets).some(value => value) ? (
+                        <DefaultWidget />
+                    ) : (
+                        <Masonry
+                            breakpointCols={1}
+                            className="my-masonry-grid flex-grow-1"
+                            columnClassName="my-masonry-grid_column"
+                        >
+                            {activeWidgets.bankCard && (
+                                <div><BankCardWidget /></div>
+                            )}
+                            {activeWidgets.analytics && (
+                                <div><AnalyticsWidget /></div>
+                            )}
+                            {activeWidgets.settings && (
+                                <div><SettingsWidget /></div>
+                            )}
+                            {activeWidgets.profile && (
+                                <div><ProfileWidget /></div>
+                            )}
+                        </Masonry>
+                    )}
+                </div>
+            </div>
+        </div>
     );
 }
 
