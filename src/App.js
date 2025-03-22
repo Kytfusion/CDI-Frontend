@@ -64,11 +64,7 @@ document.head.appendChild(styleSheet);
 function App() {
     const [activeWidgets, setActiveWidgets] = useState({
         systemResources: true,
-        hardware: true,
         performance: true,
-        events: true,
-        security: true,
-        network: true,
         settings: false,
         profile: false
     });
@@ -202,43 +198,11 @@ function App() {
                                     </button>
                                 </li>
                                 <li className="nav-item">
-                                    <button onClick={() => handleClick('hardware')}
-                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.hardware ? 'text-primary' : 'text-dark opacity-75'}`}
-                                            style={{ height: '40px' }}>
-                                        <i className="bi bi-pc-display"></i>
-                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Hardware</span>
-                                    </button>
-                                </li>
-                                <li className="nav-item">
                                     <button onClick={() => handleClick('performance')}
                                             className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.performance ? 'text-primary' : 'text-dark opacity-75'}`}
                                             style={{ height: '40px' }}>
                                         <i className="bi bi-speedometer2"></i>
                                         <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Performanță</span>
-                                    </button>
-                                </li>
-                                <li className="nav-item">
-                                    <button onClick={() => handleClick('events')}
-                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.events ? 'text-primary' : 'text-dark opacity-75'}`}
-                                            style={{ height: '40px' }}>
-                                        <i className="bi bi-bell"></i>
-                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Evenimente</span>
-                                    </button>
-                                </li>
-                                <li className="nav-item">
-                                    <button onClick={() => handleClick('security')}
-                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.security ? 'text-primary' : 'text-dark opacity-75'}`}
-                                            style={{ height: '40px' }}>
-                                        <i className="bi bi-shield-check"></i>
-                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Securitate</span>
-                                    </button>
-                                </li>
-                                <li className="nav-item">
-                                    <button onClick={() => handleClick('network')}
-                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.network ? 'text-primary' : 'text-dark opacity-75'}`}
-                                            style={{ height: '40px' }}>
-                                        <i className="bi bi-diagram-3"></i>
-                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Rețea</span>
                                     </button>
                                 </li>
                             </ul>
@@ -281,31 +245,37 @@ function App() {
         </div>
     );
 
-    const AnalyticsWidget = () => (
+    const AnalyticsChartWidget = () => (
         <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
-            <h5 className="mb-4 fw-semibold">Monitorizare Hardware</h5>
-            <div className="row g-3">
-                <div className="col-12 col-md-6">
-                    <div className="p-3 rounded-3 bg-light">
-                        <p className="mb-1 text-muted" style={{ fontSize: '14px' }}>Temperatură CPU</p>
-                        <h4 className="mb-0 fw-semibold">45°C</h4>
-                    </div>
-                </div>
-                <div className="col-12 col-md-6">
-                    <div className="p-3 rounded-3 bg-light">
-                        <p className="mb-1 text-muted" style={{ fontSize: '14px' }}>Viteză Ventilator</p>
-                        <h4 className="mb-0 fw-semibold">1200 RPM</h4>
-                    </div>
-                </div>
-                <div className="col-12">
-                    <div className="p-3 rounded-3 bg-light">
-                        <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Sănătate SSD</p>
-                        <div className="progress mb-2" style={{ height: '8px' }}>
-                            <div className="progress-bar bg-success" style={{ width: '92%' }}></div>
+            <h5 className="mb-4 fw-semibold">Performanță Sistem</h5>
+            <div className="p-3 rounded-3 bg-light">
+                <div className="mb-4">
+                    <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Resurse Utilizate</p>
+                    <div className="mb-3">
+                        <div className="d-flex justify-content-between mb-1">
+                            <span style={{ fontSize: '14px' }}>CPU</span>
+                            <span style={{ fontSize: '14px' }}>45.2%</span>
                         </div>
-                        <div className="d-flex justify-content-between">
-                            <span style={{ fontSize: '14px' }}>Transfer Date</span>
-                            <span style={{ fontSize: '14px' }}>60%</span>
+                        <div className="progress" style={{ height: '8px' }}>
+                            <div className="progress-bar bg-primary" style={{ width: '45%' }}></div>
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <div className="d-flex justify-content-between mb-1">
+                            <span style={{ fontSize: '14px' }}>Memorie</span>
+                            <span style={{ fontSize: '14px' }}>62.5%</span>
+                        </div>
+                        <div className="progress" style={{ height: '8px' }}>
+                            <div className="progress-bar bg-success" style={{ width: '62%' }}></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="d-flex justify-content-between mb-1">
+                            <span style={{ fontSize: '14px' }}>Disk I/O</span>
+                            <span style={{ fontSize: '14px' }}>28.3%</span>
+                        </div>
+                        <div className="progress" style={{ height: '8px' }}>
+                            <div className="progress-bar bg-warning" style={{ width: '28%' }}></div>
                         </div>
                     </div>
                 </div>
@@ -428,153 +398,6 @@ function App() {
         </div>
     );
 
-    const BankCardTransactionsWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
-            <h5 className="mb-4 fw-semibold">Evenimente Sistem</h5>
-            <div className="list-group">
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div className="d-flex align-items-center gap-3">
-                            <div className="rounded-circle bg-warning bg-opacity-10 p-2">
-                                <i className="bi bi-exclamation-triangle text-warning"></i>
-                            </div>
-                            <div>
-                                <h6 className="mb-1">Utilizare CPU Ridicată</h6>
-                                <small className="text-muted">Acum 5 minute</small>
-                            </div>
-                        </div>
-                        <span className="badge bg-warning">Avertisment</span>
-                    </div>
-                </div>
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div className="d-flex align-items-center gap-3">
-                            <div className="rounded-circle bg-success bg-opacity-10 p-2">
-                                <i className="bi bi-check-circle text-success"></i>
-                            </div>
-                            <div>
-                                <h6 className="mb-1">Actualizare Sistem</h6>
-                                <small className="text-muted">Acum 15 minute</small>
-                            </div>
-                        </div>
-                        <span className="badge bg-success">Succes</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    const AnalyticsChartWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
-            <h5 className="mb-4 fw-semibold">Performanță Sistem</h5>
-            <div className="p-3 rounded-3 bg-light">
-                <div className="mb-4">
-                    <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Resurse Utilizate</p>
-                    <div className="mb-3">
-                        <div className="d-flex justify-content-between mb-1">
-                            <span style={{ fontSize: '14px' }}>CPU</span>
-                            <span style={{ fontSize: '14px' }}>45.2%</span>
-                        </div>
-                        <div className="progress" style={{ height: '8px' }}>
-                            <div className="progress-bar bg-primary" style={{ width: '45%' }}></div>
-                        </div>
-                    </div>
-                    <div className="mb-3">
-                        <div className="d-flex justify-content-between mb-1">
-                            <span style={{ fontSize: '14px' }}>Memorie</span>
-                            <span style={{ fontSize: '14px' }}>62.5%</span>
-                        </div>
-                        <div className="progress" style={{ height: '8px' }}>
-                            <div className="progress-bar bg-success" style={{ width: '62%' }}></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="d-flex justify-content-between mb-1">
-                            <span style={{ fontSize: '14px' }}>Disk I/O</span>
-                            <span style={{ fontSize: '14px' }}>28.3%</span>
-                        </div>
-                        <div className="progress" style={{ height: '8px' }}>
-                            <div className="progress-bar bg-warning" style={{ width: '28%' }}></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    const SecurityWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
-            <h5 className="mb-4 fw-semibold">Securitate Sistem</h5>
-            <div className="list-group">
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Firewall</h6>
-                            <small className="text-muted">Protecție activă</small>
-                        </div>
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" role="switch" defaultChecked />
-                        </div>
-                    </div>
-                </div>
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Scanare Automată</h6>
-                            <small className="text-muted">Verificare malware</small>
-                        </div>
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" role="switch" defaultChecked />
-                        </div>
-                    </div>
-                </div>
-                <div className="list-group-item border-0 bg-light rounded-3">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Conexiuni Active</h6>
-                            <small className="text-muted">Monitorizare porturi</small>
-                        </div>
-                        <button className="btn btn-sm btn-outline-primary">Vezi</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    const AccountDetailsWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
-            <h5 className="mb-4 fw-semibold">Informații Sistem</h5>
-            <div className="list-group">
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Sistem de Operare</h6>
-                            <small className="text-muted">Linux 6.8.0-52-generic</small>
-                        </div>
-                        <span className="badge bg-primary">Actualizat</span>
-                    </div>
-                </div>
-                <div className="list-group-item border-0 bg-light rounded-3 mb-2">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Timp de Funcționare</h6>
-                            <small className="text-muted">5 zile, 3 ore</small>
-                        </div>
-                    </div>
-                </div>
-                <div className="list-group-item border-0 bg-light rounded-3">
-                    <div className="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 className="mb-1">Logs Sistem</h6>
-                            <small className="text-muted">Jurnale și rapoarte</small>
-                        </div>
-                        <button className="btn btn-sm btn-outline-primary">Descarcă</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
     const breakpointColumns = {
         default: 4,
         1400: 3,
@@ -609,20 +432,8 @@ function App() {
                             {activeWidgets.systemResources && (
                                 <div><BankCardWidget /></div>
                             )}
-                            {activeWidgets.hardware && (
-                                <div><AnalyticsWidget /></div>
-                            )}
                             {activeWidgets.performance && (
                                 <div><AnalyticsChartWidget /></div>
-                            )}
-                            {activeWidgets.events && (
-                                <div><BankCardTransactionsWidget /></div>
-                            )}
-                            {activeWidgets.security && (
-                                <div><SecurityWidget /></div>
-                            )}
-                            {activeWidgets.network && (
-                                <div><AccountDetailsWidget /></div>
                             )}
                             {activeWidgets.settings && (
                                 <div><SettingsWidget /></div>
