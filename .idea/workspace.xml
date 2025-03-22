@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted the dimensions and layout styles of the BottomBar components to ensure consistent alignment and spacing. These updates enhance the visual appearance and responsiveness of the navbar across devices.">
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Refactor layout components for modularity and clarity.&#10;&#10;Extracted TopBar, BottomBar, and MainContent into separate components to simplify and modularize the App structure. These changes improve code maintainability and readability while preserving existing functionality.">
+      <change beforePath="$PROJECT_DIR$/src/components/BottomBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BottomBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TopBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TopBar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +225,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742540139891</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Refactor layout components for modularity and clarity.&#10;&#10;Extracted TopBar, BottomBar, and MainContent into separate components to simplify and modularize the App structure. These changes improve code maintainability and readability while preserving existing functionality.">
+      <option name="closed" value="true" />
+      <created>1742664506749</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1742664506749</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,7 +259,9 @@
     <MESSAGE value="Add MobileTopBar and adjust layout for responsiveness&#10;&#10;Introduced a MobileTopBar component to enhance navigation on mobile devices, including dynamic page titles and back navigation support. Updated UI spacing, element heights, and shadow styles across components for better alignment and visual consistency. These improvements ensure a more responsive and user-friendly interface." />
     <MESSAGE value="Refactor layout and styling for consistency and clarity&#10;&#10;Adjusted component styles, spacing, and structure for improved visual consistency across breakpoints. Simplified container classes and optimized layout padding and margins to enhance maintainability and responsiveness." />
     <MESSAGE value="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted dimensions and layout styles of BottomBar components to ensure consistent alignment and spacing. These changes improve the visual appearance and responsiveness of the navbar across devices." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted dimensions and layout styles of BottomBar components to ensure consistent alignment and spacing. These changes improve the visual appearance and responsiveness of the navbar across devices." />
+    <MESSAGE value="Refactor background color to use dynamic RGBA conversion&#10;&#10;Introduce a helper function `hexToRgba` to convert hex colors to RGBA with customizable opacity. Update the app's background to use this function for a dynamic and consistent styling approach. This improves maintainability and flexibility for future styling changes." />
+    <MESSAGE value="Refactor layout components for modularity and clarity.&#10;&#10;Extracted TopBar, BottomBar, and MainContent into separate components to simplify and modularize the App structure. These changes improve code maintainability and readability while preserving existing functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor layout components for modularity and clarity.&#10;&#10;Extracted TopBar, BottomBar, and MainContent into separate components to simplify and modularize the App structure. These changes improve code maintainability and readability while preserving existing functionality." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

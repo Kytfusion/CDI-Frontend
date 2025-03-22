@@ -12,17 +12,26 @@ const MainContent = ({ config }) => (
         right: 0,
         overflow: 'auto',
         padding: '20px'
-    }}>
-        <Routes>
-            <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
-            {config.pages.map((page, index) => (
-                <Route 
-                    key={index} 
-                    path={page.path} 
-                    element={<DynamicPage content={page.content} />} 
-                />
-            ))}
-        </Routes>
+    }} className="d-flex flex-column main-content">
+        <div className="flex-grow-1">
+            <Routes>
+                <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
+                {config.pages.map((page, index) => (
+                    <Route 
+                        key={index} 
+                        path={page.path} 
+                        element={<DynamicPage content={page.content} />} 
+                    />
+                ))}
+            </Routes>
+        </div>
+        <style>{`
+            @media (min-width: 768px) {
+                .main-content {
+                    left: 220px !important;
+                }
+            }
+        `}</style>
     </div>
 );
 
