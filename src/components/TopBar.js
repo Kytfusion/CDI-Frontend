@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 const TopBar = ({ config }) => {
     const location = useLocation();
@@ -7,7 +7,7 @@ const TopBar = ({ config }) => {
     
     const getPageTitle = () => {
         const currentPage = config.pages.find(page => page.path === location.pathname);
-        return currentPage ? currentPage.name : config.pages[0].name;
+        return currentPage ? currentPage.name : (location.pathname === '/settings' ? 'Setări' : config.pages[0].name);
     };
 
     const handleBack = () => {
@@ -34,7 +34,17 @@ const TopBar = ({ config }) => {
                 
                 <h6 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h6>
                 
-                <div style={{ width: '32px' }}></div>
+                <Link to="/settings" className={`nav-link p-0 ${location.pathname === '/settings' ? '' : 'text-dark opacity-75'}`}
+                    style={{ color: location.pathname === '/settings' ? config.styles.primaryColor : undefined }}>
+                    <div className="rounded-2 d-flex align-items-center justify-content-center" 
+                         style={{ 
+                            backgroundColor: location.pathname === '/settings' ? `${config.styles.primaryColor}14` : 'transparent',
+                            width: '32px', 
+                            height: '32px' 
+                         }}>
+                        <i className="bi bi-gear-fill fs-5"></i>
+                    </div>
+                </Link>
             </div>
         </div>
     );

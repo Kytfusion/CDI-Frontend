@@ -32,7 +32,7 @@ const BottomBar = ({ config }) => {
                 borderRight: '1px solid rgba(0,0,0,0.08)',
                 zIndex: 1030 
              }}>
-            <div className="h-100 overflow-auto w-100">
+            <div className="h-100 overflow-auto w-100 d-flex flex-column">
                 <ul className="nav flex-column w-100 pt-4">
                     {config.pages.map((page, index) => (
                         <li key={index} className="nav-item mb-3 px-3">
@@ -55,6 +55,24 @@ const BottomBar = ({ config }) => {
                         </li>
                     ))}
                 </ul>
+                <div className="mt-auto mb-4 px-3">
+                    <Link to="/settings" 
+                        className={`nav-link d-flex align-items-center p-2 ${location.pathname === '/settings' ? '' : 'text-dark opacity-75'}`}
+                        style={{ 
+                            color: location.pathname === '/settings' ? config.styles.primaryColor : undefined,
+                            borderRadius: '8px',
+                            backgroundColor: location.pathname === '/settings' ? `${config.styles.primaryColor}14` : 'transparent'
+                        }}>
+                        <div className="rounded-2 d-flex align-items-center justify-content-center me-3" 
+                             style={{ 
+                                width: '40px', 
+                                height: '40px' 
+                             }}>
+                            <i className="bi bi-gear-fill fs-4"></i>
+                        </div>
+                        <span className="fw-medium">Setări</span>
+                    </Link>
+                </div>
             </div>
         </nav>
     );

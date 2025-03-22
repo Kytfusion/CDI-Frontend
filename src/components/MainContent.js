@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import Settings from './Settings';
 
 const DynamicPage = ({ content }) => content;
 
@@ -23,6 +24,7 @@ const MainContent = ({ config }) => (
                         element={<DynamicPage content={page.content} />} 
                     />
                 ))}
+                <Route path="/settings" element={<Settings />} />
             </Routes>
         </div>
         <style>{`
