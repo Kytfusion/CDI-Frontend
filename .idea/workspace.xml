@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted the dimensions and layout styles of the BottomBar components to ensure consistent alignment and spacing. These updates enhance the visual appearance and responsiveness of the navbar across devices." />
+    <list default="true" id="11e68e83-b086-4a61-9223-73e7181ba7bc" name="Changes" comment="Refactor BottomBar styles for improved alignment.&#10;&#10;Adjusted the dimensions and layout styles of the BottomBar components to ensure consistent alignment and spacing. These updates enhance the visual appearance and responsiveness of the navbar across devices.">
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
