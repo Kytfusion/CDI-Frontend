@@ -20,8 +20,12 @@ const masonryStyles = {
         background: 'white',
         borderRadius: '16px',
         padding: '24px',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-        transition: 'all 0.3s ease'
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+        transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out'
+    },
+    '.my-masonry-grid_column > div:hover': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
     },
     '@media (max-width: 768px)': {
         '.my-masonry-grid': {
@@ -47,40 +51,29 @@ styleSheet.textContent = Object.entries(masonryStyles).map(([selector, rules]) =
         background: white;
         border-radius: 1rem;
         padding: 1.5rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        box-shadow: '0 4px 12px rgba(0,0,0,0.1)';
         transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     }
     .widget-container:hover {
         transform: translateY(-2px);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        box-shadow: '0 4px 12px rgba(0,0,0,0.15)';
     }
 `;
 document.head.appendChild(styleSheet);
 
 function App() {
     const [activeWidgets, setActiveWidgets] = useState({
-        bankCard: false,
-        analytics: false,
+        systemResources: true,
+        hardware: true,
+        performance: true,
+        events: true,
+        security: true,
+        network: true,
         settings: false,
         profile: false
     });
 
-    const MobileTopBar = () => {
-        const getActiveWidgetNames = () => {
-            const activeItems = [];
-            if (activeWidgets.bankCard) activeItems.push('Card Bancar');
-            if (activeWidgets.analytics) activeItems.push('Statistici');
-            return activeItems;
-        };
-
-        const getDisplayText = () => {
-            const activeItems = getActiveWidgetNames();
-            if (activeItems.length === 0) {
-                return 'CDI';
-            }
-            return activeItems.join(' • ');
-        };
-
+    const TopBar = () => {
         const handleClick = (widget) => {
             setActiveWidgets(prev => ({
                 ...prev,
@@ -89,144 +82,57 @@ function App() {
         };
 
         return (
-            <div className="d-md-none fixed-top bg-white" style={{ height: '56px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)', borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
-                <div className="d-flex align-items-center justify-content-between h-100 px-3">
-                    <div className="text-start" style={{ 
-                        maxWidth: 'calc(100% - 96px)',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis'
-                    }}>
-                        <h6 className="mb-0 fw-semibold text-dark">{getDisplayText()}</h6>
-                    </div>
-                    <div className="d-flex align-items-center gap-1" style={{ width: '80px' }}>
-                        <button onClick={() => handleClick('settings')} className="btn p-0 border-0">
-                            <div className={`d-flex align-items-center justify-content-center rounded-2 ${activeWidgets.settings ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
-                                 style={{ width: '32px', height: '32px' }}>
+            <div className="position-fixed top-0 start-0 w-100" style={{ zIndex: 1000 }}>
+                <style>
+                    {`
+                        :root {
+                            --header-item-bg: white;
+                            --header-item-radius: 12px;
+                            --header-item-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                            --header-item-padding: 0.75rem;
+                            --header-item-height: 44px;
+                        }
+                        .header-item {
+                            background: var(--header-item-bg);
+                            border-radius: var(--header-item-radius);
+                            box-shadow: var(--header-item-shadow);
+                            height: var(--header-item-height);
+                            display: inline-flex;
+                            align-items: center;
+                        }
+                        .header-btn {
+                            padding: 0 var(--header-item-padding);
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: none;
+                            background: none;
+                            color: inherit;
+                            cursor: pointer;
+                            transition: color 0.2s;
+                        }
+                        .header-btn:hover {
+                            color: var(--bs-primary);
+                        }
+                    `}
+                </style>
+                <div className="container-fluid">
+                    <div className="d-flex justify-content-between align-items-center p-3 gap-3">
+                        {/* Logo și Titlu */}
+                        <div className="header-item px-4">
+                            <h5 className="mb-0 fw-semibold">CDI</h5>
+                        </div>
+
+                        {/* Setări și Profil */}
+                        <div className="header-item">
+                            <button onClick={() => handleClick('settings')}
+                                    className={`header-btn ${activeWidgets.settings ? 'text-primary' : 'text-dark opacity-75'}`}>
                                 <i className="bi bi-gear fs-5"></i>
-                            </div>
-                        </button>
-                        <button onClick={() => handleClick('profile')} className="btn p-0 border-0">
-                            <div className={`d-flex align-items-center justify-content-center rounded-circle text-white`}
-                                 style={{ width: '32px', height: '32px', backgroundColor: activeWidgets.profile ? '#0d6efd' : '#ff6b4a' }}>
-                                <i className="bi bi-person-fill fs-5"></i>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    const DesktopPageTitle = () => {
-        const getActiveWidgetNames = () => {
-            const activeItems = [];
-            if (activeWidgets.bankCard) activeItems.push('Card Bancar');
-            if (activeWidgets.analytics) activeItems.push('Statistici');
-            return activeItems;
-        };
-
-        const getDisplayText = () => {
-            const activeItems = getActiveWidgetNames();
-            if (activeItems.length === 0) {
-                return 'CDI';
-            }
-            return activeItems.join(' • ');
-        };
-
-        return (
-            <div className="d-none d-md-block position-fixed start-50 translate-middle-x" 
-                 style={{ 
-                     top: '15px',
-                     zIndex: 1000,
-                     marginBottom: '15px'
-                 }}>
-                <div className="bg-white px-4 py-2 rounded-pill" 
-                     style={{ 
-                         minWidth: '160px',
-                         maxWidth: '600px',
-                         boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                         whiteSpace: 'nowrap',
-                         overflow: 'hidden',
-                         textOverflow: 'ellipsis',
-                         height: '40px',
-                         display: 'flex',
-                         alignItems: 'center',
-                         justifyContent: 'center'
-                     }}>
-                    <h6 className="mb-0 fw-semibold text-center">{getDisplayText()}</h6>
-                </div>
-            </div>
-        );
-    };
-
-    const DesktopBottomBar = () => {
-        const handleClick = (widget) => {
-            setActiveWidgets(prev => ({
-                ...prev,
-                [widget]: !prev[widget]
-            }));
-        };
-
-        return (
-            <div className="d-none d-md-block" style={{ position: 'fixed', bottom: '25px', width: '100%', zIndex: 1000 }}>
-                <div className="d-flex justify-content-center gap-3">
-                    {/* Logo Container */}
-                    <div className="bg-white rounded-3 d-flex align-items-center justify-content-center" style={{ 
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                        height: '56px',
-                        padding: '0 24px',
-                        width: '120px'
-                    }}>
-                        <h5 className="mb-0 fw-semibold text-primary">
-                            <i className="bi bi-boxes me-2 fs-5"></i>
-                            CDI
-                        </h5>
-                    </div>
-
-                    {/* Menu Container */}
-                    <div className="bg-white rounded-3 d-flex align-items-center justify-content-center" style={{ 
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                        height: '56px',
-                        padding: '0 10px'
-                    }}>
-                        <ul className="nav d-flex align-items-center gap-2 m-0">
-                            <li className="nav-item">
-                                <button onClick={() => handleClick('bankCard')} 
-                                        className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.bankCard ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
-                                    <i className="bi bi-grid-1x2-fill fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Card Bancar</span>
-                                </button>
-                            </li>
-                            <li className="nav-item">
-                                <button onClick={() => handleClick('analytics')}
-                                        className={`nav-link d-flex align-items-center px-2 py-2 rounded-2 border-0 ${activeWidgets.analytics ? 'bg-primary text-white' : 'text-dark opacity-75'}`}>
-                                    <i className="bi bi-bar-chart-line fs-5"></i>
-                                    <span className="fw-medium ms-2" style={{ fontSize: '14px' }}>Statistici</span>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Controls Container */}
-                    <div className="bg-white rounded-3 d-flex align-items-center justify-content-center" style={{ 
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                        height: '56px',
-                        padding: '0 24px',
-                        width: '120px'
-                    }}>
-                        <div className="d-flex align-items-center gap-2">
-                            <button onClick={() => handleClick('settings')} className="btn p-0 border-0">
-                                <div className={`d-flex align-items-center justify-content-center rounded-2 ${activeWidgets.settings ? 'bg-primary text-white' : 'text-dark opacity-75'}`}
-                                     style={{ width: '32px', height: '32px' }}>
-                                    <i className="bi bi-gear fs-5"></i>
-                                </div>
                             </button>
-                            <button onClick={() => handleClick('profile')} className="btn p-0 border-0">
-                                <div className={`d-flex align-items-center justify-content-center rounded-circle text-white`}
-                                     style={{ width: '32px', height: '32px', backgroundColor: activeWidgets.profile ? '#0d6efd' : '#ff6b4a' }}>
-                                    <i className="bi bi-person-fill fs-5"></i>
-                                </div>
+                            <button onClick={() => handleClick('profile')}
+                                    className={`header-btn ${activeWidgets.profile ? 'text-primary' : 'text-dark opacity-75'}`}>
+                                <i className="bi bi-person-circle fs-5"></i>
                             </button>
                         </div>
                     </div>
@@ -244,30 +150,102 @@ function App() {
         };
 
         return (
-            <nav className="navbar fixed-bottom d-md-none bg-white" style={{ height: '85px', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)', paddingBottom: '10px' }}>
-                <ul className="nav w-100 h-100 d-flex justify-content-between align-items-center px-2">
-                    <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
-                        <button onClick={() => handleClick('bankCard')} 
-                                className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.bankCard ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
-                                 style={{ backgroundColor: activeWidgets.bankCard ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
-                                <i className="bi bi-grid-1x2-fill fs-5"></i>
-                            </div>
-                            <small className="d-block mt-0" style={{ fontSize: '11px' }}>Card Bancar</small>
-                        </button>
-                    </li>
-                    <li className="nav-item text-center" style={{ minWidth: '80px', maxWidth: '80px' }}>
-                        <button onClick={() => handleClick('analytics')}
-                                className={`nav-link p-0 border-0 bg-transparent ${activeWidgets.analytics ? 'text-primary' : 'text-dark opacity-75'}`}>
-                            <div className="d-flex align-items-center justify-content-center mx-auto rounded-2" 
-                                 style={{ backgroundColor: activeWidgets.analytics ? 'rgba(13,110,253,0.08)' : 'transparent', width: '32px', height: '32px' }}>
-                                <i className="bi bi-bar-chart-line fs-5"></i>
-                            </div>
-                            <small className="d-block mt-0" style={{ fontSize: '11px' }}>Statistici</small>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
+            <div className="position-fixed bottom-0 start-0 w-100" style={{ zIndex: 1000 }}>
+                <div className="d-flex justify-content-center p-3">
+                    <div className="bg-white rounded-3" style={{ 
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                        height: '48px',
+                        overflow: 'hidden'
+                    }}>
+                        <style>
+                            {`
+                                .menu-container {
+                                    height: 100%;
+                                    overflow-x: auto;
+                                    scrollbar-width: none;
+                                    -ms-overflow-style: none;
+                                }
+                                .menu-container::-webkit-scrollbar {
+                                    display: none;
+                                }
+                                .nav-item {
+                                    margin-right: 4px;
+                                }
+                                .nav-item:last-child {
+                                    margin-right: 0;
+                                }
+                                @media (max-width: 768px) {
+                                    .bg-white.rounded-3 {
+                                        width: 100%;
+                                    }
+                                    .menu-container {
+                                        padding: 0 8px;
+                                    }
+                                    .nav {
+                                        justify-content: space-between !important;
+                                        width: 100%;
+                                    }
+                                    .menu-text {
+                                        display: none;
+                                    }
+                                }
+                            `}
+                        </style>
+                        <div className="menu-container">
+                            <ul className="nav d-flex align-items-center h-100 px-2">
+                                <li className="nav-item">
+                                    <button onClick={() => handleClick('systemResources')} 
+                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.systemResources ? 'text-primary' : 'text-dark opacity-75'}`}
+                                            style={{ height: '40px' }}>
+                                        <i className="bi bi-cpu"></i>
+                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Resurse</span>
+                                    </button>
+                                </li>
+                                <li className="nav-item">
+                                    <button onClick={() => handleClick('hardware')}
+                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.hardware ? 'text-primary' : 'text-dark opacity-75'}`}
+                                            style={{ height: '40px' }}>
+                                        <i className="bi bi-pc-display"></i>
+                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Hardware</span>
+                                    </button>
+                                </li>
+                                <li className="nav-item">
+                                    <button onClick={() => handleClick('performance')}
+                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.performance ? 'text-primary' : 'text-dark opacity-75'}`}
+                                            style={{ height: '40px' }}>
+                                        <i className="bi bi-speedometer2"></i>
+                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Performanță</span>
+                                    </button>
+                                </li>
+                                <li className="nav-item">
+                                    <button onClick={() => handleClick('events')}
+                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.events ? 'text-primary' : 'text-dark opacity-75'}`}
+                                            style={{ height: '40px' }}>
+                                        <i className="bi bi-bell"></i>
+                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Evenimente</span>
+                                    </button>
+                                </li>
+                                <li className="nav-item">
+                                    <button onClick={() => handleClick('security')}
+                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.security ? 'text-primary' : 'text-dark opacity-75'}`}
+                                            style={{ height: '40px' }}>
+                                        <i className="bi bi-shield-check"></i>
+                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Securitate</span>
+                                    </button>
+                                </li>
+                                <li className="nav-item">
+                                    <button onClick={() => handleClick('network')}
+                                            className={`nav-link d-flex align-items-center px-3 py-2 rounded-2 border-0 ${activeWidgets.network ? 'text-primary' : 'text-dark opacity-75'}`}
+                                            style={{ height: '40px' }}>
+                                        <i className="bi bi-diagram-3"></i>
+                                        <span className="menu-text fw-medium ms-2" style={{ fontSize: '14px' }}>Rețea</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     };
 
@@ -277,25 +255,25 @@ function App() {
     const ProfilePage = () => null;
 
     const BankCardWidget = () => (
-        <div className="widget-container">
-            <h5 className="mb-4 fw-semibold">Card Bancar</h5>
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
+            <h5 className="mb-4 fw-semibold">Resurse Sistem</h5>
             <div className="card bg-primary text-white rounded-4" style={{ maxWidth: '360px' }}>
                 <div className="card-body p-4">
                     <div className="d-flex justify-content-between align-items-center mb-4">
                         <div>
-                            <p className="mb-0 opacity-75" style={{ fontSize: '14px' }}>Sold Curent</p>
-                            <h3 className="mb-0 fw-semibold">12,350.75 MDL</h3>
+                            <p className="mb-0 opacity-75" style={{ fontSize: '14px' }}>Încărcare Sistem</p>
+                            <h3 className="mb-0 fw-semibold">1.25</h3>
                         </div>
-                        <i className="bi bi-credit-card fs-1"></i>
+                        <i className="bi bi-speedometer2 fs-1"></i>
                     </div>
                     <div className="d-flex justify-content-between align-items-end">
                         <div>
-                            <p className="mb-1 opacity-75" style={{ fontSize: '14px' }}>Număr Card</p>
-                            <h6 className="mb-0 fw-semibold">**** **** **** 4589</h6>
+                            <p className="mb-1 opacity-75" style={{ fontSize: '14px' }}>Procese</p>
+                            <h6 className="mb-0 fw-semibold">124 active</h6>
                         </div>
                         <div className="text-end">
-                            <p className="mb-1 opacity-75" style={{ fontSize: '14px' }}>Expiră</p>
-                            <h6 className="mb-0 fw-semibold">12/25</h6>
+                            <p className="mb-1 opacity-75" style={{ fontSize: '14px' }}>Threads</p>
+                            <h6 className="mb-0 fw-semibold">1,245</h6>
                         </div>
                     </div>
                 </div>
@@ -304,30 +282,30 @@ function App() {
     );
 
     const AnalyticsWidget = () => (
-        <div className="widget-container">
-            <h5 className="mb-4 fw-semibold">Statistica Cheltuielilor</h5>
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
+            <h5 className="mb-4 fw-semibold">Monitorizare Hardware</h5>
             <div className="row g-3">
                 <div className="col-12 col-md-6">
                     <div className="p-3 rounded-3 bg-light">
-                        <p className="mb-1 text-muted" style={{ fontSize: '14px' }}>Cheltuieli Lunare</p>
-                        <h4 className="mb-0 fw-semibold">8,245.50 MDL</h4>
+                        <p className="mb-1 text-muted" style={{ fontSize: '14px' }}>Temperatură CPU</p>
+                        <h4 className="mb-0 fw-semibold">45°C</h4>
                     </div>
                 </div>
                 <div className="col-12 col-md-6">
                     <div className="p-3 rounded-3 bg-light">
-                        <p className="mb-1 text-muted" style={{ fontSize: '14px' }}>Economii</p>
-                        <h4 className="mb-0 fw-semibold">4,105.25 MDL</h4>
+                        <p className="mb-1 text-muted" style={{ fontSize: '14px' }}>Viteză Ventilator</p>
+                        <h4 className="mb-0 fw-semibold">1200 RPM</h4>
                     </div>
                 </div>
                 <div className="col-12">
                     <div className="p-3 rounded-3 bg-light">
-                        <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Categorii Principale</p>
+                        <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Sănătate SSD</p>
                         <div className="progress mb-2" style={{ height: '8px' }}>
-                            <div className="progress-bar bg-primary" style={{ width: '40%' }}></div>
+                            <div className="progress-bar bg-success" style={{ width: '92%' }}></div>
                         </div>
                         <div className="d-flex justify-content-between">
-                            <span style={{ fontSize: '14px' }}>Cumpărături</span>
-                            <span style={{ fontSize: '14px' }}>40%</span>
+                            <span style={{ fontSize: '14px' }}>Transfer Date</span>
+                            <span style={{ fontSize: '14px' }}>60%</span>
                         </div>
                     </div>
                 </div>
@@ -336,41 +314,41 @@ function App() {
     );
 
     const SettingsWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h5 className="mb-4 fw-semibold">Setări</h5>
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
+            <h5 className="mb-4 fw-semibold">Configurare Sistem</h5>
             <div className="list-group">
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Notificări</h6>
-                            <small className="text-muted">Gestionează notificările aplicației</small>
+                            <h6 className="mb-1">Monitorizare Automată</h6>
+                            <small className="text-muted">Activează monitorizarea continuă</small>
                         </div>
                         <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" role="switch" id="notificationsSwitch" />
+                            <input className="form-check-input" type="checkbox" role="switch" id="monitoringSwitch" />
                         </div>
                     </div>
                 </div>
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Mod Întunecat</h6>
-                            <small className="text-muted">Schimbă tema aplicației</small>
+                            <h6 className="mb-1">Mod Performanță</h6>
+                            <small className="text-muted">Optimizează resursele sistemului</small>
                         </div>
                         <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" role="switch" id="darkModeSwitch" />
+                            <input className="form-check-input" type="checkbox" role="switch" id="performanceSwitch" />
                         </div>
                     </div>
                 </div>
                 <div className="list-group-item border-0 bg-light rounded-3">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Limbă</h6>
-                            <small className="text-muted">Alege limba aplicației</small>
+                            <h6 className="mb-1">Interval Actualizare</h6>
+                            <small className="text-muted">Frecvența actualizării datelor</small>
                         </div>
                         <select className="form-select" style={{ width: 'auto' }}>
-                            <option>Română</option>
-                            <option>English</option>
-                            <option>Русский</option>
+                            <option>5 sec</option>
+                            <option>10 sec</option>
+                            <option>30 sec</option>
                         </select>
                     </div>
                 </div>
@@ -379,42 +357,42 @@ function App() {
     );
 
     const ProfileWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h5 className="mb-4 fw-semibold">Profil</h5>
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
+            <h5 className="mb-4 fw-semibold">Profil Administrator</h5>
             <div className="text-center mb-4">
                 <div className="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3"
                      style={{ width: '80px', height: '80px' }}>
-                    <i className="bi bi-person-fill text-white fs-1"></i>
+                    <i className="bi bi-person-workspace text-white fs-1"></i>
                 </div>
-                <h5 className="mb-1">Ion Popescu</h5>
-                <p className="text-muted mb-0">ion.popescu@example.com</p>
+                <h5 className="mb-1">Administrator Sistem</h5>
+                <p className="text-muted mb-0">admin@system.local</p>
             </div>
             <div className="list-group">
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Număr Telefon</h6>
-                            <small className="text-muted">+373 69 123 456</small>
+                            <h6 className="mb-1">Nivel Acces</h6>
+                            <small className="text-muted">Administrator Principal</small>
                         </div>
-                        <button className="btn btn-sm btn-outline-primary">Editează</button>
+                        <button className="btn btn-sm btn-outline-primary">Modifică</button>
                     </div>
                 </div>
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Adresă</h6>
-                            <small className="text-muted">Str. Ștefan cel Mare 123, Chișinău</small>
+                            <h6 className="mb-1">Ultima Autentificare</h6>
+                            <small className="text-muted">12:45:23 25/03/2024</small>
                         </div>
-                        <button className="btn btn-sm btn-outline-primary">Editează</button>
+                        <button className="btn btn-sm btn-outline-primary">Detalii</button>
                     </div>
                 </div>
                 <div className="list-group-item border-0 bg-light rounded-3">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Securitate</h6>
-                            <small className="text-muted">Schimbă parola</small>
+                            <h6 className="mb-1">Sesiuni Active</h6>
+                            <small className="text-muted">2 dispozitive conectate</small>
                         </div>
-                        <button className="btn btn-sm btn-outline-primary">Modifică</button>
+                        <button className="btn btn-sm btn-outline-primary">Vezi</button>
                     </div>
                 </div>
             </div>
@@ -422,26 +400,26 @@ function App() {
     );
 
     const DefaultWidget = () => (
-        <div className="bg-white rounded-3 p-4 h-100" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+        <div className="bg-white rounded-3 p-4 h-100" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
             <div className="d-flex flex-column justify-content-center h-100">
                 <div className="text-center">
                     <div className="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-4"
                          style={{ width: '80px', height: '80px' }}>
-                        <i className="bi bi-bank2 text-white fs-1"></i>
+                        <i className="bi bi-grid-3x3-gap text-white fs-1"></i>
                     </div>
-                    <h4 className="mb-3 fw-semibold">Bine ați venit la CDI Bank</h4>
-                    <p className="text-muted mb-4">Selectați o opțiune din meniu pentru a începe</p>
+                    <h4 className="mb-3 fw-semibold">Bine ați venit la CDI</h4>
+                    <p className="text-muted mb-4">Interfața Centralizată de Monitorizare și Control</p>
                     <div className="row g-3 justify-content-center" style={{ maxWidth: '600px', margin: '0 auto' }}>
                         <div className="col-6">
                             <div className="p-3 rounded-3 bg-light text-center">
-                                <i className="bi bi-credit-card fs-4 text-primary mb-2"></i>
-                                <p className="mb-0 small">Gestionați cardul bancar</p>
+                                <i className="bi bi-cpu fs-4 text-primary mb-2"></i>
+                                <p className="mb-0 small">Monitorizare Sistem</p>
                             </div>
                         </div>
                         <div className="col-6">
                             <div className="p-3 rounded-3 bg-light text-center">
                                 <i className="bi bi-graph-up fs-4 text-primary mb-2"></i>
-                                <p className="mb-0 small">Vizualizați statistici</p>
+                                <p className="mb-0 small">Statistici în Timp Real</p>
                             </div>
                         </div>
                     </div>
@@ -451,35 +429,35 @@ function App() {
     );
 
     const BankCardTransactionsWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h5 className="mb-4 fw-semibold">Tranzacții Recente Card</h5>
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
+            <h5 className="mb-4 fw-semibold">Evenimente Sistem</h5>
             <div className="list-group">
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="d-flex align-items-center gap-3">
-                            <div className="rounded-circle bg-primary bg-opacity-10 p-2">
-                                <i className="bi bi-cart text-primary"></i>
+                            <div className="rounded-circle bg-warning bg-opacity-10 p-2">
+                                <i className="bi bi-exclamation-triangle text-warning"></i>
                             </div>
                             <div>
-                                <h6 className="mb-1">Cumpărături Online</h6>
-                                <small className="text-muted">Astăzi, 14:30</small>
+                                <h6 className="mb-1">Utilizare CPU Ridicată</h6>
+                                <small className="text-muted">Acum 5 minute</small>
                             </div>
                         </div>
-                        <span className="text-danger fw-semibold">-350.00 MDL</span>
+                        <span className="badge bg-warning">Avertisment</span>
                     </div>
                 </div>
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="d-flex align-items-center gap-3">
                             <div className="rounded-circle bg-success bg-opacity-10 p-2">
-                                <i className="bi bi-arrow-down text-success"></i>
+                                <i className="bi bi-check-circle text-success"></i>
                             </div>
                             <div>
-                                <h6 className="mb-1">Transfer Primit</h6>
-                                <small className="text-muted">Ieri, 18:45</small>
+                                <h6 className="mb-1">Actualizare Sistem</h6>
+                                <small className="text-muted">Acum 15 minute</small>
                             </div>
                         </div>
-                        <span className="text-success fw-semibold">+2,500.00 MDL</span>
+                        <span className="badge bg-success">Succes</span>
                     </div>
                 </div>
             </div>
@@ -487,36 +465,36 @@ function App() {
     );
 
     const AnalyticsChartWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h5 className="mb-4 fw-semibold">Grafic Cheltuieli</h5>
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
+            <h5 className="mb-4 fw-semibold">Performanță Sistem</h5>
             <div className="p-3 rounded-3 bg-light">
                 <div className="mb-4">
-                    <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Top Categorii</p>
+                    <p className="mb-2 text-muted" style={{ fontSize: '14px' }}>Resurse Utilizate</p>
                     <div className="mb-3">
                         <div className="d-flex justify-content-between mb-1">
-                            <span style={{ fontSize: '14px' }}>Cumpărături</span>
-                            <span style={{ fontSize: '14px' }}>4,250 MDL</span>
+                            <span style={{ fontSize: '14px' }}>CPU</span>
+                            <span style={{ fontSize: '14px' }}>45.2%</span>
                         </div>
                         <div className="progress" style={{ height: '8px' }}>
-                            <div className="progress-bar bg-primary" style={{ width: '70%' }}></div>
+                            <div className="progress-bar bg-primary" style={{ width: '45%' }}></div>
                         </div>
                     </div>
                     <div className="mb-3">
                         <div className="d-flex justify-content-between mb-1">
-                            <span style={{ fontSize: '14px' }}>Transport</span>
-                            <span style={{ fontSize: '14px' }}>2,100 MDL</span>
+                            <span style={{ fontSize: '14px' }}>Memorie</span>
+                            <span style={{ fontSize: '14px' }}>62.5%</span>
                         </div>
                         <div className="progress" style={{ height: '8px' }}>
-                            <div className="progress-bar bg-success" style={{ width: '45%' }}></div>
+                            <div className="progress-bar bg-success" style={{ width: '62%' }}></div>
                         </div>
                     </div>
                     <div>
                         <div className="d-flex justify-content-between mb-1">
-                            <span style={{ fontSize: '14px' }}>Utilități</span>
-                            <span style={{ fontSize: '14px' }}>1,895 MDL</span>
+                            <span style={{ fontSize: '14px' }}>Disk I/O</span>
+                            <span style={{ fontSize: '14px' }}>28.3%</span>
                         </div>
                         <div className="progress" style={{ height: '8px' }}>
-                            <div className="progress-bar bg-warning" style={{ width: '35%' }}></div>
+                            <div className="progress-bar bg-warning" style={{ width: '28%' }}></div>
                         </div>
                     </div>
                 </div>
@@ -525,25 +503,25 @@ function App() {
     );
 
     const SecurityWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h5 className="mb-4 fw-semibold">Securitate</h5>
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
+            <h5 className="mb-4 fw-semibold">Securitate Sistem</h5>
             <div className="list-group">
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Autentificare în 2 Pași</h6>
-                            <small className="text-muted">Activați pentru securitate sporită</small>
+                            <h6 className="mb-1">Firewall</h6>
+                            <small className="text-muted">Protecție activă</small>
                         </div>
                         <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" role="switch" />
+                            <input className="form-check-input" type="checkbox" role="switch" defaultChecked />
                         </div>
                     </div>
                 </div>
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Notificări de Securitate</h6>
-                            <small className="text-muted">Primiți alerte de securitate</small>
+                            <h6 className="mb-1">Scanare Automată</h6>
+                            <small className="text-muted">Verificare malware</small>
                         </div>
                         <div className="form-check form-switch">
                             <input className="form-check-input" type="checkbox" role="switch" defaultChecked />
@@ -553,8 +531,8 @@ function App() {
                 <div className="list-group-item border-0 bg-light rounded-3">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Dispozitive Conectate</h6>
-                            <small className="text-muted">Gestionați dispozitivele active</small>
+                            <h6 className="mb-1">Conexiuni Active</h6>
+                            <small className="text-muted">Monitorizare porturi</small>
                         </div>
                         <button className="btn btn-sm btn-outline-primary">Vezi</button>
                     </div>
@@ -564,31 +542,31 @@ function App() {
     );
 
     const AccountDetailsWidget = () => (
-        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h5 className="mb-4 fw-semibold">Detalii Cont</h5>
+        <div className="bg-white rounded-3 p-4" style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out' }}>
+            <h5 className="mb-4 fw-semibold">Informații Sistem</h5>
             <div className="list-group">
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Tip Cont</h6>
-                            <small className="text-muted">Premium</small>
+                            <h6 className="mb-1">Sistem de Operare</h6>
+                            <small className="text-muted">Linux 6.8.0-52-generic</small>
                         </div>
-                        <span className="badge bg-primary">Activ</span>
+                        <span className="badge bg-primary">Actualizat</span>
                     </div>
                 </div>
                 <div className="list-group-item border-0 bg-light rounded-3 mb-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Data Deschiderii</h6>
-                            <small className="text-muted">15 ianuarie 2024</small>
+                            <h6 className="mb-1">Timp de Funcționare</h6>
+                            <small className="text-muted">5 zile, 3 ore</small>
                         </div>
                     </div>
                 </div>
                 <div className="list-group-item border-0 bg-light rounded-3">
                     <div className="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 className="mb-1">Documente</h6>
-                            <small className="text-muted">Contract, extras de cont</small>
+                            <h6 className="mb-1">Logs Sistem</h6>
+                            <small className="text-muted">Jurnale și rapoarte</small>
                         </div>
                         <button className="btn btn-sm btn-outline-primary">Descarcă</button>
                     </div>
@@ -601,20 +579,18 @@ function App() {
         default: 4,
         1400: 3,
         992: 2,
-        768: 1
+        576: 1
     };
 
     return (
         <div className="min-vh-100" style={{ backgroundColor: 'rgba(13, 145, 253, 0.03)' }}>
-            <MobileTopBar />
-            <DesktopPageTitle />
-            <DesktopBottomBar />
+            <TopBar />
             <BottomBar />
             
-            {/* Desktop Content */}
-            <div className="d-none d-md-block" style={{ 
+            {/* Content */}
+            <div style={{ 
                 position: 'fixed',
-                top: '70px',
+                top: '72px',
                 bottom: '95px',
                 left: 0,
                 right: 0,
@@ -630,49 +606,23 @@ function App() {
                             className="my-masonry-grid"
                             columnClassName="my-masonry-grid_column"
                         >
-                            {activeWidgets.bankCard && (
+                            {activeWidgets.systemResources && (
                                 <div><BankCardWidget /></div>
                             )}
-                            {activeWidgets.analytics && (
+                            {activeWidgets.hardware && (
                                 <div><AnalyticsWidget /></div>
                             )}
-                            {activeWidgets.settings && (
-                                <div><SettingsWidget /></div>
+                            {activeWidgets.performance && (
+                                <div><AnalyticsChartWidget /></div>
                             )}
-                            {activeWidgets.profile && (
-                                <div><ProfileWidget /></div>
+                            {activeWidgets.events && (
+                                <div><BankCardTransactionsWidget /></div>
                             )}
-                        </Masonry>
-                    )}
-                </div>
-            </div>
-
-            {/* Mobile Content */}
-            <div className="d-md-none" style={{ 
-                position: 'fixed',
-                top: '56px',
-                bottom: '85px',
-                left: 0,
-                right: 0,
-                overflow: 'auto',
-                backgroundColor: 'rgba(13, 145, 253, 0.03)',
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
-                <div className="container-fluid px-0 flex-grow-1 d-flex flex-column">
-                    {!Object.values(activeWidgets).some(value => value) ? (
-                        <DefaultWidget />
-                    ) : (
-                        <Masonry
-                            breakpointCols={1}
-                            className="my-masonry-grid flex-grow-1"
-                            columnClassName="my-masonry-grid_column"
-                        >
-                            {activeWidgets.bankCard && (
-                                <div><BankCardWidget /></div>
+                            {activeWidgets.security && (
+                                <div><SecurityWidget /></div>
                             )}
-                            {activeWidgets.analytics && (
-                                <div><AnalyticsWidget /></div>
+                            {activeWidgets.network && (
+                                <div><AccountDetailsWidget /></div>
                             )}
                             {activeWidgets.settings && (
                                 <div><SettingsWidget /></div>
