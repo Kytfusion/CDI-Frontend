@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Settings from './Settings';
+import Settings from '../pages/Settings';
+import Welcome from '../pages/Welcome';
+import { isUserAuthenticated } from '../config';
 
 const DynamicPage = ({ content }) => content;
 
@@ -8,7 +10,7 @@ const MainContent = ({ config }) => (
     <div style={{ 
         position: 'fixed',
         top: 'min(56px, 8vh)',
-        bottom: 'min(56px, 8vh)',
+        bottom: isUserAuthenticated() ? 'min(56px, 8vh)' : 0,
         left: 0,
         right: 0,
         overflow: 'auto',
@@ -17,24 +19,33 @@ const MainContent = ({ config }) => (
     }} className="d-flex flex-column main-content">
         <div className="flex-grow-1">
             <Routes>
-                <Route path="/" element={<Navigate to={config.pages[0].path} replace />} />
+                <Route path="/" element={
+                    isUserAuthenticated() 
+                        ? <Navigate to={config.pages[0].path} replace /> 
+                        : <Navigate to="/welcome" replace />
+                } />
+                <Route path="/welcome" element={<Welcome />} />
+                <Route path="/settings" element={<Settings />} />
                 {config.pages.map((page, index) => (
                     <Route 
                         key={index} 
                         path={page.path} 
-                        element={<DynamicPage content={page.content} />} 
+                        element={
+                            isUserAuthenticated() 
+                                ? <DynamicPage content={page.content} />
+                                : <Navigate to="/welcome" replace />
+                        } 
                     />
                 ))}
-                <Route path="/settings" element={<Settings />} />
             </Routes>
         </div>
         <style>{`
             @media (min-width: 768px) {
                 .main-content {
-                    left: var(--sidebar-width, 220px) !important;
+                    left: ${isUserAuthenticated() ? 'var(--sidebar-width, 220px)' : '0'} !important;
                 }
                 .sidebar-collapsed .main-content {
-                    left: 80px !important;
+                    left: ${isUserAuthenticated() ? '80px' : '0'} !important;
                 }
             }
         `}</style>

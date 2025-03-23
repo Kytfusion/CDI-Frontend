@@ -6,6 +6,9 @@ const TopBar = ({ config }) => {
     const navigate = useNavigate();
     
     const getPageTitle = () => {
+        if (location.pathname === '/welcome') {
+            return 'Bine ați venit';
+        }
         const currentPage = config.pages.find(page => page.path === location.pathname);
         return currentPage ? currentPage.name : (location.pathname === '/settings' ? 'Setări' : config.pages[0].name);
     };
@@ -32,9 +35,22 @@ const TopBar = ({ config }) => {
                     <span className="text-dark opacity-75 fw-medium" style={{ fontSize: '14px' }}>Back</span>
                 </button>
                 
-                <h6 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h6>
+                <Link to="/welcome" className="text-decoration-none">
+                    <h6 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h6>
+                </Link>
                 
                 <div className="d-flex gap-2">
+                    <Link to="/welcome" className={`nav-link p-0 ${location.pathname === '/welcome' ? '' : 'text-dark opacity-75'}`}
+                        style={{ color: location.pathname === '/welcome' ? config.styles.primaryColor : undefined }}>
+                        <div className="rounded-2 d-flex align-items-center justify-content-center" 
+                             style={{ 
+                                backgroundColor: location.pathname === '/welcome' ? `${config.styles.primaryColor}14` : 'transparent',
+                                width: '32px', 
+                                height: '32px' 
+                             }}>
+                            <i className="bi bi-house-fill fs-5"></i>
+                        </div>
+                    </Link>
                     <div className="rounded-2 d-flex align-items-center justify-content-center" 
                          style={{ width: '32px', height: '32px' }}>
                         <i className="bi bi-person-circle fs-5 text-dark opacity-75"></i>
@@ -65,17 +81,43 @@ const TopBar = ({ config }) => {
              }}>
             <div className="d-flex align-items-center h-100" 
                  style={{ paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-                <h5 className="mb-0 fw-bold" style={{ color: config.styles.primaryColor }}>{config.appName}</h5>
+                <Link to="/welcome" className="text-decoration-none">
+                    <h5 className="mb-0 fw-bold" style={{ color: config.styles.primaryColor }}>{config.appName}</h5>
+                </Link>
             </div>
             <div className="d-flex align-items-center h-100 position-absolute" 
                  style={{ left: '220px', right: 0, top: 0, paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
                 <h5 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h5>
                 <div className="ms-auto d-flex align-items-center gap-2">
-                    <span className="text-dark opacity-75 fw-medium" style={{ fontSize: '14px' }}>Ion Popescu</span>
-                    <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                         style={{ width: '32px', height: '32px' }}>
-                        <i className="bi bi-person-circle fs-5 text-dark opacity-75"></i>
+                    <div className="d-flex align-items-center gap-2">
+                        <span className="text-dark opacity-75 fw-medium" style={{ fontSize: '14px' }}>Ion Popescu</span>
+                        <div className="rounded-2 d-flex align-items-center justify-content-center" 
+                             style={{ width: '32px', height: '32px' }}>
+                            <i className="bi bi-person-circle fs-5 text-dark opacity-75"></i>
+                        </div>
                     </div>
+                    <Link to="/welcome" className={`nav-link p-0 ${location.pathname === '/welcome' ? '' : 'text-dark opacity-75'}`}
+                        style={{ color: location.pathname === '/welcome' ? config.styles.primaryColor : undefined }}>
+                        <div className="rounded-2 d-flex align-items-center justify-content-center" 
+                             style={{ 
+                                backgroundColor: location.pathname === '/welcome' ? `${config.styles.primaryColor}14` : 'transparent',
+                                width: '32px', 
+                                height: '32px' 
+                             }}>
+                            <i className="bi bi-house-fill fs-5"></i>
+                        </div>
+                    </Link>
+                    <Link to="/settings" className={`nav-link p-0 ${location.pathname === '/settings' ? '' : 'text-dark opacity-75'}`}
+                        style={{ color: location.pathname === '/settings' ? config.styles.primaryColor : undefined }}>
+                        <div className="rounded-2 d-flex align-items-center justify-content-center" 
+                             style={{ 
+                                backgroundColor: location.pathname === '/settings' ? `${config.styles.primaryColor}14` : 'transparent',
+                                width: '32px', 
+                                height: '32px' 
+                             }}>
+                            <i className="bi bi-gear-fill fs-5"></i>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { isUserAuthenticated } from '../config';
 
 const BottomBar = ({ config, isExpanded, onToggle }) => {
     const location = useLocation();
+
+    if (!isUserAuthenticated()) {
+        return null;
+    }
 
     const getMenuItemStyle = (isActive) => ({
         color: isActive ? config.styles.primaryColor : undefined,
@@ -87,11 +92,6 @@ const BottomBar = ({ config, isExpanded, onToggle }) => {
                         renderMenuItem(page.path, page.icon, page.name)
                     )}
                 </ul>
-                <div className="mt-auto">
-                    <ul className="nav flex-column w-100 mb-4">
-                        {renderMenuItem('/settings', 'bi-gear-fill', 'Setări', true)}
-                    </ul>
-                </div>
             </div>
         </nav>
     );
