@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { isUserAuthenticated } from '../config';
+import ProfileModal from './ProfileModal';
 
 const TopBar = ({ config }) => {
     const location = useLocation();
     const navigate = useNavigate();
+    const [showProfileModal, setShowProfileModal] = useState(false);
+    const modalRef = useRef(null);
+    const buttonRef = useRef(null);
     
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (modalRef.current && 
+                buttonRef.current && 
+                !modalRef.current.contains(event.target) && 
+                !buttonRef.current.contains(event.target)) {
+                setShowProfileModal(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     const getPageTitle = () => {
         if (location.pathname === '/welcome') {
             return 'Bine ați venit';
@@ -15,6 +34,10 @@ const TopBar = ({ config }) => {
 
     const handleBack = () => {
         navigate(-1);
+    };
+
+    const toggleProfileModal = () => {
+        setShowProfileModal(!showProfileModal);
     };
 
     const renderMobileTopBar = () => (
@@ -51,10 +74,18 @@ const TopBar = ({ config }) => {
                             <i className="bi bi-house-fill fs-5"></i>
                         </div>
                     </Link>
-                    <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                         style={{ width: '32px', height: '32px' }}>
-                        <i className="bi bi-person-circle fs-5 text-dark opacity-75"></i>
-                    </div>
+                    <button ref={buttonRef} onClick={toggleProfileModal}
+                            className={`btn p-0 position-relative rounded-2 d-flex align-items-center justify-content-center ${showProfileModal ? '' : 'text-dark opacity-75'}`}
+                            style={{ 
+                                color: showProfileModal ? config.styles.primaryColor : undefined,
+                                backgroundColor: showProfileModal ? `${config.styles.primaryColor}14` : 'transparent',
+                                width: '32px', 
+                                height: '32px',
+                                border: 'none'
+                            }}>
+                        <i className="bi bi-person-circle fs-5"></i>
+                        <ProfileModal show={showProfileModal} modalRef={modalRef} config={config} />
+                    </button>
                     <Link to="/settings" className={`nav-link p-0 ${location.pathname === '/settings' ? '' : 'text-dark opacity-75'}`}
                         style={{ color: location.pathname === '/settings' ? config.styles.primaryColor : undefined }}>
                         <div className="rounded-2 d-flex align-items-center justify-content-center" 
@@ -89,13 +120,22 @@ const TopBar = ({ config }) => {
                  style={{ left: '220px', right: 0, top: 0, paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
                 <h5 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h5>
                 <div className="ms-auto d-flex align-items-center gap-2">
-                    <div className="d-flex align-items-center gap-2">
-                        <span className="text-dark opacity-75 fw-medium" style={{ fontSize: '14px' }}>Ion Popescu</span>
-                        <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                             style={{ width: '32px', height: '32px' }}>
-                            <i className="bi bi-person-circle fs-5 text-dark opacity-75"></i>
+                    <button ref={buttonRef} onClick={toggleProfileModal}
+                            className={`btn position-relative d-flex align-items-center gap-2 rounded-2 ${showProfileModal ? '' : 'text-dark opacity-75'}`}
+                            style={{ 
+                                color: showProfileModal ? config.styles.primaryColor : undefined,
+                                backgroundColor: showProfileModal ? `${config.styles.primaryColor}14` : 'transparent',
+                                border: 'none',
+                                padding: '6px 12px'
+                            }}>
+                        <span className="fw-medium" style={{ fontSize: '14px' }}>
+                            {isUserAuthenticated() ? 'Ion Popescu' : 'Bine ați venit'}
+                        </span>
+                        <div className="d-flex align-items-center justify-content-center">
+                            <i className="bi bi-person-circle fs-5"></i>
                         </div>
-                    </div>
+                        <ProfileModal show={showProfileModal} modalRef={modalRef} config={config} />
+                    </button>
                     <Link to="/welcome" className={`nav-link p-0 ${location.pathname === '/welcome' ? '' : 'text-dark opacity-75'}`}
                         style={{ color: location.pathname === '/welcome' ? config.styles.primaryColor : undefined }}>
                         <div className="rounded-2 d-flex align-items-center justify-content-center" 
