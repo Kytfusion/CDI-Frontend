@@ -3,10 +3,31 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { getConfig } from './config';
+import defaultAppConfig from './config/default-app.json';
+import walletAppConfig from './config/wallet-app.json';
 import TopBar from './components/TopBar';
 import BottomBar from './components/BottomBar';
 import MainContent from './components/MainContent';
+
+let isAuthenticated = 1;
+
+export const isUserAuthenticated = () => isAuthenticated === 1;
+
+export const setUserAuthenticated = (value) => {
+    isAuthenticated = value ? 1 : 0;
+};
+
+export const getConfig = (type) => {
+    const configType = type || 'default';
+    
+    switch (configType) {
+        case 'wallet':
+            return walletAppConfig;
+        case 'default':
+        default:
+            return defaultAppConfig;
+    }
+};
 
 function App() {
     const config = getConfig(process.env.REACT_APP_CONFIG_TYPE);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { isUserAuthenticated } from '../config';
+import { isUserAuthenticated } from '../App';
 
 const BottomBar = ({ config, isExpanded, onToggle, isDarkMode }) => {
     const location = useLocation();

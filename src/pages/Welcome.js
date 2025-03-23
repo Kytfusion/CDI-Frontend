@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setUserAuthenticated } from '../config';
+import { setUserAuthenticated } from '../App';
 
 const Welcome = ({ isDarkMode }) => {
     const navigate = useNavigate();

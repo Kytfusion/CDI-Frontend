@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isUserAuthenticated, setUserAuthenticated } from '../config';
+import { isUserAuthenticated, setUserAuthenticated } from '../App';
 
 const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
     const navigate = useNavigate();

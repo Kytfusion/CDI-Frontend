@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Welcome from '../pages/Welcome';
-import { isUserAuthenticated } from '../config';
+import { isUserAuthenticated } from '../App';
 
 const DynamicPage = ({ content }) => content;
 

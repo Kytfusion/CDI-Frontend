@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { isUserAuthenticated } from '../config';
+import { isUserAuthenticated } from '../App';
 import ProfileModal from './ProfileModal';
 import SettingsModal from './SettingsModal';
 
