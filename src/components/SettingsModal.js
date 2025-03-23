@@ -68,7 +68,7 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
                      }}>
                     <div className="d-flex align-items-center">
                         <i className="bi bi-translate me-2"></i>
-                        <span>Limbă</span>
+                        <span>{getTranslation('language')}</span>
                     </div>
                     <select 
                         className="form-select form-select-sm" 

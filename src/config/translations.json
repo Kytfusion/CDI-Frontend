@@ -7,7 +7,9 @@
     "register": "Înregistrare",
     "logout": "Delogare",
     "myProfile": "Profilul meu",
-    "back": "Înapoi"
+    "back": "Înapoi",
+    "language": "Limbă",
+    "pleaseLogin": "Vă rugăm să vă autentificați pentru a continua."
   },
   "ru": {
     "settings": "Настройки",
@@ -17,7 +19,9 @@
     "register": "Регистрация",
     "logout": "Выход",
     "myProfile": "Мой профиль",
-    "back": "Назад"
+    "back": "Назад",
+    "language": "Язык",
+    "pleaseLogin": "Пожалуйста, войдите, чтобы продолжить."
   },
   "en": {
     "settings": "Settings",
@@ -27,6 +31,8 @@
     "register": "Register",
     "logout": "Logout",
     "myProfile": "My Profile",
-    "back": "Back"
+    "back": "Back",
+    "language": "Language",
+    "pleaseLogin": "Please login to continue."
   }
 } 

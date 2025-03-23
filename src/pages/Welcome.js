@@ -20,7 +20,7 @@ const Welcome = ({ isDarkMode }) => {
                 maxWidth: '400px'
             }}>
                 <h4 className="mb-4">{getTranslation('welcome')}</h4>
-                <p className="mb-4">Vă rugăm să vă autentificați pentru a continua.</p>
+                <p className="mb-4">{getTranslation('pleaseLogin')}</p>
                 <button 
                     onClick={handleLogin}
                     className="btn btn-primary px-4 py-2"
