@@ -1,19 +1,26 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isUserAuthenticated } from '../config';
+import { isUserAuthenticated, setUserAuthenticated } from '../config';
 
-const ProfileModal = ({ show, modalRef, config }) => {
+const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
     const navigate = useNavigate();
 
     if (!show) return null;
 
+    const handleLogout = () => {
+        setUserAuthenticated(false);
+        navigate('/welcome');
+    };
+
     return (
-        <div ref={modalRef} className="position-absolute bg-white rounded-3 shadow-sm p-3"
+        <div ref={modalRef} className="position-absolute rounded-3 shadow-sm p-3"
              style={{
                  top: 'calc(100% + 8px)',
                  right: 0,
                  width: '280px',
-                 zIndex: 1050
+                 zIndex: 1050,
+                 backgroundColor: isDarkMode ? '#2d2d2d' : '#ffffff',
+                 color: isDarkMode ? '#ffffff' : '#000000'
              }}>
             {isUserAuthenticated() ? (
                 <>
@@ -24,17 +31,27 @@ const ProfileModal = ({ show, modalRef, config }) => {
                         </div>
                         <div>
                             <h6 className="mb-0 fw-semibold">Ion Popescu</h6>
-                            <small className="text-muted">ion.popescu@example.com</small>
+                            <small style={{ color: isDarkMode ? '#a0a0a0' : '#6c757d' }}>ion.popescu@example.com</small>
                         </div>
                     </div>
                     <div className="d-flex flex-column gap-2">
                         <button onClick={() => navigate('/profile')} 
-                                className="btn btn-light text-start w-100">
+                                className="btn text-start w-100"
+                                style={{
+                                    backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
+                                    color: isDarkMode ? '#ffffff' : '#000000',
+                                    border: 'none'
+                                }}>
                             <i className="bi bi-person me-2"></i>
                             Profilul meu
                         </button>
-                        <button onClick={() => {/* logică pentru delogare */}} 
-                                className="btn btn-light text-start w-100">
+                        <button onClick={handleLogout} 
+                                className="btn text-start w-100"
+                                style={{
+                                    backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
+                                    color: isDarkMode ? '#ffffff' : '#000000',
+                                    border: 'none'
+                                }}>
                             <i className="bi bi-box-arrow-right me-2"></i>
                             Delogare
                         </button>
@@ -49,7 +66,12 @@ const ProfileModal = ({ show, modalRef, config }) => {
                             Logare
                         </button>
                         <button onClick={() => navigate('/register')} 
-                                className="btn btn-light w-100">
+                                className="btn w-100"
+                                style={{
+                                    backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
+                                    color: isDarkMode ? '#ffffff' : '#000000',
+                                    border: 'none'
+                                }}>
                             Înregistrare
                         </button>
                     </div>

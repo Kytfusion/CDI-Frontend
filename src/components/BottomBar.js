@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { isUserAuthenticated } from '../config';
 
-const BottomBar = ({ config, isExpanded, onToggle }) => {
+const BottomBar = ({ config, isExpanded, onToggle, isDarkMode }) => {
     const location = useLocation();
 
     if (!isUserAuthenticated()) {
@@ -10,7 +10,7 @@ const BottomBar = ({ config, isExpanded, onToggle }) => {
     }
 
     const getMenuItemStyle = (isActive) => ({
-        color: isActive ? config.styles.primaryColor : undefined,
+        color: isActive ? config.styles.primaryColor : isDarkMode ? '#ffffff' : '#000000',
         borderRadius: '8px',
         whiteSpace: 'nowrap',
         padding: '6px',
@@ -18,14 +18,31 @@ const BottomBar = ({ config, isExpanded, onToggle }) => {
     });
 
     const renderMobileNav = () => (
-        <nav className="navbar fixed-bottom bg-white d-block d-md-none" style={{ height: 'min(56px, 8vh)', boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+        <nav className="navbar fixed-bottom d-block d-md-none" 
+             style={{ 
+                 height: 'min(56px, 8vh)', 
+                 boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', 
+                 borderTop: '1px solid rgba(0,0,0,0.08)',
+                 backgroundColor: isDarkMode ? '#2d2d2d' : '#ffffff'
+             }}>
             <ul className="nav w-100 h-100 d-flex justify-content-around align-items-center">
                 {config.pages.map((page, index) => (
                     <li key={index} className="nav-item text-center">
-                        <Link to={page.path} className={`nav-link p-0 ${location.pathname === page.path ? '' : 'text-dark opacity-75'}`}
-                             style={{ color: location.pathname === page.path ? config.styles.primaryColor : undefined }}>
+                        <Link to={page.path} 
+                              className={`nav-link p-0 ${location.pathname === page.path ? '' : 'opacity-75'}`}
+                              style={{ 
+                                  color: location.pathname === page.path 
+                                      ? config.styles.primaryColor 
+                                      : isDarkMode ? '#ffffff' : '#000000'
+                              }}>
                             <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                 style={{ backgroundColor: location.pathname === page.path ? `${config.styles.primaryColor}14` : 'transparent', width: '32px', height: '32px' }}>
+                                 style={{ 
+                                     backgroundColor: location.pathname === page.path 
+                                         ? `${config.styles.primaryColor}14` 
+                                         : 'transparent',
+                                     width: '32px', 
+                                     height: '32px' 
+                                 }}>
                                 <i className={`bi ${page.icon} fs-5`}></i>
                             </div>
                         </Link>
@@ -38,13 +55,13 @@ const BottomBar = ({ config, isExpanded, onToggle }) => {
     const renderMenuItem = (path, icon, name, isLast = false) => (
         <li className={`nav-item px-3 ${!isLast ? 'mb-3' : ''}`}>
             <Link to={path} 
-                className={`nav-link d-flex align-items-center ${location.pathname === path ? '' : 'text-dark opacity-75'}`}
+                className={`nav-link d-flex align-items-center ${location.pathname === path ? '' : 'opacity-75'}`}
                 style={getMenuItemStyle(location.pathname === path)}>
                 <div className="rounded-2 d-flex align-items-center justify-content-center" 
                      style={{ 
-                        width: '40px', 
-                        height: '40px',
-                        minWidth: '40px'
+                         width: '40px', 
+                         height: '40px',
+                         minWidth: '40px'
                      }}>
                     <i className={`bi ${icon} fs-4`}></i>
                 </div>
@@ -63,26 +80,29 @@ const BottomBar = ({ config, isExpanded, onToggle }) => {
     );
 
     const renderDesktopNav = () => (
-        <nav className="navbar bg-white d-none d-md-block position-fixed start-0 transition-all overflow-hidden" 
+        <nav className="navbar d-none d-md-block position-fixed start-0 transition-all overflow-hidden" 
              style={{ 
-                width: isExpanded ? '220px' : '80px', 
-                top: 'min(56px, 8vh)',
-                height: 'calc(100vh - min(56px, 8vh))', 
-                boxShadow: '2px 0 8px rgba(0,0,0,0.04)', 
-                borderRight: '1px solid rgba(0,0,0,0.08)',
-                zIndex: 1030,
-                transition: 'width 0.3s ease'
+                 width: isExpanded ? '220px' : '80px', 
+                 top: 'min(56px, 8vh)',
+                 height: 'calc(100vh - min(56px, 8vh))', 
+                 boxShadow: '2px 0 8px rgba(0,0,0,0.04)', 
+                 borderRight: '1px solid rgba(0,0,0,0.08)',
+                 zIndex: 1030,
+                 transition: 'width 0.3s ease',
+                 backgroundColor: isDarkMode ? '#2d2d2d' : '#ffffff'
              }}>
             <div className="h-100 w-100 d-flex flex-column position-relative">
                 <button 
                     onClick={onToggle}
-                    className="position-absolute end-0 top-50 translate-middle-y bg-white border-0 rounded-start-pill shadow-sm"
+                    className="position-absolute end-0 top-50 translate-middle-y border-0 rounded-start-pill shadow-sm"
                     style={{
                         width: '23px',
                         height: '40px',
                         transform: 'translateX(100%)',
                         cursor: 'pointer',
-                        zIndex: 1
+                        zIndex: 1,
+                        backgroundColor: isDarkMode ? '#2d2d2d' : '#ffffff',
+                        color: isDarkMode ? '#ffffff' : '#000000'
                     }}
                 >
                     <i className={`bi bi-chevron-${isExpanded ? 'left' : 'right'} fs-6`}></i>

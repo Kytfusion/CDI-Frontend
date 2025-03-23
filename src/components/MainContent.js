@@ -5,7 +5,7 @@ import { isUserAuthenticated } from '../config';
 
 const DynamicPage = ({ content }) => content;
 
-const MainContent = ({ config }) => (
+const MainContent = ({ config, isDarkMode }) => (
     <div style={{ 
         position: 'fixed',
         top: 'min(56px, 8vh)',
@@ -14,7 +14,9 @@ const MainContent = ({ config }) => (
         right: 0,
         overflow: 'auto',
         padding: '20px',
-        transition: 'left 0.3s ease'
+        transition: 'left 0.3s ease',
+        backgroundColor: isDarkMode ? '#1a1a1a' : '#ffffff',
+        color: isDarkMode ? '#ffffff' : '#000000'
     }} className="d-flex flex-column main-content">
         <div className="flex-grow-1">
             <Routes>
@@ -23,7 +25,7 @@ const MainContent = ({ config }) => (
                         ? <Navigate to={config.pages[0].path} replace /> 
                         : <Navigate to="/welcome" replace />
                 } />
-                <Route path="/welcome" element={<Welcome />} />
+                <Route path="/welcome" element={<Welcome isDarkMode={isDarkMode} />} />
                 {config.pages.map((page, index) => (
                     <Route 
                         key={index} 
