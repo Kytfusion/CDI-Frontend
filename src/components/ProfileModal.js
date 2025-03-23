@@ -8,13 +8,24 @@ const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
 
     if (!show) return null;
 
-    const handleLogout = () => {
+    const handleLogout = (e) => {
+        e.stopPropagation();
         setUserAuthenticated(false);
         navigate('/welcome');
     };
 
+    const handleModalClick = (e) => {
+        e.stopPropagation();
+    };
+
+    const handleButtonClick = (e) => {
+        e.stopPropagation();
+    };
+
     return (
-        <div ref={modalRef} className="position-absolute rounded-3 shadow-sm p-3"
+        <div ref={modalRef} 
+             className="position-absolute rounded-3 shadow-sm p-3"
+             onClick={handleModalClick}
              style={{
                  top: 'calc(100% + 8px)',
                  right: 0,
@@ -36,7 +47,10 @@ const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
                         </div>
                     </div>
                     <div className="d-flex flex-column gap-2">
-                        <button onClick={() => navigate('/profile')} 
+                        <button onClick={(e) => {
+                            e.stopPropagation();
+                            navigate('/profile');
+                        }} 
                                 className="btn text-start w-100"
                                 style={{
                                     backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
@@ -62,11 +76,17 @@ const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
                 <>
                     <h6 className="mb-3 fw-semibold">{getTranslation('welcome')}</h6>
                     <div className="d-flex flex-column gap-2">
-                        <button onClick={() => navigate('/login')} 
+                        <button onClick={(e) => {
+                            e.stopPropagation();
+                            navigate('/login');
+                        }} 
                                 className="btn btn-primary w-100">
                             {getTranslation('login')}
                         </button>
-                        <button onClick={() => navigate('/register')} 
+                        <button onClick={(e) => {
+                            e.stopPropagation();
+                            navigate('/register');
+                        }} 
                                 className="btn w-100"
                                 style={{
                                     backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',

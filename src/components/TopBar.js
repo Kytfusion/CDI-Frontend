@@ -17,16 +17,20 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
     
     useEffect(() => {
         const handleClickOutside = (event) => {
+            const isInteractiveElement = event.target.closest('button, input, select, a, [role="button"]');
+            
             if (profileModalRef.current && 
                 profileButtonRef.current && 
                 !profileModalRef.current.contains(event.target) && 
-                !profileButtonRef.current.contains(event.target)) {
+                !profileButtonRef.current.contains(event.target) &&
+                !isInteractiveElement) {
                 setShowProfileModal(false);
             }
             if (settingsModalRef.current && 
                 settingsButtonRef.current && 
                 !settingsModalRef.current.contains(event.target) && 
-                !settingsButtonRef.current.contains(event.target)) {
+                !settingsButtonRef.current.contains(event.target) &&
+                !isInteractiveElement) {
                 setShowSettingsModal(false);
             }
         };

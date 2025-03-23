@@ -20,6 +20,10 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
         e.stopPropagation();
     };
 
+    const handleInputClick = (e) => {
+        e.stopPropagation();
+    };
+
     return (
         <div ref={modalRef} 
              className="position-absolute rounded-3 shadow-sm p-3"
@@ -36,6 +40,7 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
             <h6 className="mb-3 fw-semibold">{getTranslation('settings')}</h6>
             <div className="d-flex flex-column gap-2">
                 <div className="d-flex align-items-center justify-content-between p-2 rounded-2"
+                     onClick={handleInputClick}
                      style={{
                          backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
                          border: 'none',
@@ -52,6 +57,7 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
                                id="darkModeSwitch"
                                checked={isDarkMode} 
                                onChange={handleThemeToggle}
+                               onClick={handleInputClick}
                                style={{
                                    backgroundColor: isDarkMode ? config.styles.primaryColor : '#6c757d',
                                    borderColor: isDarkMode ? config.styles.primaryColor : '#6c757d',
@@ -61,6 +67,7 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
                     </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-between p-2 rounded-2"
+                     onClick={handleInputClick}
                      style={{
                          backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
                          border: 'none',
@@ -74,6 +81,7 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
                         className="form-select form-select-sm" 
                         value={currentLanguage}
                         onChange={handleLanguageChange}
+                        onClick={handleInputClick}
                         style={{
                             width: 'auto',
                             backgroundColor: isDarkMode ? '#2d2d2d' : '#ffffff',
