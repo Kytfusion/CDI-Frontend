@@ -34,17 +34,23 @@ const TopBar = ({ config }) => {
                 
                 <h6 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h6>
                 
-                <Link to="/settings" className={`nav-link p-0 ${location.pathname === '/settings' ? '' : 'text-dark opacity-75'}`}
-                    style={{ color: location.pathname === '/settings' ? config.styles.primaryColor : undefined }}>
+                <div className="d-flex gap-2">
                     <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                         style={{ 
-                            backgroundColor: location.pathname === '/settings' ? `${config.styles.primaryColor}14` : 'transparent',
-                            width: '32px', 
-                            height: '32px' 
-                         }}>
-                        <i className="bi bi-gear-fill fs-5"></i>
+                         style={{ width: '32px', height: '32px' }}>
+                        <i className="bi bi-person-circle fs-5 text-dark opacity-75"></i>
                     </div>
-                </Link>
+                    <Link to="/settings" className={`nav-link p-0 ${location.pathname === '/settings' ? '' : 'text-dark opacity-75'}`}
+                        style={{ color: location.pathname === '/settings' ? config.styles.primaryColor : undefined }}>
+                        <div className="rounded-2 d-flex align-items-center justify-content-center" 
+                             style={{ 
+                                backgroundColor: location.pathname === '/settings' ? `${config.styles.primaryColor}14` : 'transparent',
+                                width: '32px', 
+                                height: '32px' 
+                             }}>
+                            <i className="bi bi-gear-fill fs-5"></i>
+                        </div>
+                    </Link>
+                </div>
             </div>
         </div>
     );
@@ -64,6 +70,13 @@ const TopBar = ({ config }) => {
             <div className="d-flex align-items-center h-100 position-absolute" 
                  style={{ left: '220px', right: 0, top: 0, paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
                 <h5 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h5>
+                <div className="ms-auto d-flex align-items-center gap-2">
+                    <span className="text-dark opacity-75 fw-medium" style={{ fontSize: '14px' }}>Ion Popescu</span>
+                    <div className="rounded-2 d-flex align-items-center justify-content-center" 
+                         style={{ width: '32px', height: '32px' }}>
+                        <i className="bi bi-person-circle fs-5 text-dark opacity-75"></i>
+                    </div>
+                </div>
             </div>
         </div>
     );
