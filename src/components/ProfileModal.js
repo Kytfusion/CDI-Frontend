@@ -18,10 +18,6 @@ const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
         e.stopPropagation();
     };
 
-    const handleButtonClick = (e) => {
-        e.stopPropagation();
-    };
-
     return (
         <div ref={modalRef} 
              className="position-absolute rounded-3 shadow-sm p-3"
