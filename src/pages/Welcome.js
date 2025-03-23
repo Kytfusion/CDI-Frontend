@@ -1,14 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setUserAuthenticated, useTranslation } from '../App';
+import { useTranslation } from '../App';
 
 const Welcome = ({ isDarkMode }) => {
     const navigate = useNavigate();
     const { getTranslation } = useTranslation();
 
     const handleLogin = () => {
-        setUserAuthenticated(true);
-        navigate('/page-one');
+        navigate('/auth?mode=login');
     };
 
     return (

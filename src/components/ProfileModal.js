@@ -74,14 +74,14 @@ const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
                     <div className="d-flex flex-column gap-2">
                         <button onClick={(e) => {
                             e.stopPropagation();
-                            navigate('/login');
+                            navigate('/auth?mode=login');
                         }} 
                                 className="btn btn-primary w-100">
                             {getTranslation('login')}
                         </button>
                         <button onClick={(e) => {
                             e.stopPropagation();
-                            navigate('/register');
+                            navigate('/auth?mode=register');
                         }} 
                                 className="btn w-100"
                                 style={{

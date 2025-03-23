@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Welcome from '../pages/Welcome';
+import Auth from '../pages/Auth';
 import { isUserAuthenticated } from '../App';
 
 const DynamicPage = ({ content }) => content;
@@ -26,6 +27,7 @@ const MainContent = ({ config, isDarkMode }) => (
                         : <Navigate to="/welcome" replace />
                 } />
                 <Route path="/welcome" element={<Welcome isDarkMode={isDarkMode} />} />
+                <Route path="/auth" element={<Auth isDarkMode={isDarkMode} />} />
                 {config.pages.map((page, index) => (
                     <Route 
                         key={index} 

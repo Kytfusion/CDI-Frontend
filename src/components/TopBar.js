@@ -43,6 +43,10 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
         if (location.pathname === '/welcome') {
             return getTranslation('welcome');
         }
+        if (location.pathname === '/auth') {
+            const mode = new URLSearchParams(location.search).get('mode') || 'login';
+            return getTranslation(mode === 'login' ? 'login' : 'register');
+        }
         const currentPage = config.pages.find(page => page.path === location.pathname);
         return currentPage ? currentPage.name : config.pages[0].name;
     };
