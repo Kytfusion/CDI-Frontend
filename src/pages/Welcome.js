@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setUserAuthenticated } from '../App';
+import { setUserAuthenticated, useTranslation } from '../App';
 
 const Welcome = ({ isDarkMode }) => {
     const navigate = useNavigate();
+    const { getTranslation } = useTranslation();
 
     const handleLogin = () => {
         setUserAuthenticated(true);
@@ -18,7 +19,7 @@ const Welcome = ({ isDarkMode }) => {
                 textAlign: 'center',
                 maxWidth: '400px'
             }}>
-                <h4 className="mb-4">Bine ați venit!</h4>
+                <h4 className="mb-4">{getTranslation('welcome')}</h4>
                 <p className="mb-4">Vă rugăm să vă autentificați pentru a continua.</p>
                 <button 
                     onClick={handleLogin}
@@ -28,7 +29,7 @@ const Welcome = ({ isDarkMode }) => {
                         border: 'none'
                     }}
                 >
-                    Autentificare
+                    {getTranslation('login')}
                 </button>
             </div>
         </div>

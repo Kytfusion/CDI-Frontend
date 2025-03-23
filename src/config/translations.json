@@ -1,0 +1,32 @@
+{
+  "ro": {
+    "settings": "Setări",
+    "darkMode": "Mod întunecat",
+    "welcome": "Bine ați venit",
+    "login": "Logare",
+    "register": "Înregistrare",
+    "logout": "Delogare",
+    "myProfile": "Profilul meu",
+    "back": "Înapoi"
+  },
+  "ru": {
+    "settings": "Настройки",
+    "darkMode": "Тёмный режим",
+    "welcome": "Добро пожаловать",
+    "login": "Вход",
+    "register": "Регистрация",
+    "logout": "Выход",
+    "myProfile": "Мой профиль",
+    "back": "Назад"
+  },
+  "en": {
+    "settings": "Settings",
+    "darkMode": "Dark mode",
+    "welcome": "Welcome",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "myProfile": "My Profile",
+    "back": "Back"
+  }
+} 

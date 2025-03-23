@@ -1,15 +1,23 @@
 import React from 'react';
+import { useTranslation } from '../App';
 
 const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode }) => {
+    const { getTranslation, currentLanguage, setCurrentLanguage } = useTranslation();
+
     if (!show) return null;
 
     const handleThemeToggle = (e) => {
-        e.stopPropagation(); // Previne propagarea evenimentului
+        e.stopPropagation();
         onToggleDarkMode();
     };
 
+    const handleLanguageChange = (e) => {
+        e.stopPropagation();
+        setCurrentLanguage(e.target.value);
+    };
+
     const handleModalClick = (e) => {
-        e.stopPropagation(); // Previne închiderea modalului când se face click în interior
+        e.stopPropagation();
     };
 
     return (
@@ -25,38 +33,8 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
                  color: isDarkMode ? '#ffffff' : '#000000',
                  transition: 'background-color 0.3s ease, color 0.3s ease'
              }}>
-            <h6 className="mb-3 fw-semibold">Setări</h6>
+            <h6 className="mb-3 fw-semibold">{getTranslation('settings')}</h6>
             <div className="d-flex flex-column gap-2">
-                <button className="btn text-start w-100"
-                        style={{
-                            backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
-                            color: isDarkMode ? '#ffffff' : '#000000',
-                            border: 'none',
-                            transition: 'background-color 0.3s ease, color 0.3s ease'
-                        }}>
-                    <i className="bi bi-bell me-2"></i>
-                    Notificări
-                </button>
-                <button className="btn text-start w-100"
-                        style={{
-                            backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
-                            color: isDarkMode ? '#ffffff' : '#000000',
-                            border: 'none',
-                            transition: 'background-color 0.3s ease, color 0.3s ease'
-                        }}>
-                    <i className="bi bi-shield-lock me-2"></i>
-                    Securitate
-                </button>
-                <button className="btn text-start w-100"
-                        style={{
-                            backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
-                            color: isDarkMode ? '#ffffff' : '#000000',
-                            border: 'none',
-                            transition: 'background-color 0.3s ease, color 0.3s ease'
-                        }}>
-                    <i className="bi bi-globe me-2"></i>
-                    Limbă
-                </button>
                 <div className="d-flex align-items-center justify-content-between p-2 rounded-2"
                      style={{
                          backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
@@ -65,7 +43,7 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
                      }}>
                     <div className="d-flex align-items-center">
                         <i className="bi bi-moon me-2"></i>
-                        <span>Mod întunecat</span>
+                        <span>{getTranslation('darkMode')}</span>
                     </div>
                     <div className="form-check form-switch">
                         <input className="form-check-input" 
@@ -81,6 +59,31 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
                                    transition: 'background-color 0.3s ease, border-color 0.3s ease'
                                }} />
                     </div>
+                </div>
+                <div className="d-flex align-items-center justify-content-between p-2 rounded-2"
+                     style={{
+                         backgroundColor: isDarkMode ? '#3d3d3d' : '#f8f9fa',
+                         border: 'none',
+                         transition: 'background-color 0.3s ease'
+                     }}>
+                    <div className="d-flex align-items-center">
+                        <i className="bi bi-translate me-2"></i>
+                        <span>Limbă</span>
+                    </div>
+                    <select 
+                        className="form-select form-select-sm" 
+                        value={currentLanguage}
+                        onChange={handleLanguageChange}
+                        style={{
+                            width: 'auto',
+                            backgroundColor: isDarkMode ? '#2d2d2d' : '#ffffff',
+                            color: isDarkMode ? '#ffffff' : '#000000',
+                            border: 'none'
+                        }}>
+                        <option value="ro">Română</option>
+                        <option value="ru">Русский</option>
+                        <option value="en">English</option>
+                    </select>
                 </div>
             </div>
         </div>

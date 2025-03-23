@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isUserAuthenticated, setUserAuthenticated } from '../App';
+import { isUserAuthenticated, setUserAuthenticated, useTranslation } from '../App';
 
 const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
     const navigate = useNavigate();
+    const { getTranslation } = useTranslation();
 
     if (!show) return null;
 
@@ -43,7 +44,7 @@ const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
                                     border: 'none'
                                 }}>
                             <i className="bi bi-person me-2"></i>
-                            Profilul meu
+                            {getTranslation('myProfile')}
                         </button>
                         <button onClick={handleLogout} 
                                 className="btn text-start w-100"
@@ -53,17 +54,17 @@ const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
                                     border: 'none'
                                 }}>
                             <i className="bi bi-box-arrow-right me-2"></i>
-                            Delogare
+                            {getTranslation('logout')}
                         </button>
                     </div>
                 </>
             ) : (
                 <>
-                    <h6 className="mb-3 fw-semibold">Bine ați venit!</h6>
+                    <h6 className="mb-3 fw-semibold">{getTranslation('welcome')}</h6>
                     <div className="d-flex flex-column gap-2">
                         <button onClick={() => navigate('/login')} 
                                 className="btn btn-primary w-100">
-                            Logare
+                            {getTranslation('login')}
                         </button>
                         <button onClick={() => navigate('/register')} 
                                 className="btn w-100"
@@ -72,7 +73,7 @@ const ProfileModal = ({ show, modalRef, config, isDarkMode }) => {
                                     color: isDarkMode ? '#ffffff' : '#000000',
                                     border: 'none'
                                 }}>
-                            Înregistrare
+                            {getTranslation('register')}
                         </button>
                     </div>
                 </>

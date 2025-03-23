@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { isUserAuthenticated } from '../App';
+import { isUserAuthenticated, useTranslation } from '../App';
 import ProfileModal from './ProfileModal';
 import SettingsModal from './SettingsModal';
 
 const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { getTranslation, currentLanguage, setCurrentLanguage } = useTranslation();
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const profileModalRef = useRef(null);
@@ -36,7 +37,7 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
 
     const getPageTitle = () => {
         if (location.pathname === '/welcome') {
-            return 'Bine ați venit';
+            return getTranslation('welcome');
         }
         const currentPage = config.pages.find(page => page.path === location.pathname);
         return currentPage ? currentPage.name : config.pages[0].name;
@@ -81,7 +82,7 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                         fontSize: '14px',
                         color: isDarkMode ? '#ffffff' : '#000000',
                         opacity: 0.75
-                    }}>Back</span>
+                    }}>{getTranslation('back')}</span>
                 </button>
                 
                 <Link to="/welcome" className="text-decoration-none">
@@ -128,6 +129,8 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                             config={config}
                             isDarkMode={isDarkMode}
                             onToggleDarkMode={onToggleDarkMode}
+                            currentLanguage={currentLanguage}
+                            onLanguageChange={setCurrentLanguage}
                         />
                     </button>
                     <button ref={profileButtonRef} onClick={toggleProfileModal}
@@ -212,6 +215,8 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                             config={config}
                             isDarkMode={isDarkMode}
                             onToggleDarkMode={onToggleDarkMode}
+                            currentLanguage={currentLanguage}
+                            onLanguageChange={setCurrentLanguage}
                         />
                     </button>
                     <button ref={profileButtonRef} onClick={toggleProfileModal}
@@ -233,7 +238,7 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                             fontSize: '14px',
                             color: isDarkMode ? '#ffffff' : '#000000'
                         }}>
-                            {isUserAuthenticated() ? 'Ion Popescu' : 'Bine ați venit'}
+                            {isUserAuthenticated() ? 'Ion Popescu' : getTranslation('welcome')}
                         </span>
                         <ProfileModal 
                             show={showProfileModal} 
