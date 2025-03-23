@@ -59,8 +59,8 @@ const SettingsModal = ({ show, modalRef, config, isDarkMode, onToggleDarkMode })
                                onChange={handleThemeToggle}
                                onClick={handleInputClick}
                                style={{
-                                   backgroundColor: isDarkMode ? config.styles.primaryColor : '#6c757d',
-                                   borderColor: isDarkMode ? config.styles.primaryColor : '#6c757d',
+                                   backgroundColor: isDarkMode ? config.styles.primaryColor : '#e9ecef',
+                                   borderColor: isDarkMode ? config.styles.primaryColor : '#dee2e6',
                                    cursor: 'pointer',
                                    transition: 'background-color 0.3s ease, border-color 0.3s ease'
                                }} />

@@ -10,7 +10,7 @@ import TopBar from './components/TopBar';
 import BottomBar from './components/BottomBar';
 import MainContent from './components/MainContent';
 
-let isAuthenticated = 0;
+let isAuthenticated = 1;
 
 export const isUserAuthenticated = () => isAuthenticated === 1;
 
