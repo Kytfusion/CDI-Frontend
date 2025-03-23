@@ -2,21 +2,31 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { isUserAuthenticated } from '../config';
 import ProfileModal from './ProfileModal';
+import SettingsModal from './SettingsModal';
 
 const TopBar = ({ config }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const [showProfileModal, setShowProfileModal] = useState(false);
-    const modalRef = useRef(null);
-    const buttonRef = useRef(null);
+    const [showSettingsModal, setShowSettingsModal] = useState(false);
+    const profileModalRef = useRef(null);
+    const settingsModalRef = useRef(null);
+    const profileButtonRef = useRef(null);
+    const settingsButtonRef = useRef(null);
     
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (modalRef.current && 
-                buttonRef.current && 
-                !modalRef.current.contains(event.target) && 
-                !buttonRef.current.contains(event.target)) {
+            if (profileModalRef.current && 
+                profileButtonRef.current && 
+                !profileModalRef.current.contains(event.target) && 
+                !profileButtonRef.current.contains(event.target)) {
                 setShowProfileModal(false);
+            }
+            if (settingsModalRef.current && 
+                settingsButtonRef.current && 
+                !settingsModalRef.current.contains(event.target) && 
+                !settingsButtonRef.current.contains(event.target)) {
+                setShowSettingsModal(false);
             }
         };
 
@@ -29,7 +39,7 @@ const TopBar = ({ config }) => {
             return 'Bine ați venit';
         }
         const currentPage = config.pages.find(page => page.path === location.pathname);
-        return currentPage ? currentPage.name : (location.pathname === '/settings' ? 'Setări' : config.pages[0].name);
+        return currentPage ? currentPage.name : config.pages[0].name;
     };
 
     const handleBack = () => {
@@ -38,6 +48,12 @@ const TopBar = ({ config }) => {
 
     const toggleProfileModal = () => {
         setShowProfileModal(!showProfileModal);
+        setShowSettingsModal(false);
+    };
+
+    const toggleSettingsModal = () => {
+        setShowSettingsModal(!showSettingsModal);
+        setShowProfileModal(false);
     };
 
     const renderMobileTopBar = () => (
@@ -74,7 +90,19 @@ const TopBar = ({ config }) => {
                             <i className="bi bi-house-fill fs-5"></i>
                         </div>
                     </Link>
-                    <button ref={buttonRef} onClick={toggleProfileModal}
+                    <button ref={settingsButtonRef} onClick={toggleSettingsModal}
+                            className={`btn p-0 position-relative rounded-2 d-flex align-items-center justify-content-center ${showSettingsModal ? '' : 'text-dark opacity-75'}`}
+                            style={{ 
+                                color: showSettingsModal ? config.styles.primaryColor : undefined,
+                                backgroundColor: showSettingsModal ? `${config.styles.primaryColor}14` : 'transparent',
+                                width: '32px', 
+                                height: '32px',
+                                border: 'none'
+                            }}>
+                        <i className="bi bi-gear-fill fs-5"></i>
+                        <SettingsModal show={showSettingsModal} modalRef={settingsModalRef} config={config} />
+                    </button>
+                    <button ref={profileButtonRef} onClick={toggleProfileModal}
                             className={`btn p-0 position-relative rounded-2 d-flex align-items-center justify-content-center ${showProfileModal ? '' : 'text-dark opacity-75'}`}
                             style={{ 
                                 color: showProfileModal ? config.styles.primaryColor : undefined,
@@ -84,19 +112,8 @@ const TopBar = ({ config }) => {
                                 border: 'none'
                             }}>
                         <i className="bi bi-person-circle fs-5"></i>
-                        <ProfileModal show={showProfileModal} modalRef={modalRef} config={config} />
+                        <ProfileModal show={showProfileModal} modalRef={profileModalRef} config={config} />
                     </button>
-                    <Link to="/settings" className={`nav-link p-0 ${location.pathname === '/settings' ? '' : 'text-dark opacity-75'}`}
-                        style={{ color: location.pathname === '/settings' ? config.styles.primaryColor : undefined }}>
-                        <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                             style={{ 
-                                backgroundColor: location.pathname === '/settings' ? `${config.styles.primaryColor}14` : 'transparent',
-                                width: '32px', 
-                                height: '32px' 
-                             }}>
-                            <i className="bi bi-gear-fill fs-5"></i>
-                        </div>
-                    </Link>
                 </div>
             </div>
         </div>
@@ -120,22 +137,6 @@ const TopBar = ({ config }) => {
                  style={{ left: '220px', right: 0, top: 0, paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
                 <h5 className="mb-0 fw-semibold text-dark">{getPageTitle()}</h5>
                 <div className="ms-auto d-flex align-items-center gap-2">
-                    <button ref={buttonRef} onClick={toggleProfileModal}
-                            className={`btn position-relative d-flex align-items-center gap-2 rounded-2 ${showProfileModal ? '' : 'text-dark opacity-75'}`}
-                            style={{ 
-                                color: showProfileModal ? config.styles.primaryColor : undefined,
-                                backgroundColor: showProfileModal ? `${config.styles.primaryColor}14` : 'transparent',
-                                border: 'none',
-                                padding: '6px 12px'
-                            }}>
-                        <span className="fw-medium" style={{ fontSize: '14px' }}>
-                            {isUserAuthenticated() ? 'Ion Popescu' : 'Bine ați venit'}
-                        </span>
-                        <div className="d-flex align-items-center justify-content-center">
-                            <i className="bi bi-person-circle fs-5"></i>
-                        </div>
-                        <ProfileModal show={showProfileModal} modalRef={modalRef} config={config} />
-                    </button>
                     <Link to="/welcome" className={`nav-link p-0 ${location.pathname === '/welcome' ? '' : 'text-dark opacity-75'}`}
                         style={{ color: location.pathname === '/welcome' ? config.styles.primaryColor : undefined }}>
                         <div className="rounded-2 d-flex align-items-center justify-content-center" 
@@ -147,17 +148,34 @@ const TopBar = ({ config }) => {
                             <i className="bi bi-house-fill fs-5"></i>
                         </div>
                     </Link>
-                    <Link to="/settings" className={`nav-link p-0 ${location.pathname === '/settings' ? '' : 'text-dark opacity-75'}`}
-                        style={{ color: location.pathname === '/settings' ? config.styles.primaryColor : undefined }}>
-                        <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                             style={{ 
-                                backgroundColor: location.pathname === '/settings' ? `${config.styles.primaryColor}14` : 'transparent',
+                    <button ref={settingsButtonRef} onClick={toggleSettingsModal}
+                            className={`btn p-0 position-relative rounded-2 d-flex align-items-center justify-content-center ${showSettingsModal ? '' : 'text-dark opacity-75'}`}
+                            style={{ 
+                                color: showSettingsModal ? config.styles.primaryColor : undefined,
+                                backgroundColor: showSettingsModal ? `${config.styles.primaryColor}14` : 'transparent',
                                 width: '32px', 
-                                height: '32px' 
-                             }}>
-                            <i className="bi bi-gear-fill fs-5"></i>
+                                height: '32px',
+                                border: 'none'
+                            }}>
+                        <i className="bi bi-gear-fill fs-5"></i>
+                        <SettingsModal show={showSettingsModal} modalRef={settingsModalRef} config={config} />
+                    </button>
+                    <button ref={profileButtonRef} onClick={toggleProfileModal}
+                            className={`btn position-relative d-flex align-items-center gap-2 rounded-2 ${showProfileModal ? '' : 'text-dark opacity-75'}`}
+                            style={{ 
+                                color: showProfileModal ? config.styles.primaryColor : undefined,
+                                backgroundColor: showProfileModal ? `${config.styles.primaryColor}14` : 'transparent',
+                                border: 'none',
+                                padding: '6px 12px'
+                            }}>
+                        <div className="d-flex align-items-center justify-content-center">
+                            <i className="bi bi-person-circle fs-5"></i>
                         </div>
-                    </Link>
+                        <span className="fw-medium" style={{ fontSize: '14px' }}>
+                            {isUserAuthenticated() ? 'Ion Popescu' : 'Bine ați venit'}
+                        </span>
+                        <ProfileModal show={showProfileModal} modalRef={profileModalRef} config={config} />
+                    </button>
                 </div>
             </div>
         </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Settings from '../pages/Settings';
 import Welcome from '../pages/Welcome';
 import { isUserAuthenticated } from '../config';
 
@@ -25,7 +24,6 @@ const MainContent = ({ config }) => (
                         : <Navigate to="/welcome" replace />
                 } />
                 <Route path="/welcome" element={<Welcome />} />
-                <Route path="/settings" element={<Settings />} />
                 {config.pages.map((page, index) => (
                     <Route 
                         key={index} 
