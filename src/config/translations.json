@@ -9,7 +9,8 @@
     "myProfile": "Profilul meu",
     "back": "Înapoi",
     "language": "Limbă",
-    "pleaseLogin": "Vă rugăm să vă autentificați pentru a continua."
+    "pleaseLogin": "Vă rugăm să vă autentificați pentru a continua.",
+    "pleaseRegister": "Vă rugăm să vă înregistrați pentru a continua."
   },
   "ru": {
     "settings": "Настройки",
@@ -21,7 +22,8 @@
     "myProfile": "Мой профиль",
     "back": "Назад",
     "language": "Язык",
-    "pleaseLogin": "Пожалуйста, войдите, чтобы продолжить."
+    "pleaseLogin": "Пожалуйста, войдите, чтобы продолжить.",
+    "pleaseRegister": "Пожалуйста, зарегистрируйтесь, чтобы продолжить."
   },
   "en": {
     "settings": "Settings",
@@ -33,6 +35,7 @@
     "myProfile": "My Profile",
     "back": "Back",
     "language": "Language",
-    "pleaseLogin": "Please login to continue."
+    "pleaseLogin": "Please login to continue.",
+    "pleaseRegister": "Please register to continue."
   }
 } 

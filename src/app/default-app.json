@@ -5,32 +5,32 @@
   },
   "publicPages": [
     {
-      "name": "Welcome",
+      "name": "{{welcome.sectionOne.name}}",
       "path": "/welcome",
       "sections": [
         {
           "name": "Section One",
           "path": "/section-one",
           "icon": "bi-grid-1x2-fill",
-          "content": "Welcome to the main section! This is the first section of the welcome page."
+          "content": "<div class='welcome-section'><h2>{{welcome.sectionOne.title}}</h2><p>{{welcome.sectionOne.description}}</p></div>"
         },
         {
           "name": "About Us",
           "path": "/about-us",
           "icon": "bi-info-circle",
-          "content": "We are a company dedicated to providing the best solutions for our clients. With industry experience and a professional team, we are committed to delivering exceptional results."
+          "content": "<div class='about-section'><h2>{{welcome.aboutUs.title}}</h2><p>{{welcome.aboutUs.description}}</p></div>"
         },
         {
           "name": "Services",
           "path": "/services",
           "icon": "bi-gear",
-          "content": "We offer a wide range of services tailored to your needs. From consulting to implementation, we are here to help you achieve your goals."
+          "content": "<div class='services-section'><h2>{{welcome.services.title}}</h2><p>{{welcome.services.description}}</p></div>"
         },
         {
           "name": "Contact",
           "path": "/contact",
           "icon": "bi-envelope",
-          "content": "We are here to answer your questions. Contact us for more information about our services or to discuss your project."
+          "content": "<div class='contact-section'><h2>{{welcome.contact.title}}</h2><p>{{welcome.contact.description}}</p></div>"
         }
       ]
     }
@@ -40,19 +40,144 @@
       "name": "Page One",
       "path": "/page-one",
       "icon": "bi-grid-1x2-fill",
-      "content": "This is the content of Page One"
+      "content": "<div class='page-content'><h2>{{pages.pageOne.title}}</h2><p>{{pages.pageOne.description}}</p></div>"
     },
     {
-      "name": "Page Two",
+      "name": "{{pages.pageTwo.name}}",
       "path": "/page-two",
       "icon": "bi-bar-chart-line",
-      "content": "This is the content of Page Two"
+      "content": "<div class='page-content'><h2>{{pages.pageTwo.title}}</h2><p>{{pages.pageTwo.description}}</p></div>"
     },
     {
-      "name": "Page Three",
+      "name": "{{pages.pageThree.name}}",
       "path": "/page-three",
       "icon": "bi-card-list",
-      "content": "This is the content of Page Three"
+      "content": "<div class='page-content'><h2>{{pages.pageThree.title}}</h2><p>{{pages.pageThree.description}}</p></div>"
     }
-  ]
+  ],
+  "translations": {
+    "en": {
+      "welcome": {
+        "sectionOne": {
+          "name": "Section One",
+          "title": "Welcome to the main section!",
+          "description": "This is the first section of the welcome page."
+        },
+        "aboutUs": {
+          "name": "About Us",
+          "title": "About Us",
+          "description": "We are a company dedicated to providing the best solutions for our clients. With industry experience and a professional team, we are committed to delivering exceptional results."
+        },
+        "services": {
+          "name": "Services",
+          "title": "Our Services",
+          "description": "We offer a wide range of services tailored to your needs. From consulting to implementation, we are here to help you achieve your goals."
+        },
+        "contact": {
+          "name": "Contact",
+          "title": "Get in Touch",
+          "description": "We are here to answer your questions. Contact us for more information about our services or to discuss your project."
+        }
+      },
+      "pages": {
+        "pageOne": {
+          "name": "Page One",
+          "title": "Page One",
+          "description": "This is the content of Page One"
+        },
+        "pageTwo": {
+          "name": "Page Two",
+          "title": "Page Two",
+          "description": "This is the content of Page Two"
+        },
+        "pageThree": {
+          "name": "Page Three",
+          "title": "Page Three",
+          "description": "This is the content of Page Three"
+        }
+      }
+    },
+    "ro": {
+      "welcome": {
+        "sectionOne": {
+          "name": "Secțiunea Unu",
+          "title": "Bine ați venit în secțiunea principală!",
+          "description": "Aceasta este prima secțiune a paginii de bun venit."
+        },
+        "aboutUs": {
+          "name": "Despre Noi",
+          "title": "Despre Noi",
+          "description": "Suntem o companie dedicată oferirii celor mai bune soluții pentru clienții noștri. Cu experiență în industrie și o echipă profesională, ne angajăm să oferim rezultate excepționale."
+        },
+        "services": {
+          "name": "Servicii",
+          "title": "Serviciile Noastre",
+          "description": "Oferim o gamă largă de servicii adaptate nevoilor dumneavoastră. De la consultanță până la implementare, suntem aici să vă ajutăm să vă atingeți obiectivele."
+        },
+        "contact": {
+          "name": "Contact",
+          "title": "Contactați-ne",
+          "description": "Suntem aici să răspundem la întrebările dumneavoastră. Contactați-ne pentru mai multe informații despre serviciile noastre sau pentru a discuta proiectul dumneavoastră."
+        }
+      },
+      "pages": {
+        "pageOne": {
+          "name": "Pagina Unu",
+          "title": "Pagina Unu",
+          "description": "Acesta este conținutul Paginii Unu"
+        },
+        "pageTwo": {
+          "name": "Pagina Doi",
+          "title": "Pagina Doi",
+          "description": "Acesta este conținutul Paginii Doi"
+        },
+        "pageThree": {
+          "name": "Pagina Trei",
+          "title": "Pagina Trei",
+          "description": "Acesta este conținutul Paginii Trei"
+        }
+      }
+    },
+    "ru": {
+      "welcome": {
+        "sectionOne": {
+          "name": "Раздел Один",
+          "title": "Добро пожаловать в основной раздел!",
+          "description": "Это первый раздел страницы приветствия."
+        },
+        "aboutUs": {
+          "name": "О Нас",
+          "title": "О Нас",
+          "description": "Мы компания, посвященная предоставлению лучших решений для наших клиентов. С опытом работы в отрасли и профессиональной командой мы стремимся к достижению исключительных результатов."
+        },
+        "services": {
+          "name": "Услуги",
+          "title": "Наши Услуги",
+          "description": "Мы предлагаем широкий спектр услуг, адаптированных к вашим потребностям. От консультаций до внедрения, мы здесь, чтобы помочь вам достичь ваших целей."
+        },
+        "contact": {
+          "name": "Контакты",
+          "title": "Свяжитесь с Нами",
+          "description": "Мы здесь, чтобы ответить на ваши вопросы. Свяжитесь с нами для получения дополнительной информации о наших услугах или для обсуждения вашего проекта."
+        }
+      },
+      "pages": {
+        "pageOne": {
+          "name": "Страница Один",
+          "title": "Страница Один",
+          "description": "Это содержимое Страницы Один"
+        },
+        "pageTwo": {
+          "name": "Страница Два",
+          "title": "Страница Два",
+          "description": "Это содержимое Страницы Два"
+        },
+        "pageThree": {
+          "name": "Страница Три",
+          "title": "Страница Три",
+          "description": "Это содержимое Страницы Три"
+        }
+      }
+    }
+  }
 } 

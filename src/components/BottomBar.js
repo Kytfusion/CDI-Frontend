@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { isUserAuthenticated } from '../App';
+import { isUserAuthenticated, useTranslation } from '../App';
 
 const BottomBar = ({ config, isExpanded, onToggle, isDarkMode }) => {
     const location = useLocation();
+    const { currentLanguage } = useTranslation();
+    const translations = config.translations[currentLanguage]?.pages || config.translations['en'].pages;
 
     if (!isUserAuthenticated()) {
         return null;
@@ -17,39 +19,46 @@ const BottomBar = ({ config, isExpanded, onToggle, isDarkMode }) => {
         backgroundColor: isActive ? `${config.styles.primaryColor}14` : 'transparent'
     });
 
+    const getActiveClass = (path) => {
+        return location.pathname === path ? 'active' : '';
+    };
+
+    const getIconClass = (icon) => {
+        return `bi ${icon} fs-5`;
+    };
+
+    const getPageName = (page) => {
+        const pageKey = page.name.toLowerCase().replace(/\s+/g, '');
+        return translations[pageKey]?.name || page.name;
+    };
+
     const renderMobileNav = () => (
-        <nav className="navbar fixed-bottom d-block d-md-none" 
+        <div className="fixed-bottom d-md-none w-100" 
              style={{ 
                  height: 'min(56px, 8vh)', 
                  boxShadow: '0 -2px 8px rgba(0,0,0,0.04)', 
                  borderTop: '1px solid rgba(0,0,0,0.08)',
+                 zIndex: 1040,
                  backgroundColor: isDarkMode ? '#2d2d2d' : '#ffffff'
              }}>
-            <ul className="nav w-100 h-100 d-flex justify-content-around align-items-center">
+            <div className="d-flex justify-content-around align-items-center h-100">
                 {config.pages.map((page, index) => (
-                    <li key={index} className="nav-item text-center">
-                        <Link to={page.path} 
-                              className={`nav-link p-0 ${location.pathname === page.path ? '' : 'opacity-75'}`}
-                              style={{ 
-                                  color: location.pathname === page.path 
-                                      ? config.styles.primaryColor 
-                                      : isDarkMode ? '#ffffff' : '#000000'
-                              }}>
-                            <div className="rounded-2 d-flex align-items-center justify-content-center" 
-                                 style={{ 
-                                     backgroundColor: location.pathname === page.path 
-                                         ? `${config.styles.primaryColor}14` 
-                                         : 'transparent',
-                                     width: '32px', 
-                                     height: '32px' 
-                                 }}>
-                                <i className={`bi ${page.icon} fs-5`}></i>
-                            </div>
-                        </Link>
-                    </li>
+                    <Link 
+                        key={index}
+                        to={page.path}
+                        className={`text-decoration-none d-flex flex-column align-items-center justify-content-center ${getActiveClass(page.path)}`}
+                        style={{ 
+                            color: isDarkMode ? '#ffffff' : '#000000',
+                            opacity: getActiveClass(page.path) ? 1 : 0.7,
+                            transition: 'opacity 0.2s ease'
+                        }}
+                    >
+                        <i className={getIconClass(page.icon)}></i>
+                        <small className="mt-1" style={{ fontSize: '0.7rem' }}>{getPageName(page)}</small>
+                    </Link>
                 ))}
-            </ul>
-        </nav>
+            </div>
+        </div>
     );
 
     const renderMenuItem = (path, icon, name, isLast = false) => (

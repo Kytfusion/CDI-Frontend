@@ -4,16 +4,29 @@ import { isUserAuthenticated, useTranslation } from '../App';
 import ProfileModal from './ProfileModal';
 import SettingsModal from './SettingsModal';
 
-const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
+const processTranslationPlaceholders = (content, translations) => {
+    if (!content) return '';
+    return content.replace(/\{\{([^}]+)\}\}/g, (match, key) => {
+        const keys = key.split('.');
+        let value = translations;
+        for (const k of keys) {
+            value = value?.[k];
+        }
+        return value || match;
+    });
+};
+
+const TopBar = ({ config, isDarkMode, onToggleDarkMode, currentLanguage, onLanguageChange }) => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { getTranslation, currentLanguage, setCurrentLanguage } = useTranslation();
+    const { getTranslation } = useTranslation();
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [showSettingsModal, setShowSettingsModal] = useState(false);
     const profileModalRef = useRef(null);
     const settingsModalRef = useRef(null);
     const profileButtonRef = useRef(null);
     const settingsButtonRef = useRef(null);
+    const configTranslations = config.translations[currentLanguage] || config.translations['en'];
     
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -41,14 +54,18 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
 
     const getPageTitle = () => {
         if (location.pathname === '/welcome') {
-            return getTranslation('welcome');
+            return processTranslationPlaceholders(configTranslations?.welcome?.sectionOne?.title || 'Welcome', configTranslations);
         }
         if (location.pathname === '/auth') {
             const mode = new URLSearchParams(location.search).get('mode') || 'login';
             return getTranslation(mode === 'login' ? 'login' : 'register');
         }
+        
         const currentPage = config.pages.find(page => page.path === location.pathname);
-        return currentPage ? currentPage.name : config.pages[0].name;
+        if (currentPage) {
+            return processTranslationPlaceholders(currentPage.name, configTranslations);
+        }
+        return processTranslationPlaceholders(configTranslations?.pages?.pageOne?.title || 'Home', configTranslations);
     };
 
     const handleBack = () => {
@@ -98,8 +115,8 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                         color: isDarkMode ? '#ffffff' : '#000000'
                     }}>{getPageTitle()}</h6>
                 </Link>
-                
-                <div className="d-flex gap-2">
+
+                <div className="d-flex align-items-center gap-2">
                     <Link to="/welcome" className={`nav-link p-0 ${location.pathname === '/welcome' ? '' : 'opacity-75'}`}
                         style={{ 
                             color: location.pathname === '/welcome' 
@@ -131,15 +148,17 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                                 border: 'none'
                             }}>
                         <i className="bi bi-gear-fill fs-5"></i>
-                        <SettingsModal 
-                            show={showSettingsModal} 
-                            modalRef={settingsModalRef} 
-                            config={config}
-                            isDarkMode={isDarkMode}
-                            onToggleDarkMode={onToggleDarkMode}
-                            currentLanguage={currentLanguage}
-                            onLanguageChange={setCurrentLanguage}
-                        />
+                        {showSettingsModal && (
+                            <SettingsModal 
+                                show={showSettingsModal} 
+                                modalRef={settingsModalRef} 
+                                config={config}
+                                isDarkMode={isDarkMode}
+                                onToggleDarkMode={onToggleDarkMode}
+                                currentLanguage={currentLanguage}
+                                onLanguageChange={onLanguageChange}
+                            />
+                        )}
                     </button>
                     <button ref={profileButtonRef} onClick={toggleProfileModal}
                             className={`btn p-0 position-relative rounded-2 d-flex align-items-center justify-content-center ${showProfileModal ? '' : 'opacity-75'}`}
@@ -155,12 +174,14 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                                 border: 'none'
                             }}>
                         <i className="bi bi-person-circle fs-5"></i>
-                        <ProfileModal 
-                            show={showProfileModal} 
-                            modalRef={profileModalRef} 
-                            config={config}
-                            isDarkMode={isDarkMode}
-                        />
+                        {showProfileModal && (
+                            <ProfileModal 
+                                show={showProfileModal} 
+                                modalRef={profileModalRef} 
+                                config={config}
+                                isDarkMode={isDarkMode}
+                            />
+                        )}
                     </button>
                 </div>
             </div>
@@ -217,15 +238,17 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                                 border: 'none'
                             }}>
                         <i className="bi bi-gear-fill fs-5"></i>
-                        <SettingsModal 
-                            show={showSettingsModal} 
-                            modalRef={settingsModalRef} 
-                            config={config}
-                            isDarkMode={isDarkMode}
-                            onToggleDarkMode={onToggleDarkMode}
-                            currentLanguage={currentLanguage}
-                            onLanguageChange={setCurrentLanguage}
-                        />
+                        {showSettingsModal && (
+                            <SettingsModal 
+                                show={showSettingsModal} 
+                                modalRef={settingsModalRef} 
+                                config={config}
+                                isDarkMode={isDarkMode}
+                                onToggleDarkMode={onToggleDarkMode}
+                                currentLanguage={currentLanguage}
+                                onLanguageChange={onLanguageChange}
+                            />
+                        )}
                     </button>
                     <button ref={profileButtonRef} onClick={toggleProfileModal}
                             className={`btn position-relative d-flex align-items-center gap-2 rounded-2 ${showProfileModal ? '' : 'opacity-75'}`}
@@ -248,12 +271,14 @@ const TopBar = ({ config, isDarkMode, onToggleDarkMode }) => {
                         }}>
                             {isUserAuthenticated() ? 'Ion Popescu' : getTranslation('welcome')}
                         </span>
-                        <ProfileModal 
-                            show={showProfileModal} 
-                            modalRef={profileModalRef} 
-                            config={config}
-                            isDarkMode={isDarkMode}
-                        />
+                        {showProfileModal && (
+                            <ProfileModal 
+                                show={showProfileModal} 
+                                modalRef={profileModalRef} 
+                                config={config}
+                                isDarkMode={isDarkMode}
+                            />
+                        )}
                     </button>
                 </div>
             </div>

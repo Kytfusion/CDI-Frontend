@@ -9,8 +9,9 @@ import translations from './config/translations.json';
 import TopBar from './components/TopBar';
 import BottomBar from './components/BottomBar';
 import MainContent from './components/MainContent';
+import SideBar from './components/SideBar';
 
-let isAuthenticated = 0;
+let isAuthenticated = 1;
 
 export const isUserAuthenticated = () => isAuthenticated === 1;
 
@@ -95,6 +96,13 @@ function App() {
                         onToggle={() => setIsSidebarExpanded(!isSidebarExpanded)} 
                         isDarkMode={isDarkMode}
                     />
+                    {isUserAuthenticated() && (
+                        <SideBar 
+                            config={config} 
+                            isDarkMode={isDarkMode}
+                            currentLanguage={currentLanguage}
+                        />
+                    )}
                     <MainContent 
                         config={config} 
                         isDarkMode={isDarkMode}
