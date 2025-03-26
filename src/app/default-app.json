@@ -1,0 +1,58 @@
+{
+  "appName": "CDI",
+  "styles": {
+    "primaryColor": "#4070ff"
+  },
+  "publicPages": [
+    {
+      "name": "Welcome",
+      "path": "/welcome",
+      "sections": [
+        {
+          "name": "Section One",
+          "path": "/section-one",
+          "icon": "bi-grid-1x2-fill",
+          "content": "Welcome to the main section! This is the first section of the welcome page."
+        },
+        {
+          "name": "About Us",
+          "path": "/about-us",
+          "icon": "bi-info-circle",
+          "content": "We are a company dedicated to providing the best solutions for our clients. With industry experience and a professional team, we are committed to delivering exceptional results."
+        },
+        {
+          "name": "Services",
+          "path": "/services",
+          "icon": "bi-gear",
+          "content": "We offer a wide range of services tailored to your needs. From consulting to implementation, we are here to help you achieve your goals."
+        },
+        {
+          "name": "Contact",
+          "path": "/contact",
+          "icon": "bi-envelope",
+          "content": "We are here to answer your questions. Contact us for more information about our services or to discuss your project."
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "Page One",
+      "path": "/page-one",
+      "icon": "bi-grid-1x2-fill",
+      "content": "This is the content of Page One"
+    },
+    {
+      "name": "Page Two",
+      "path": "/page-two",
+      "icon": "bi-bar-chart-line",
+      "content": "This is the content of Page Two"
+    },
+    {
+      "name": "Page Three",
+      "path": "/page-three",
+      "icon": "bi-card-list",
+      "content": "This is the content of Page Three"
+    }
+  ]
+} 

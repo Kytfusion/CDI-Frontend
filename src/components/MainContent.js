@@ -1,10 +1,25 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Welcome from '../pages/Welcome';
 import Auth from '../pages/Auth';
 import { isUserAuthenticated } from '../App';
 
 const DynamicPage = ({ content }) => content;
+
+const WelcomePage = ({ config, isDarkMode }) => {
+    const welcomePage = config.publicPages.find(page => page.path === '/welcome');
+    if (!welcomePage) return null;
+    
+    return (
+        <div className="welcome-page">
+            {welcomePage.sections.map((section, index) => (
+                <div key={index} className="section">
+                    <h2>{section.name}</h2>
+                    <p>{section.content}</p>
+                </div>
+            ))}
+        </div>
+    );
+};
 
 const MainContent = ({ config, isDarkMode }) => (
     <div style={{ 
@@ -26,7 +41,7 @@ const MainContent = ({ config, isDarkMode }) => (
                         ? <Navigate to={config.pages[0].path} replace /> 
                         : <Navigate to="/welcome" replace />
                 } />
-                <Route path="/welcome" element={<Welcome isDarkMode={isDarkMode} />} />
+                <Route path="/welcome" element={<WelcomePage config={config} isDarkMode={isDarkMode} />} />
                 <Route path="/auth" element={<Auth isDarkMode={isDarkMode} />} />
                 {config.pages.map((page, index) => (
                     <Route 
